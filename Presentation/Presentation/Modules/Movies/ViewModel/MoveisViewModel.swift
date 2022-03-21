@@ -31,6 +31,10 @@ public class MoviesViewModel {
         }).disposed(by: bag)
     }
     
+    func getTopRatedMovies() async throws -> [Movie] {
+        return try await dataSource.getTopRatedMovies()
+    }
+    
     
     
 }

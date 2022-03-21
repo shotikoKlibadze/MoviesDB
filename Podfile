@@ -9,6 +9,7 @@ def app_pods
 
 pod 'RxSwift'
 pod 'RxCocoa'
+pod 'Kingfisher'
 
 end
 

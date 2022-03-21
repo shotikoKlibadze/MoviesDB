@@ -34,4 +34,14 @@ public class MoviesDataSource: MoviesDataSourceInterface {
         }
     }
     
+    public func getTopRatedMovies() async throws -> [Movie] {
+        let path = "https://api.themoviedb.org/3/movie/top_rated?api_key=\(key)&language=en-US&page=1"
+        let networkCall = NetworkManager<MovieResponse>.shared
+        let data = try await networkCall.sendAsyncRequest(path: path)
+        
+        return data.movies
+    }
+    
+    
+    
 }

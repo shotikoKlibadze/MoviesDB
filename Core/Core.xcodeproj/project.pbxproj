@@ -16,6 +16,7 @@
 		09AE375E27E8A24900A8BF12 /* MoviesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AE375827E8A24900A8BF12 /* MoviesDataSource.swift */; };
 		09AE375F27E8A24900A8BF12 /* MoviesDataSourceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AE375927E8A24900A8BF12 /* MoviesDataSourceInterface.swift */; };
 		09AE376027E8A24900A8BF12 /* MovieResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AE375B27E8A24900A8BF12 /* MovieResponse.swift */; };
+		09AE376227E8A7D600A8BF12 /* Extension + URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AE376127E8A7D600A8BF12 /* Extension + URLSession.swift */; };
 		1AE74E4FB942C6DC1A2D9D12 /* Pods_Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECD0BCDE92C3D89333075566 /* Pods_Core.framework */; };
 /* End PBXBuildFile section */
 
@@ -30,6 +31,7 @@
 		09AE375827E8A24900A8BF12 /* MoviesDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoviesDataSource.swift; sourceTree = "<group>"; };
 		09AE375927E8A24900A8BF12 /* MoviesDataSourceInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoviesDataSourceInterface.swift; sourceTree = "<group>"; };
 		09AE375B27E8A24900A8BF12 /* MovieResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieResponse.swift; sourceTree = "<group>"; };
+		09AE376127E8A7D600A8BF12 /* Extension + URLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + URLSession.swift"; sourceTree = "<group>"; };
 		9CA0310BFF7AABAF8EB8E4E1 /* Pods-Core.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Core.release.xcconfig"; path = "Target Support Files/Pods-Core/Pods-Core.release.xcconfig"; sourceTree = "<group>"; };
 		C0D3588767E9CC8CCA265985 /* Pods-Core.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Core.debug.xcconfig"; path = "Target Support Files/Pods-Core/Pods-Core.debug.xcconfig"; sourceTree = "<group>"; };
 		ECD0BCDE92C3D89333075566 /* Pods_Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -81,6 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				09AE374C27E8A23900A8BF12 /* DBError.swift */,
+				09AE376127E8A7D600A8BF12 /* Extension + URLSession.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -122,9 +125,9 @@
 		09AE375627E8A24900A8BF12 /* Movies */ = {
 			isa = PBXGroup;
 			children = (
+				09AE375A27E8A24900A8BF12 /* Model */,
 				09AE375727E8A24900A8BF12 /* DataSource */,
 				09AE375927E8A24900A8BF12 /* MoviesDataSourceInterface.swift */,
-				09AE375A27E8A24900A8BF12 /* Model */,
 			);
 			path = Movies;
 			sourceTree = "<group>";
@@ -271,6 +274,7 @@
 				09AE375027E8A24200A8BF12 /* NetworkManager.swift in Sources */,
 				09AE375E27E8A24900A8BF12 /* MoviesDataSource.swift in Sources */,
 				09AE375D27E8A24900A8BF12 /* TvSeriesDataSourceInterface.swift in Sources */,
+				09AE376227E8A7D600A8BF12 /* Extension + URLSession.swift in Sources */,
 				09AE374D27E8A23900A8BF12 /* DBError.swift in Sources */,
 				09AE36FC27E8665700A8BF12 /* Core.docc in Sources */,
 				09AE376027E8A24900A8BF12 /* MovieResponse.swift in Sources */,

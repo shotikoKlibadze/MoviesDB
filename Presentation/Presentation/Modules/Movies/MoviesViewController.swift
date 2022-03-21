@@ -14,15 +14,15 @@ public class MoviesViewController: MDBViewController {
     
     let bag = DisposeBag()
     var viewModel: MoviesViewModel!
-    var upcomingMovies = [Movie]() {
-        didSet {
-            print(upcomingMovies.count)
-        }
-    }
+    
+    var upcomingMovies = [Movie]()
+    
+    var topRatedMovies = [Movie]()
 
     public override func viewDidLoad() {
         super.viewDidLoad()
         bind()
+        getMovies()
     }
     
     private func bind() {
@@ -36,6 +36,19 @@ public class MoviesViewController: MDBViewController {
             ProgressHUD.dismiss()
             Util.showAllert(viewController: self, title: "Unexpected Error", message: error.errorMessage)
         }).disposed(by: bag)
+    }
+    
+    func getMovies(){
+        ProgressHUD.show()
+        Task {
+            do {
+                topRatedMovies = try await viewModel.getTopRatedMovies()
+                ProgressHUD.dismiss()
+            } catch (let error) {
+                guard let error = error as? DBError else {return}
+                print(error)
+            }
+        }
     }
     
 

@@ -29,10 +29,28 @@ public class NetworkManager<Model:Codable> {
                 let data = try JSONDecoder().decode(Model.self, from: data)
                 completion(.success(data))
             } catch {
-                let error = DBError(errorMessage: "Error Parsing Data", endPoint: "Send Request")
+                let error = DBError(errorMessage: "Error Parsing Data", endPoint: path)
                 print(error)
                 completion(.failure(error))
             }
         }.resume()
     }
+    
+    func sendAsyncRequest(path: String) async throws -> Model {
+        guard let url = URL(string: path) else {
+            throw DBError(errorMessage: "Bad URL", endPoint: path)
+        }
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+            throw DBError(errorMessage: "Server Responded With Error", endPoint: path)
+        }
+        
+        guard let data = try? JSONDecoder().decode(Model.self, from: data) else {
+            throw DBError(errorMessage: "Error Parsing Data", endPoint: path)
+        }
+        
+        return data
+    }
+    
 }
