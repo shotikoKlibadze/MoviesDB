@@ -25,12 +25,27 @@ public class MoviesViewController: MDBViewController {
         case nowPlayingMovies
         case upcomingMovies
         case topRatedMovies
+        
+        var sectionHeader : String {
+            switch self {
+            case .nowPlayingMovies:
+                return "Now Playing In Cinemas"
+            case .upcomingMovies:
+                return "Upcoming Movies"
+            case .topRatedMovies:
+                return "Top Rated Movies"
+            }
+        }
     }
     
     enum DataItem : Hashable {
         case nowPlaying(Movie)
         case upcomingMovie(Movie)
         case topRatedMovie(Movie)
+    }
+    
+    enum SupplementaryElementKind {
+        static let sectionHeader = "sectionHeader"
     }
     
     private var dataSource : UICollectionViewDiffableDataSource<Sections,DataItem>!
@@ -40,6 +55,12 @@ public class MoviesViewController: MDBViewController {
         bind()
         getMovies()
         setupCollectionView()
+        collectionView.backgroundColor = .clear
+        view.backgroundColor = .white
+        
+        
+       
+        navigationController?.navigationBar.isHidden = true
     }
     
     private func bind() {
@@ -66,7 +87,7 @@ public class MoviesViewController: MDBViewController {
                 topRatedMovies = try await viewModel.getTopRatedMovies()
                 nowPlayingMovies = try await viewModel.getNowPlayingMovies()
                 updateSnapShot()
-                ProgressHUD.dismiss()
+               // ProgressHUD.dismiss()
             } catch (let error) {
                 guard let error = error as? DBError else {return}
                 print(error)
@@ -82,6 +103,8 @@ public class MoviesViewController: MDBViewController {
         collectionView.registerNib(class: UpcomingMovieCollectionViewCell.self)
         collectionView.registerNib(class: TopRatedMovieCollectionViewCell.self)
         collectionView.registerNib(class: NowPlayingMovieCollectionViewCell.self)
+        //View Registration
+        collectionView.register(UINib(nibName: "MoviesHeaderView", bundle: Bundle.presentationBundle), forSupplementaryViewOfKind: SupplementaryElementKind.sectionHeader, withReuseIdentifier: MoviesHeaderView.identifier)
         
         
         //DataSource
@@ -106,8 +129,32 @@ public class MoviesViewController: MDBViewController {
             default :
                 return nil
             }
-            
         })
+        
+        dataSource.supplementaryViewProvider = { collectionView , kind , indexPath in
+            guard let sectionKind = Sections(rawValue: indexPath.section) else {
+                fatalError("Unhandled section : \(indexPath.section)")
+            }
+            
+            if kind == SupplementaryElementKind.sectionHeader {
+                switch sectionKind {
+                case .nowPlayingMovies:
+                    let view = collectionView.dequeueReusableSupplementaryView(ofKind: SupplementaryElementKind.sectionHeader, withReuseIdentifier: MoviesHeaderView.identifier, for: indexPath) as! MoviesHeaderView
+                    view.sectionHeaderLabel.text = sectionKind.sectionHeader
+                    return view
+                case .upcomingMovies:
+                    let view = collectionView.dequeueReusableSupplementaryView(ofKind: SupplementaryElementKind.sectionHeader, withReuseIdentifier: MoviesHeaderView.identifier, for: indexPath) as! MoviesHeaderView
+                    view.sectionHeaderLabel.text = sectionKind.sectionHeader
+                    return view
+                case .topRatedMovies:
+                    let view = collectionView.dequeueReusableSupplementaryView(ofKind: SupplementaryElementKind.sectionHeader, withReuseIdentifier: MoviesHeaderView.identifier, for: indexPath) as! MoviesHeaderView
+                    view.sectionHeaderLabel.text = sectionKind.sectionHeader
+                    return view
+                }
+            } else {
+                return nil
+            }
+        }
         
         
         

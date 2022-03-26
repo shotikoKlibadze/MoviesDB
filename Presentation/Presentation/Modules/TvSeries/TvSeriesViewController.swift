@@ -9,15 +9,18 @@ import UIKit
 
 public class TvSeriesViewController: MDBViewController {
     
+    @IBOutlet weak var containerView: UIView!
     
     var viewModel: TvSeriesViewModel!
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-
-        view.backgroundColor = .red
+        
+      
+        
     }
     
+  
 
     
 }
