@@ -17,7 +17,7 @@ class TopRatedMovieCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var posterImageView: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
     }
     
     override func layoutSubviews() {
@@ -34,9 +34,7 @@ class TopRatedMovieCollectionViewCell: UICollectionViewCell {
     }
     
     func setupUI() {
-        
         containerView.makeCustomRound(topLeft: 8, topRight: 8, bottomLeft: 8, bottomRight: 8)
-       
     }
 
 }

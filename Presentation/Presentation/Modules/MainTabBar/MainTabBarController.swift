@@ -14,11 +14,12 @@ public class MainTabBarController: UITabBarController {
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-
         viewControllers = [
             moviesViewController,
             tvSeriesVewController
         ]
+        tabBar.isTranslucent = false
+        tabBar.barTintColor  = .black
     }
 
 }

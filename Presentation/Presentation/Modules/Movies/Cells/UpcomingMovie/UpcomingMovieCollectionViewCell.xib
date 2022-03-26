@@ -20,10 +20,10 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KTP-q3-AeM">
-                        <rect key="frame" x="0.0" y="0.0" width="65" height="156"/>
+                        <rect key="frame" x="0.0" y="0.0" width="75" height="166"/>
                         <subviews>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5BD-ya-0Dk" userLabel="TitleView">
-                                <rect key="frame" x="0.0" y="106" width="65" height="50"/>
+                                <rect key="frame" x="0.0" y="116" width="75" height="50"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="IrG-sW-VYY">
                                         <rect key="frame" x="10" y="8" width="34" height="10"/>
@@ -44,7 +44,7 @@
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" verticalCompressionResistancePriority="752" text="The Batman" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Iil-Bg-mP2">
-                                        <rect key="frame" x="10" y="22" width="45" height="20"/>
+                                        <rect key="frame" x="10" y="22" width="55" height="20"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -62,7 +62,7 @@
                                 </constraints>
                             </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="poster" translatesAutoresizingMaskIntoConstraints="NO" id="ORY-Gk-beP">
-                                <rect key="frame" x="0.0" y="0.0" width="65" height="106"/>
+                                <rect key="frame" x="0.0" y="0.0" width="75" height="116"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -82,8 +82,8 @@
             <constraints>
                 <constraint firstItem="KTP-q3-AeM" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Ini-qS-7MZ"/>
                 <constraint firstItem="KTP-q3-AeM" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Jje-vF-B5u"/>
-                <constraint firstAttribute="bottom" secondItem="KTP-q3-AeM" secondAttribute="bottom" constant="10" id="PhO-c9-shY"/>
-                <constraint firstAttribute="trailing" secondItem="KTP-q3-AeM" secondAttribute="trailing" constant="10" id="sLv-px-MvR"/>
+                <constraint firstAttribute="bottom" secondItem="KTP-q3-AeM" secondAttribute="bottom" id="PhO-c9-shY"/>
+                <constraint firstAttribute="trailing" secondItem="KTP-q3-AeM" secondAttribute="trailing" id="sLv-px-MvR"/>
             </constraints>
             <size key="customSize" width="296" height="277"/>
             <connections>

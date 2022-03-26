@@ -11,7 +11,6 @@
 		09AE36E727E8663800A8BF12 /* Presentation.h in Headers */ = {isa = PBXBuildFile; fileRef = 09AE36E427E8663800A8BF12 /* Presentation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		09AE370C27E869E900A8BF12 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09AE370B27E869E900A8BF12 /* Core.framework */; };
 		09AE370D27E869E900A8BF12 /* Core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 09AE370B27E869E900A8BF12 /* Core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		09AE372527E8A02E00A8BF12 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AE372427E8A02E00A8BF12 /* File.swift */; };
 		09AE373027E8A1F700A8BF12 /* Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AE372F27E8A1F700A8BF12 /* Controller.swift */; };
 		09AE373327E8A20200A8BF12 /* Storybaorded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AE373227E8A20200A8BF12 /* Storybaorded.swift */; };
 		09AE374127E8A20900A8BF12 /* TvSeriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AE373727E8A20900A8BF12 /* TvSeriesViewModel.swift */; };
@@ -57,7 +56,6 @@
 		09AE36E427E8663800A8BF12 /* Presentation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Presentation.h; sourceTree = "<group>"; };
 		09AE36E527E8663800A8BF12 /* Presentation.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Presentation.docc; sourceTree = "<group>"; };
 		09AE370B27E869E900A8BF12 /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		09AE372427E8A02E00A8BF12 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		09AE372F27E8A1F700A8BF12 /* Controller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Controller.swift; sourceTree = "<group>"; };
 		09AE373227E8A20200A8BF12 /* Storybaorded.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storybaorded.swift; sourceTree = "<group>"; };
 		09AE373727E8A20900A8BF12 /* TvSeriesViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TvSeriesViewModel.swift; sourceTree = "<group>"; };
@@ -127,7 +125,6 @@
 				09AE374827E8A21100A8BF12 /* Helpers */,
 				09AE36E427E8663800A8BF12 /* Presentation.h */,
 				09AE36E527E8663800A8BF12 /* Presentation.docc */,
-				09AE372427E8A02E00A8BF12 /* File.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -428,7 +425,6 @@
 				09AE36E627E8663800A8BF12 /* Presentation.docc in Sources */,
 				09AE381F27EECB0900A8BF12 /* TopRatedMovieCollectionViewCell.swift in Sources */,
 				09AE382527EECB4F00A8BF12 /* UpcomingMovieCollectionViewCell.swift in Sources */,
-				09AE372527E8A02E00A8BF12 /* File.swift in Sources */,
 				09AE374427E8A20900A8BF12 /* MoveisViewModel.swift in Sources */,
 				09AE381927EECAA700A8BF12 /* NowPlayingMovieCollectionViewCell.swift in Sources */,
 				09AE383327EFBC0800A8BF12 /* SectionBackGroundDecoration.swift in Sources */,

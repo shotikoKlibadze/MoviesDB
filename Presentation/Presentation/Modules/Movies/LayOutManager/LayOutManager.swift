@@ -28,7 +28,6 @@ struct LaoOutManager {
                 return constructSectionForTopRatedMovies()
             }
         }
-        
         layout.register(SectionBackGroundDecoration.self, forDecorationViewOfKind: DecorationKind.backgroundDecoration)
         
         
@@ -56,9 +55,7 @@ struct LaoOutManager {
         section.boundarySupplementaryItems = [createSectionHeaderItem()]
         section.decorationItems = [NSCollectionLayoutDecorationItem.background(elementKind: DecorationKind.backgroundDecoration)
         ]
-        
         return section
-        
     }
     
     func constructSectionForUpcomingMovies() -> NSCollectionLayoutSection {
@@ -74,8 +71,8 @@ struct LaoOutManager {
         section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 0)
         section.orthogonalScrollingBehavior = .paging
         section.boundarySupplementaryItems = [createSectionHeaderItem()]
-        //section.decorationItems = [NSCollectionLayoutDecorationItem.background(elementKind: DecorationKind.backgroundDecoration)
-       // ]
+        section.decorationItems = [NSCollectionLayoutDecorationItem.background(elementKind: DecorationKind.backgroundDecoration)
+        ]
         
         return section
     }

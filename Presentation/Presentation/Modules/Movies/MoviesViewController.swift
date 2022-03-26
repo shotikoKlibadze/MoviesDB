@@ -56,10 +56,7 @@ public class MoviesViewController: MDBViewController {
         getMovies()
         setupCollectionView()
         collectionView.backgroundColor = .clear
-        view.backgroundColor = .white
-        
-        
-       
+        view.backgroundColor = .black
         navigationController?.navigationBar.isHidden = true
     }
     
@@ -105,7 +102,6 @@ public class MoviesViewController: MDBViewController {
         collectionView.registerNib(class: NowPlayingMovieCollectionViewCell.self)
         //View Registration
         collectionView.register(UINib(nibName: "MoviesHeaderView", bundle: Bundle.presentationBundle), forSupplementaryViewOfKind: SupplementaryElementKind.sectionHeader, withReuseIdentifier: MoviesHeaderView.identifier)
-        
         
         //DataSource
         dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, model in
@@ -155,9 +151,6 @@ public class MoviesViewController: MDBViewController {
                 return nil
             }
         }
-        
-        
-        
     }
     @MainActor
     private func updateSnapShot() {
@@ -168,8 +161,5 @@ public class MoviesViewController: MDBViewController {
         snapShot.appendItems(topRatedMovies.map({DataItem.topRatedMovie($0)}), toSection: .topRatedMovies)
         dataSource.apply(snapShot)
     }
-    
-
-
 
 }
