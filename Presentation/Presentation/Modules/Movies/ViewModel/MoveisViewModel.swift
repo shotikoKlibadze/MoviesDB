@@ -35,6 +35,10 @@ public class MoviesViewModel {
         return try await dataSource.getTopRatedMovies()
     }
     
+    func getNowPlayingMovies() async throws -> [Movie] {
+        return try await dataSource.getNowPlayingMovies()
+    }
+    
     
     
 }

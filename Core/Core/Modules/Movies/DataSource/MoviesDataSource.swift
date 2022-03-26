@@ -22,7 +22,7 @@ public class MoviesDataSource: MoviesDataSourceInterface {
             networkCall.sendRequest(path: path) { result in
                 switch result {
                 case .success(let moviesResponse):
-                    if let movies = moviesResponse?.movies {
+                    if let movies = moviesResponse?.results {
                         observer.onNext(movies)
                     }
                 case .failure(_):
@@ -39,7 +39,14 @@ public class MoviesDataSource: MoviesDataSourceInterface {
         let networkCall = NetworkManager<MovieResponse>.shared
         let data = try await networkCall.sendAsyncRequest(path: path)
         
-        return data.movies
+        return data.results
+    }
+    
+    public func getNowPlayingMovies() async throws -> [Movie] {
+        let path = "https://api.themoviedb.org/3/movie/now_playing?api_key=\(key)&language=en-US&page=1"
+        let networkCall = NetworkManager<MovieResponse>.shared
+        let data = try await networkCall.sendAsyncRequest(path: path)
+        return data.results
     }
     
     

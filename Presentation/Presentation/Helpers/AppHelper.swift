@@ -8,7 +8,9 @@
 import Foundation
 import UIKit
 
-public class Util {
+public class AppHelper {
+    
+    static let imagePathPrefix = "https://image.tmdb.org/t/p/w500"
     
     static func showAllert(viewController: UIViewController, title: String, message: String) {
         DispatchQueue.main.async {
