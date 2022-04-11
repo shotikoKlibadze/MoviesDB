@@ -32,7 +32,7 @@ struct LaoOutManager {
         
         
         let configuration = UICollectionViewCompositionalLayoutConfiguration()
-        configuration.interSectionSpacing = 40
+        configuration.interSectionSpacing = 20
         layout.configuration = configuration
         return layout
     }
@@ -43,18 +43,27 @@ struct LaoOutManager {
         // Item
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
+       
         // Group
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.35), heightDimension: .absolute(250))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.33), heightDimension: .absolute(250))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
         // Section
         let section = NSCollectionLayoutSection(group: group)
-        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 0)
-        section.orthogonalScrollingBehavior = .continuous
+        section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 0, bottom: 20, trailing: 0)
+        section.orthogonalScrollingBehavior = .groupPaging
         section.boundarySupplementaryItems = [createSectionHeaderItem()]
         section.decorationItems = [NSCollectionLayoutDecorationItem.background(elementKind: DecorationKind.backgroundDecoration)
         ]
+        
+        section.visibleItemsInvalidationHandler = { (items, offset, environment ) in
+            items.filter { $0.representedElementCategory == .cell }.forEach { item in
+                let distanceFromCenter = abs((item.frame.midX - offset.x) - environment.container.contentSize.width / 2.0)
+                let minScale: CGFloat = 0.7
+                let maxScale: CGFloat = 1.1
+                let scale = max(maxScale - (distanceFromCenter / environment.container.contentSize.width), minScale)
+                item.transform = CGAffineTransform(scaleX: scale, y: scale)
+            }
+        }
         return section
     }
     

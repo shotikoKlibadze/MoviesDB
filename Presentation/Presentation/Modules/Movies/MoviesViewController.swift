@@ -10,6 +10,12 @@ import Core
 import ProgressHUD
 import RxSwift
 
+extension UIColor {
+    static func soposGreen() -> UIColor {
+        return UIColor(named: "DBgreen",in: Bundle.presentationBundle, compatibleWith: nil)!
+    }
+}
+
 public class MoviesViewController: MDBViewController {
     
     let bag = DisposeBag()
@@ -31,9 +37,9 @@ public class MoviesViewController: MDBViewController {
             case .nowPlayingMovies:
                 return "Now Playing In Cinemas"
             case .upcomingMovies:
-                return "Upcoming Movies"
+                return "Upcoming "
             case .topRatedMovies:
-                return "Top Rated Movies"
+                return "Top Rated "
             }
         }
     }
@@ -52,37 +58,31 @@ public class MoviesViewController: MDBViewController {
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        bind()
         getMovies()
         setupCollectionView()
         collectionView.backgroundColor = .clear
         view.backgroundColor = .black
-        navigationController?.navigationBar.isHidden = true
+        let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.soposGreen()]
+        navigationController?.navigationBar.titleTextAttributes = textAttributes
+        navigationController?.navigationBar.largeTitleTextAttributes = textAttributes
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.barTintColor = .black
+        
+//        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+//        navigationController?.navigationBar.shadowImage = UIImage()
+//        navigationController?.navigationBar.isTranslucent = true
+        title = "Movies"
+        
     }
     
-    private func bind() {
-        ProgressHUD.show()
-        viewModel.getUpcomingMovies()
-        viewModel.upcomingMoviesPR.subscribe(onNext: { [weak self] movies in
-            self?.upcomingMovies = movies
-            DispatchQueue.main.async {
-                 self?.updateSnapShot()
-                ProgressHUD.dismiss()
-            }
-           
-        }).disposed(by: bag)
-        viewModel.moviesErrorPR.subscribe(onNext: { error in
-            ProgressHUD.dismiss()
-            AppHelper.showAllert(viewController: self, title: "Unexpected Error", message: error.errorMessage)
-        }).disposed(by: bag)
-    }
     
     private func getMovies(){
         ProgressHUD.show()
         Task {
             do {
-                topRatedMovies = try await viewModel.getTopRatedMovies()
                 nowPlayingMovies = try await viewModel.getNowPlayingMovies()
+                upcomingMovies = try await viewModel.getUpcomingMovies()
+                topRatedMovies = try await viewModel.getTopRatedMovies()
                 updateSnapShot()
                // ProgressHUD.dismiss()
             } catch (let error) {
@@ -137,13 +137,26 @@ public class MoviesViewController: MDBViewController {
                 case .nowPlayingMovies:
                     let view = collectionView.dequeueReusableSupplementaryView(ofKind: SupplementaryElementKind.sectionHeader, withReuseIdentifier: MoviesHeaderView.identifier, for: indexPath) as! MoviesHeaderView
                     view.sectionHeaderLabel.text = sectionKind.sectionHeader
+                    view.sectionHeaderLabel.textAlignment = .center
+                    view.sectionHeaderLabel.font = UIFont.init(name: "Helvetica Neue Bold", size: 20)
+                  
+                    view.redView.isHidden = true
+                    view.seeAllBUtton.isHidden = true
                     return view
                 case .upcomingMovies:
                     let view = collectionView.dequeueReusableSupplementaryView(ofKind: SupplementaryElementKind.sectionHeader, withReuseIdentifier: MoviesHeaderView.identifier, for: indexPath) as! MoviesHeaderView
                     view.sectionHeaderLabel.text = sectionKind.sectionHeader
+                    let contextProvider = UpcomingMoviesProvider()
+                    contextProvider.viewModel = self.viewModel
+                    view.controller = self
+                    view.contextProvider = contextProvider
                     return view
                 case .topRatedMovies:
                     let view = collectionView.dequeueReusableSupplementaryView(ofKind: SupplementaryElementKind.sectionHeader, withReuseIdentifier: MoviesHeaderView.identifier, for: indexPath) as! MoviesHeaderView
+                    let contextProvider = TopRatedMoviesProvider()
+                    contextProvider.viewModel = self.viewModel
+                    view.controller = self
+                    view.contextProvider = contextProvider
                     view.sectionHeaderLabel.text = sectionKind.sectionHeader
                     return view
                 }
@@ -160,6 +173,7 @@ public class MoviesViewController: MDBViewController {
         snapShot.appendItems(upcomingMovies.map({DataItem.upcomingMovie($0)}), toSection: .upcomingMovies)
         snapShot.appendItems(topRatedMovies.map({DataItem.topRatedMovie($0)}), toSection: .topRatedMovies)
         dataSource.apply(snapShot)
+        ProgressHUD.dismiss()
     }
 
 }

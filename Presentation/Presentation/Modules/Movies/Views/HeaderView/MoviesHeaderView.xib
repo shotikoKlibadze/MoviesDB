@@ -6,6 +6,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -20,7 +21,7 @@
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nsw-vt-VmC">
                             <rect key="frame" x="0.0" y="0.0" width="4" height="14"/>
-                            <color key="backgroundColor" name="DBRed"/>
+                            <color key="backgroundColor" name="DBgreen"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="4" id="pRe-t1-XGN"/>
                             </constraints>
@@ -31,11 +32,23 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Phz-Mx-49j">
-                            <rect key="frame" x="9" y="0.0" width="385" height="14"/>
+                            <rect key="frame" x="9" y="0.0" width="320" height="14"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="textColor" systemColor="systemGray2Color"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="80e-Pw-p99">
+                            <rect key="frame" x="334" y="0.0" width="60" height="14"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="60" id="rnu-6H-Cew"/>
+                            </constraints>
+                            <color key="tintColor" name="DBgreen"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" title="See"/>
+                            <connections>
+                                <action selector="seeAllTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="Q4i-NC-id2"/>
+                            </connections>
+                        </button>
                     </subviews>
                 </stackView>
             </subviews>
@@ -49,17 +62,22 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="redView" destination="Nsw-vt-VmC" id="X5V-gN-AAG"/>
                 <outlet property="sectionHeaderLabel" destination="Phz-Mx-49j" id="RZ2-gl-6Ox"/>
+                <outlet property="seeAllBUtton" destination="80e-Pw-p99" id="NxW-rc-05b"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="153.34821428571428"/>
         </view>
     </objects>
     <resources>
         <namedColor name="DBDarkGrey">
-            <color red="0.059395850620226898" green="0.06007856154689617" blue="0.06007856154689617" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.059000000357627869" green="0.059999998658895493" blue="0.059999998658895493" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
-        <namedColor name="DBRed">
-            <color red="0.59399998188018799" green="0.067000001668930054" blue="0.089000001549720764" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        <namedColor name="DBgreen">
+            <color red="0.089913952864522084" green="1" blue="0.8227018506781677" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
+        <systemColor name="systemGray2Color">
+            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

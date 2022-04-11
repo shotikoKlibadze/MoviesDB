@@ -10,6 +10,9 @@ def app_pods
 pod 'RxSwift'
 pod 'RxCocoa'
 pod 'Kingfisher'
+pod 'SnapKit'
+pod 'RxGesture'
+
 
 end
 
@@ -28,6 +31,7 @@ end
 
 app_pods
 pod 'ProgressHUD'
+
 
 end
 

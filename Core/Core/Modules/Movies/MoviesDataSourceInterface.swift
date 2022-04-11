@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 public protocol MoviesDataSourceInterface {
-    func getUpcomingMovies() -> Observable<[Movie]>
+    func getUpcomingMovies() async throws -> [Movie]
     func getTopRatedMovies() async throws -> [Movie]
     func getNowPlayingMovies() async throws -> [Movie]
 }

@@ -105,7 +105,7 @@
         <image name="Star" width="53" height="51"/>
         <image name="poster" width="500" height="750"/>
         <namedColor name="DBLightGrey">
-            <color red="0.2198848239819392" green="0.2198848239819392" blue="0.2198848239819392" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.27087973445034347" green="0.29445790497560631" blue="0.30860171417165849" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
