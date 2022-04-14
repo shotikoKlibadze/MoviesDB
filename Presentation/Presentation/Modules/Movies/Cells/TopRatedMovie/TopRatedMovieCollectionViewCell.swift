@@ -17,6 +17,7 @@ class TopRatedMovieCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var posterImageView: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
+        layer.masksToBounds = false
         
     }
     

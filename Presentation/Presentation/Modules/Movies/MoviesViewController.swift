@@ -10,12 +10,6 @@ import Core
 import ProgressHUD
 import RxSwift
 
-extension UIColor {
-    static func soposGreen() -> UIColor {
-        return UIColor(named: "DBgreen",in: Bundle.presentationBundle, compatibleWith: nil)!
-    }
-}
-
 public class MoviesViewController: MDBViewController {
     
     let bag = DisposeBag()
@@ -31,7 +25,6 @@ public class MoviesViewController: MDBViewController {
         case nowPlayingMovies
         case upcomingMovies
         case topRatedMovies
-        
         var sectionHeader : String {
             switch self {
             case .nowPlayingMovies:
@@ -61,18 +54,12 @@ public class MoviesViewController: MDBViewController {
         getMovies()
         setupCollectionView()
         collectionView.backgroundColor = .clear
-        view.backgroundColor = .black
-        let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.soposGreen()]
+        let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.DBGreen()]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
         navigationController?.navigationBar.largeTitleTextAttributes = textAttributes
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationBar.barTintColor = .black
-        
-//        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-//        navigationController?.navigationBar.shadowImage = UIImage()
-//        navigationController?.navigationBar.isTranslucent = true
+        navigationController?.navigationBar.barTintColor = UIColor(named: "DBBackground")
         title = "Movies"
-        
     }
     
     
@@ -84,7 +71,6 @@ public class MoviesViewController: MDBViewController {
                 upcomingMovies = try await viewModel.getUpcomingMovies()
                 topRatedMovies = try await viewModel.getTopRatedMovies()
                 updateSnapShot()
-               // ProgressHUD.dismiss()
             } catch (let error) {
                 guard let error = error as? DBError else {return}
                 print(error)
@@ -109,7 +95,6 @@ public class MoviesViewController: MDBViewController {
                 fatalError("Unhandled section : \(indexPath.section)")
             }
             switch (sectionKind, model) {
-                
             case (.nowPlayingMovies, .nowPlaying(let movie)):
                 guard let cell = collectionView.deque(NowPlayingMovieCollectionViewCell.self, for: indexPath) else { fatalError("Cell Can't Be Found") }
                 cell.configure(with: movie)
@@ -139,7 +124,6 @@ public class MoviesViewController: MDBViewController {
                     view.sectionHeaderLabel.text = sectionKind.sectionHeader
                     view.sectionHeaderLabel.textAlignment = .center
                     view.sectionHeaderLabel.font = UIFont.init(name: "Helvetica Neue Bold", size: 20)
-                  
                     view.redView.isHidden = true
                     view.seeAllBUtton.isHidden = true
                     return view

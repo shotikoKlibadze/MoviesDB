@@ -15,7 +15,7 @@ class SectionBackGroundDecoration : UICollectionReusableView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         isOpaque = false
-        backgroundColor = UIColor(named: "DBDarkGrey", in: Bundle.presentationBundle, compatibleWith: nil)
+        backgroundColor = UIColor(named: "DBSecondaryBackGround", in: Bundle.presentationBundle, compatibleWith: nil)
     }
     
     required init?(coder: NSCoder) {

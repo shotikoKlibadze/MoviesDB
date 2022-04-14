@@ -39,7 +39,6 @@ struct LaoOutManager {
     
     func constructSectionForNowPlayingMovies() -> NSCollectionLayoutSection {
         
-       
         // Item
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -59,7 +58,7 @@ struct LaoOutManager {
             items.filter { $0.representedElementCategory == .cell }.forEach { item in
                 let distanceFromCenter = abs((item.frame.midX - offset.x) - environment.container.contentSize.width / 2.0)
                 let minScale: CGFloat = 0.7
-                let maxScale: CGFloat = 1.1
+                let maxScale: CGFloat = 1.0
                 let scale = max(maxScale - (distanceFromCenter / environment.container.contentSize.width), minScale)
                 item.transform = CGAffineTransform(scaleX: scale, y: scale)
             }

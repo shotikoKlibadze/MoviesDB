@@ -17,7 +17,7 @@ class UpcomingMovieCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var ratingsLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        layer.masksToBounds = false
     }
     
     override func layoutSubviews() {

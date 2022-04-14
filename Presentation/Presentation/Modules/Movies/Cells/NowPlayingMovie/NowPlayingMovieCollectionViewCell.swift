@@ -18,6 +18,7 @@ class NowPlayingMovieCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        layer.masksToBounds = false
         
     }
     
@@ -34,7 +35,8 @@ class NowPlayingMovieCollectionViewCell: UICollectionViewCell {
     }
     
     func setupUI() {
-        containerView.makeCustomRound(topLeft: 0, topRight: 0, bottomLeft: 8, bottomRight: 8)
+        containerView.makeCustomRound(topLeft: 8, topRight: 8, bottomLeft: 8, bottomRight: 8)
+        containerView.addShadow()
     }
     
 }

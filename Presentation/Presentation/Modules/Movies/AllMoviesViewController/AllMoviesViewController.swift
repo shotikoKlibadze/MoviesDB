@@ -11,11 +11,8 @@ import Core
 
 class AllMoviesViewController: MDBViewController {
     
-    
     var contextProvider : ContextProvider!
     private var movies = [Movie]()
-    
-    
     
     @IBOutlet weak var collectionView: UICollectionView!
     

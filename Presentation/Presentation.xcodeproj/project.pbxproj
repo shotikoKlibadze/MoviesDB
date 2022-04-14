@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		09870BE1280871B900D9DA9B /* Extension + UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09870BE0280871B900D9DA9B /* Extension + UIColor.swift */; };
 		09AE36E627E8663800A8BF12 /* Presentation.docc in Sources */ = {isa = PBXBuildFile; fileRef = 09AE36E527E8663800A8BF12 /* Presentation.docc */; };
 		09AE36E727E8663800A8BF12 /* Presentation.h in Headers */ = {isa = PBXBuildFile; fileRef = 09AE36E427E8663800A8BF12 /* Presentation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		09AE370C27E869E900A8BF12 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09AE370B27E869E900A8BF12 /* Core.framework */; };
@@ -58,6 +59,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		09870BE0280871B900D9DA9B /* Extension + UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + UIColor.swift"; sourceTree = "<group>"; };
 		09AE36E127E8663800A8BF12 /* Presentation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Presentation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		09AE36E427E8663800A8BF12 /* Presentation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Presentation.h; sourceTree = "<group>"; };
 		09AE36E527E8663800A8BF12 /* Presentation.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Presentation.docc; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				09AE373227E8A20200A8BF12 /* Storybaorded.swift */,
+				09870BE0280871B900D9DA9B /* Extension + UIColor.swift */,
 				09AE381327EEC9D100A8BF12 /* Extension + CollectionView.swift */,
 				09AE382A27EF934C00A8BF12 /* Extension + UIView.swift */,
 			);
@@ -480,6 +483,7 @@
 				09B7FF1D2802D2B400EC77FE /* AllMoviesViewController.swift in Sources */,
 				09AE374627E8A20900A8BF12 /* MoviesViewController.swift in Sources */,
 				09B7FF0727FF3CE600EC77FE /* TabBar.swift in Sources */,
+				09870BE1280871B900D9DA9B /* Extension + UIColor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -25,8 +25,9 @@ public class MainTabBarController: UITabBarController {
             moviesViewController,
             tvSeriesVewController
         ]
-        tabBar.isTranslucent = false
-        tabBar.barTintColor  = .black
+        //tabBar.isTranslucent = false
+        tabBar.barTintColor = UIColor(named: "DBBackground")
+        view.backgroundColor = UIColor(named: "DBBackground")
         setupProperties()
         setupHierarchy()
         setupLayout()

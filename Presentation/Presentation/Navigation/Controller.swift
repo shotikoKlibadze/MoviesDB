@@ -24,7 +24,7 @@ public class Controller {
         let viewModel = appDependencyContainer?.getMoviesViewModel()
         vc.viewModel = viewModel
         navController.viewControllers = [vc]
-        navController.tabBarItem.title = "Moves"
+        navController.tabBarItem.title = "Movies"
         navController.tabBarItem.image = UIImage(systemName: "film")
         return navController
     }
