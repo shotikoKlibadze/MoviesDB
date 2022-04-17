@@ -10,7 +10,7 @@ import Core
 import ProgressHUD
 import RxSwift
 
-public class MoviesViewController: MDBViewController {
+public class MoviesViewController: DBViewController {
     
     let bag = DisposeBag()
     var viewModel: MoviesViewModel!
@@ -54,12 +54,19 @@ public class MoviesViewController: MDBViewController {
         getMovies()
         setupCollectionView()
         collectionView.backgroundColor = .clear
-        let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.DBGreen()]
-        navigationController?.navigationBar.titleTextAttributes = textAttributes
-        navigationController?.navigationBar.largeTitleTextAttributes = textAttributes
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationBar.barTintColor = UIColor(named: "DBBackground")
         title = "Movies"
+    }
+    
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+//        navigationController?.navigationBar.prefersLargeTitles = true
+//        navigationItem.largeTitleDisplayMode = .always
+//
+    }
+    
+    public override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+//        navigationController?.navigationBar.prefersLargeTitles = false
     }
     
     
@@ -82,10 +89,9 @@ public class MoviesViewController: MDBViewController {
         //Layout
         let layOut = LaoOutManager().createLayout()
         collectionView.collectionViewLayout = layOut
+        collectionView.delegate = self
         //Cell Registration
-        collectionView.registerNib(class: UpcomingMovieCollectionViewCell.self)
-        collectionView.registerNib(class: TopRatedMovieCollectionViewCell.self)
-        collectionView.registerNib(class: NowPlayingMovieCollectionViewCell.self)
+        collectionView.register(MovieCollectionViewCell.self, forCellWithReuseIdentifier: MovieCollectionViewCell.identifier)
         //View Registration
         collectionView.register(UINib(nibName: "MoviesHeaderView", bundle: Bundle.presentationBundle), forSupplementaryViewOfKind: SupplementaryElementKind.sectionHeader, withReuseIdentifier: MoviesHeaderView.identifier)
         
@@ -96,16 +102,16 @@ public class MoviesViewController: MDBViewController {
             }
             switch (sectionKind, model) {
             case (.nowPlayingMovies, .nowPlaying(let movie)):
-                guard let cell = collectionView.deque(NowPlayingMovieCollectionViewCell.self, for: indexPath) else { fatalError("Cell Can't Be Found") }
-                cell.configure(with: movie)
+                guard let cell = collectionView.deque(MovieCollectionViewCell.self, for: indexPath) else { fatalError("Cell Can't Be Found") }
+                cell.configure(with: movie, isLargePoster: false)
                 return cell
             case (.upcomingMovies, .upcomingMovie(let movie)):
-                guard let cell = collectionView.deque(UpcomingMovieCollectionViewCell.self, for: indexPath) else { fatalError("Cell Can't Be Found") }
-                cell.configure(with: movie)
+                guard let cell = collectionView.deque(MovieCollectionViewCell.self, for: indexPath) else { fatalError("Cell Can't Be Found") }
+                cell.configure(with: movie, isLargePoster: false)
                 return cell
             case (.topRatedMovies, .topRatedMovie(let movie)):
-                guard let cell = collectionView.deque(TopRatedMovieCollectionViewCell.self, for: indexPath) else { fatalError("Cell Can't Be Found") }
-                cell.configure(with: movie)
+                guard let cell = collectionView.deque(MovieCollectionViewCell.self, for: indexPath) else { fatalError("Cell Can't Be Found") }
+                cell.configure(with: movie, isLargePoster: false)
                 return cell
             default :
                 return nil
@@ -149,6 +155,7 @@ public class MoviesViewController: MDBViewController {
             }
         }
     }
+    
     @MainActor
     private func updateSnapShot() {
         var snapShot = NSDiffableDataSourceSnapshot<Sections,DataItem>()
@@ -159,5 +166,29 @@ public class MoviesViewController: MDBViewController {
         dataSource.apply(snapShot)
         ProgressHUD.dismiss()
     }
-
 }
+
+extension MoviesViewController : UICollectionViewDelegate {
+    
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("Section:" , indexPath.section)
+        print("Row:",  indexPath.row)
+        var movie : Movie?
+        let section = Sections(rawValue: indexPath.section)
+        switch section {
+        case .nowPlayingMovies:
+            movie = nowPlayingMovies[indexPath.row]
+        case .upcomingMovies:
+            movie = upcomingMovies[indexPath.row]
+        case .topRatedMovies:
+            movie = topRatedMovies[indexPath.row]
+        case .none:
+            return
+        }
+        let vc = MovieDetailsViewController.instantiateFromStoryboard()
+        vc.movie = movie
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+}
+

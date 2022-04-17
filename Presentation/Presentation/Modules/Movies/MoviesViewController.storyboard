@@ -60,7 +60,7 @@
     </scenes>
     <resources>
         <namedColor name="DBBackground">
-            <color red="0.92536461105522883" green="0.92536461105522883" blue="0.92536461105522883" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.96799999475479126" green="0.96799999475479126" blue="0.96799999475479126" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

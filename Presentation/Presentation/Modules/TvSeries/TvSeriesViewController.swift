@@ -7,7 +7,7 @@
 
 import UIKit
 
-public class TvSeriesViewController: MDBViewController {
+public class TvSeriesViewController: DBViewController {
     
     @IBOutlet weak var containerView: UIView!
     

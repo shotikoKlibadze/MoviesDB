@@ -18,7 +18,6 @@ public class MoviesViewModel {
     var moviesErrorPR = PublishRelay<DBError>()
     var upcomingMoviesPR = PublishRelay<[Movie]>()
     
-    
     public init(dataSource: MoviesDataSourceInterface) {
         self.dataSource = dataSource
     }
@@ -35,5 +34,4 @@ public class MoviesViewModel {
         return try await dataSource.getTopRatedMovies()
     }
     
-   
 }

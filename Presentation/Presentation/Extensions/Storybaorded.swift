@@ -36,7 +36,3 @@ extension Storyboarded where Self: UIViewController {
     }
 }
 
-public class MDBViewController: UIViewController, Storyboarded {
-    
-}
-

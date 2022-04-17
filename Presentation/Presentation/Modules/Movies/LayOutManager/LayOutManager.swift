@@ -74,9 +74,11 @@ struct LaoOutManager {
         // Group
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.25), heightDimension: .absolute(200))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        
+        
         // Section
         let section = NSCollectionLayoutSection(group: group)
-        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 0)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 10)
         section.orthogonalScrollingBehavior = .paging
         section.boundarySupplementaryItems = [createSectionHeaderItem()]
         section.decorationItems = [NSCollectionLayoutDecorationItem.background(elementKind: DecorationKind.backgroundDecoration)
