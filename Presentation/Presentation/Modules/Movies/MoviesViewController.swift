@@ -185,10 +185,14 @@ extension MoviesViewController : UICollectionViewDelegate {
         case .none:
             return
         }
+        
+        //let vc = DetailsViewController()
+       // vc.movie = movie
         let vc = MovieDetailsViewController.instantiateFromStoryboard()
         vc.movie = movie
+       // vc.modalPresentationStyle = .overFullScreen
+       // present(vc, animated: true)
         navigationController?.pushViewController(vc, animated: true)
     }
-    
 }
 

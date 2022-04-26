@@ -26,19 +26,33 @@ class MovieDetailsViewController: DBViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.largeTitleDisplayMode = .never
+       // print("will appear", posterImageView.frame)
         
         
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        //print("appeard", posterImageView.frame)
     }
     
     private func configure() {
         tittleLabel.text = movie.title
         descriptionLabel.text = movie.overview
-           let imagePathPrefix = AppHelper.imagePathPrefix
-        let url = URL(string: imagePathPrefix + movie.backdropPath!)
-        posterImageView.kf.setImage(with: url)
+        let imagePathPrefix = AppHelper.imagePathPrefix
+        if let largePoster = movie.backdropPath {
+            let url = URL(string: imagePathPrefix + largePoster)
+            posterImageView.kf.setImage(with: url)
+        }
+        
+        print("when not appeard,",posterImageView.frame)
+        
     }
     
 
-  
+    @IBAction func dismiss(_ sender: Any) {
+        print(posterImageView.frame)
+        dismiss(animated: true)
+    }
+    
 
 }

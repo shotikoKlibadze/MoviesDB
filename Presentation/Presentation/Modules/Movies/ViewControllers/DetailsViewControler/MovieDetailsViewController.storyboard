@@ -41,6 +41,15 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Civ-dC-66B">
+                                                <rect key="frame" x="151" y="565" width="67" height="31"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                                <connections>
+                                                    <action selector="dismiss:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="DmS-ne-Dql"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
@@ -74,7 +83,7 @@
                             <constraint firstItem="SqK-zB-ccV" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="1BU-zK-fzp"/>
                             <constraint firstAttribute="bottom" secondItem="SqK-zB-ccV" secondAttribute="bottom" id="BN1-cM-EFE"/>
                             <constraint firstItem="SqK-zB-ccV" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="QhQ-lf-Sk1"/>
-                            <constraint firstItem="SqK-zB-ccV" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="Rxp-Ag-rOj"/>
+                            <constraint firstItem="SqK-zB-ccV" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" constant="44" id="Rxp-Ag-rOj"/>
                         </constraints>
                     </view>
                     <connections>

@@ -12,6 +12,7 @@
 		0919FF3A2809AE2A00AE159D /* MovieDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0919FF392809AE2A00AE159D /* MovieDetailsViewController.swift */; };
 		0919FF3C2809AE4300AE159D /* MovieDetailsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0919FF3B2809AE4300AE159D /* MovieDetailsViewController.storyboard */; };
 		0919FF3E280C3F9D00AE159D /* MoviesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0919FF3D280C3F9D00AE159D /* MoviesCollectionViewCell.swift */; };
+		0919FF45280E7ACF00AE159D /* Animator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0919FF44280E7ACF00AE159D /* Animator.swift */; };
 		09870BE1280871B900D9DA9B /* Extension + UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09870BE0280871B900D9DA9B /* Extension + UIColor.swift */; };
 		09AE36E627E8663800A8BF12 /* Presentation.docc in Sources */ = {isa = PBXBuildFile; fileRef = 09AE36E527E8663800A8BF12 /* Presentation.docc */; };
 		09AE36E727E8663800A8BF12 /* Presentation.h in Headers */ = {isa = PBXBuildFile; fileRef = 09AE36E427E8663800A8BF12 /* Presentation.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -40,6 +41,7 @@
 		09B7FF1A2802CD1400EC77FE /* ContextProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B7FF192802CD1400EC77FE /* ContextProvider.swift */; };
 		09B7FF1D2802D2B400EC77FE /* AllMoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B7FF1C2802D2B400EC77FE /* AllMoviesViewController.swift */; };
 		09B7FF1F2802D2BF00EC77FE /* AllMoviesViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09B7FF1E2802D2BF00EC77FE /* AllMoviesViewController.storyboard */; };
+		09BDE46628104C5C00B20511 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BDE46528104C5C00B20511 /* DetailsViewController.swift */; };
 		D56902E075EA73B072AF0670 /* Pods_Presentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EF66B3F92CA408D42480237 /* Pods_Presentation.framework */; };
 /* End PBXBuildFile section */
 
@@ -63,6 +65,7 @@
 		0919FF392809AE2A00AE159D /* MovieDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsViewController.swift; sourceTree = "<group>"; };
 		0919FF3B2809AE4300AE159D /* MovieDetailsViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MovieDetailsViewController.storyboard; sourceTree = "<group>"; };
 		0919FF3D280C3F9D00AE159D /* MoviesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesCollectionViewCell.swift; sourceTree = "<group>"; };
+		0919FF44280E7ACF00AE159D /* Animator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animator.swift; sourceTree = "<group>"; };
 		09870BE0280871B900D9DA9B /* Extension + UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + UIColor.swift"; sourceTree = "<group>"; };
 		09AE36E127E8663800A8BF12 /* Presentation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Presentation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		09AE36E427E8663800A8BF12 /* Presentation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Presentation.h; sourceTree = "<group>"; };
@@ -91,6 +94,7 @@
 		09B7FF192802CD1400EC77FE /* ContextProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextProvider.swift; sourceTree = "<group>"; };
 		09B7FF1C2802D2B400EC77FE /* AllMoviesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllMoviesViewController.swift; sourceTree = "<group>"; };
 		09B7FF1E2802D2BF00EC77FE /* AllMoviesViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AllMoviesViewController.storyboard; sourceTree = "<group>"; };
+		09BDE46528104C5C00B20511 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		2EF66B3F92CA408D42480237 /* Pods_Presentation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Presentation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		961C8A21D7371044A165C8D4 /* Pods-Presentation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Presentation.debug.xcconfig"; path = "Target Support Files/Pods-Presentation/Pods-Presentation.debug.xcconfig"; sourceTree = "<group>"; };
 		AA6389B3B6B5BC1DB465CE3F /* Pods-Presentation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Presentation.release.xcconfig"; path = "Target Support Files/Pods-Presentation/Pods-Presentation.release.xcconfig"; sourceTree = "<group>"; };
@@ -132,8 +136,17 @@
 			children = (
 				0919FF392809AE2A00AE159D /* MovieDetailsViewController.swift */,
 				0919FF3B2809AE4300AE159D /* MovieDetailsViewController.storyboard */,
+				09BDE46528104C5C00B20511 /* DetailsViewController.swift */,
 			);
 			path = DetailsViewControler;
+			sourceTree = "<group>";
+		};
+		0919FF43280E7AB800AE159D /* Animator */ = {
+			isa = PBXGroup;
+			children = (
+				0919FF44280E7ACF00AE159D /* Animator.swift */,
+			);
+			path = Animator;
 			sourceTree = "<group>";
 		};
 		09AE36D727E8663800A8BF12 = {
@@ -319,6 +332,7 @@
 		09B7FF1B2802D28100EC77FE /* AllMoviesViewController */ = {
 			isa = PBXGroup;
 			children = (
+				0919FF43280E7AB800AE159D /* Animator */,
 				09B7FF1C2802D2B400EC77FE /* AllMoviesViewController.swift */,
 				09B7FF1E2802D2BF00EC77FE /* AllMoviesViewController.storyboard */,
 			);
@@ -461,11 +475,13 @@
 				0919FF3A2809AE2A00AE159D /* MovieDetailsViewController.swift in Sources */,
 				09AE381227EEB9C100A8BF12 /* LayOutManager.swift in Sources */,
 				09AE374127E8A20900A8BF12 /* TvSeriesViewModel.swift in Sources */,
+				0919FF45280E7ACF00AE159D /* Animator.swift in Sources */,
 				09AE382B27EF934C00A8BF12 /* Extension + UIView.swift in Sources */,
 				09B7FF0127FF3C9100EC77FE /* TabBarItemView.swift in Sources */,
 				09AE374727E8A20900A8BF12 /* MainTabBarController.swift in Sources */,
 				09AE383027EFB4DE00A8BF12 /* MoviesHeaderView.swift in Sources */,
 				09AE36E627E8663800A8BF12 /* Presentation.docc in Sources */,
+				09BDE46628104C5C00B20511 /* DetailsViewController.swift in Sources */,
 				09AE374427E8A20900A8BF12 /* MoveisViewModel.swift in Sources */,
 				09B7FF1A2802CD1400EC77FE /* ContextProvider.swift in Sources */,
 				0919FF362809A8FB00AE159D /* DBViewController.swift in Sources */,

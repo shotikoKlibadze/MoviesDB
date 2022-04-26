@@ -88,8 +88,10 @@ class MovieCollectionViewCell : DBCollectionViewCell {
         ratingsLabel.text = String(movie.voteAverage)
         let imagePathPrefix = AppHelper.imagePathPrefix
         if isLargePoster {
-            let url = URL(string: imagePathPrefix + movie.backdropPath!)
-            posterImageView.kf.setImage(with: url)
+            if let largePoster = movie.backdropPath {
+                let url = URL(string: imagePathPrefix + largePoster)
+                posterImageView.kf.setImage(with: url)
+            }
         } else {
             let url = URL(string: imagePathPrefix + movie.posterPath)
             posterImageView.kf.setImage(with: url)

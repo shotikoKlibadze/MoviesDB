@@ -8,11 +8,19 @@
 import UIKit
 import ProgressHUD
 import Core
+import Kingfisher
 
 class AllMoviesViewController: DBViewController {
     
     var contextProvider : ContextProvider!
     var dataSource : UICollectionViewDiffableDataSource<Int,Movie>!
+
+    var transition = Animator()
+    var position = CGRect.zero
+    
+    
+    var sizeViewForTransition = UIView()
+    var imageViewForTransition = UIImageView()
     
     private var movies = [Movie]()
     
@@ -28,6 +36,7 @@ class AllMoviesViewController: DBViewController {
         collectionView.register(MovieCollectionViewCell.self, forCellWithReuseIdentifier: MovieCollectionViewCell.identifier)
         collectionView.collectionViewLayout = createLayout()
         collectionView.dataSource = dataSource
+        collectionView.delegate = self
         view.layoutSubviews()
         dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, model in
             
@@ -73,3 +82,38 @@ class AllMoviesViewController: DBViewController {
         ProgressHUD.dismiss()
     }
 }
+
+extension AllMoviesViewController : UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        //let vc = DetailsViewController()
+        let vc = MovieDetailsViewController.instantiateFromStoryboard()
+        vc.modalPresentationStyle = .overFullScreen
+        vc.transitioningDelegate = self
+        vc.movie = movies[indexPath.row]
+        if let cell = collectionView.cellForItem(at: indexPath) as? MovieCollectionViewCell {
+            let imageView = cell.posterImageView
+            sizeViewForTransition = imageView
+            imageViewForTransition = imageView
+        }
+        present(vc, animated: true)
+    }
+}
+
+
+extension AllMoviesViewController : UIViewControllerTransitioningDelegate {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        transition.imageViewForTransition = imageViewForTransition
+        transition.sizeViewForTransition = sizeViewForTransition
+        return transition
+    }
+
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return transition
+    }
+}
+
+
+
+
+
