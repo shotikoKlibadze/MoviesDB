@@ -14,11 +14,7 @@ class AllMoviesViewController: DBViewController {
     
     var contextProvider : ContextProvider!
     var dataSource : UICollectionViewDiffableDataSource<Int,Movie>!
-
     var transition = Animator()
-    var position = CGRect.zero
-    
-    
     var sizeViewForTransition = UIView()
     var imageViewForTransition = UIImageView()
     
@@ -99,7 +95,6 @@ extension AllMoviesViewController : UICollectionViewDelegate {
         present(vc, animated: true)
     }
 }
-
 
 extension AllMoviesViewController : UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {

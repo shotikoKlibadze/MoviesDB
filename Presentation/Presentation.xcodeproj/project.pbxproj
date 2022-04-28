@@ -42,6 +42,7 @@
 		09B7FF1D2802D2B400EC77FE /* AllMoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B7FF1C2802D2B400EC77FE /* AllMoviesViewController.swift */; };
 		09B7FF1F2802D2BF00EC77FE /* AllMoviesViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09B7FF1E2802D2BF00EC77FE /* AllMoviesViewController.storyboard */; };
 		09BDE46628104C5C00B20511 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BDE46528104C5C00B20511 /* DetailsViewController.swift */; };
+		09E7C158281AE50600AA3440 /* GenreLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E7C157281AE50600AA3440 /* GenreLabelView.swift */; };
 		D56902E075EA73B072AF0670 /* Pods_Presentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EF66B3F92CA408D42480237 /* Pods_Presentation.framework */; };
 /* End PBXBuildFile section */
 
@@ -95,6 +96,7 @@
 		09B7FF1C2802D2B400EC77FE /* AllMoviesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllMoviesViewController.swift; sourceTree = "<group>"; };
 		09B7FF1E2802D2BF00EC77FE /* AllMoviesViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AllMoviesViewController.storyboard; sourceTree = "<group>"; };
 		09BDE46528104C5C00B20511 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
+		09E7C157281AE50600AA3440 /* GenreLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreLabelView.swift; sourceTree = "<group>"; };
 		2EF66B3F92CA408D42480237 /* Pods_Presentation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Presentation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		961C8A21D7371044A165C8D4 /* Pods-Presentation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Presentation.debug.xcconfig"; path = "Target Support Files/Pods-Presentation/Pods-Presentation.debug.xcconfig"; sourceTree = "<group>"; };
 		AA6389B3B6B5BC1DB465CE3F /* Pods-Presentation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Presentation.release.xcconfig"; path = "Target Support Files/Pods-Presentation/Pods-Presentation.release.xcconfig"; sourceTree = "<group>"; };
@@ -296,8 +298,9 @@
 		09AE382C27EFB4AA00A8BF12 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				09E7C156281AE4DB00AA3440 /* GenreLabelView */,
 				09AE383127EFBBE800A8BF12 /* HeaderView */,
-				09AE383227EFBC0800A8BF12 /* SectionBackGroundDecoration.swift */,
+				09E7C155281AE4CF00AA3440 /* SectionBackGroundDecoration */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -337,6 +340,22 @@
 				09B7FF1E2802D2BF00EC77FE /* AllMoviesViewController.storyboard */,
 			);
 			path = AllMoviesViewController;
+			sourceTree = "<group>";
+		};
+		09E7C155281AE4CF00AA3440 /* SectionBackGroundDecoration */ = {
+			isa = PBXGroup;
+			children = (
+				09AE383227EFBC0800A8BF12 /* SectionBackGroundDecoration.swift */,
+			);
+			path = SectionBackGroundDecoration;
+			sourceTree = "<group>";
+		};
+		09E7C156281AE4DB00AA3440 /* GenreLabelView */ = {
+			isa = PBXGroup;
+			children = (
+				09E7C157281AE50600AA3440 /* GenreLabelView.swift */,
+			);
+			path = GenreLabelView;
 			sourceTree = "<group>";
 		};
 		7EDD4C8133204001C36AEA8C /* Pods */ = {
@@ -487,6 +506,7 @@
 				0919FF362809A8FB00AE159D /* DBViewController.swift in Sources */,
 				09B7FF0327FF3CC400EC77FE /* TabBarItem.swift in Sources */,
 				09AE383327EFBC0800A8BF12 /* SectionBackGroundDecoration.swift in Sources */,
+				09E7C158281AE50600AA3440 /* GenreLabelView.swift in Sources */,
 				0919FF3E280C3F9D00AE159D /* MoviesCollectionViewCell.swift in Sources */,
 				09AE373327E8A20200A8BF12 /* Storybaorded.swift in Sources */,
 				09AE374A27E8A21100A8BF12 /* AppHelper.swift in Sources */,

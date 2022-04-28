@@ -21,4 +21,8 @@ extension UIColor {
         return UIColor(named: "DBTopLayerBackground",in: Bundle.presentationBundle, compatibleWith: nil)!
     }
     
+    static func DBBackgroundColor() -> UIColor {
+        return UIColor(named: "DBBackground",in: Bundle.presentationBundle, compatibleWith: nil)!
+    }
+    
 }
