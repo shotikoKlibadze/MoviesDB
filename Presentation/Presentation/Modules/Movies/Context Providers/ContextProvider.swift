@@ -9,7 +9,7 @@ import Foundation
 import Core
 
 protocol ContextProvider {
-    func provideContext()  async throws -> [Movie]
+    func provideContext() async -> [MovieEntity]
 }
 
 class UpcomingMoviesProvider : ContextProvider {
@@ -19,8 +19,8 @@ class UpcomingMoviesProvider : ContextProvider {
     init() {
     }
     
-    func provideContext() async throws  -> [Movie] {
-       return try await viewModel.getUpcomingMovies()
+    func provideContext() async   -> [MovieEntity] {
+       return await viewModel.getUpcomingMovies()
     }
   
 }
@@ -28,12 +28,12 @@ class UpcomingMoviesProvider : ContextProvider {
 class TopRatedMoviesProvider : ContextProvider {
 
     var viewModel : MoviesViewModel!
-    var movies = [Movie]()
+    var movies = [MovieData]()
 
     init() {}
 
-    func provideContext() async throws -> [Movie] {
-        return try await viewModel.getTopRatedMovies()
+    func provideContext() async -> [MovieEntity] {
+        return await viewModel.getTopRatedMovies()
     }
     
 }

@@ -10,10 +10,12 @@ import Foundation
 public struct DBError : Error {
     
     public let errorMessage: String
+    public let debugMessage: String?
     public let endPoint: String?
     
-    public init(errorMessage: String, endPoint: String?) {
+    public init(errorMessage: String, debugMessage: String?, endPoint: String?) {
         self.errorMessage = errorMessage
+        self.debugMessage = debugMessage
         self.endPoint = endPoint
     }
     
@@ -24,10 +26,9 @@ extension DBError : CustomDebugStringConvertible {
         return """
             ❌ 
             Error Message: \(self.errorMessage)
-            Endpoint: \(self.endPoint ?? "n/a")
+            DebugMessage: \(self.debugMessage ?? "n/a")
+            Path: \(self.endPoint ?? "n/a")
             ❌
             """
     }
-    
-    
 }

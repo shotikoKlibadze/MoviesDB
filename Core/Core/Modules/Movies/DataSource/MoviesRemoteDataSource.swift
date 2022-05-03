@@ -8,32 +8,38 @@
 import Foundation
 import RxSwift
 
-public class MoviesDataSource: MoviesDataSourceInterface {
+public protocol MoviesRemoteDataSourceInterface {
+    func getUpcomingMovies() async -> [MovieData]
+    func getTopRatedMovies() async -> [MovieData]
+    func getNowPlayingMovies() async -> [MovieData]
+}
+
+public class MoviesRemoteDataSource: MoviesRemoteDataSourceInterface {
     private let key = "f4fc52063b2419f14cdaa0ac0fd23462"
     
     public init() {
     }
     
-    public func getUpcomingMovies()  async throws -> [Movie] {
+    public func getUpcomingMovies()  async -> [MovieData] {
         let path = "https://api.themoviedb.org/3/movie/upcoming?api_key=\(key)&language=en-US&page=1"
         let networkCall = NetworkManager<MovieResponse>.shared
-        let data = try await networkCall.sendAsyncRequest(path: path)
+        guard let data = await networkCall.sendAsyncRequest(path: path) else { return [] }
         return data.results
        
     }
     
-    public func getTopRatedMovies() async throws -> [Movie] {
+    public func getTopRatedMovies() async -> [MovieData] {
         let path = "https://api.themoviedb.org/3/movie/top_rated?api_key=\(key)&language=en-US&page=1"
         let networkCall = NetworkManager<MovieResponse>.shared
-        let data = try await networkCall.sendAsyncRequest(path: path)
+        guard let data = await networkCall.sendAsyncRequest(path: path) else { return [] }
         
         return data.results
     }
     
-    public func getNowPlayingMovies() async throws -> [Movie] {
+    public func getNowPlayingMovies() async -> [MovieData] {
         let path = "https://api.themoviedb.org/3/movie/now_playing?api_key=\(key)&language=en-US&page=1"
         let networkCall = NetworkManager<MovieResponse>.shared
-        let data = try await networkCall.sendAsyncRequest(path: path)
+        guard let data = await networkCall.sendAsyncRequest(path: path) else { return [] }
         return data.results
     }
     

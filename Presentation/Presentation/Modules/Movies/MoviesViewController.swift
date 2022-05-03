@@ -15,9 +15,9 @@ public class MoviesViewController: DBViewController {
     let bag = DisposeBag()
     var viewModel: MoviesViewModel!
     
-    var upcomingMovies = [Movie]()
-    var topRatedMovies = [Movie]()
-    var nowPlayingMovies = [Movie]()
+    var upcomingMovies = [MovieEntity]()
+    var topRatedMovies = [MovieEntity]()
+    var nowPlayingMovies = [MovieEntity]()
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -38,9 +38,9 @@ public class MoviesViewController: DBViewController {
     }
     
     enum DataItem : Hashable {
-        case nowPlaying(Movie)
-        case upcomingMovie(Movie)
-        case topRatedMovie(Movie)
+        case nowPlaying(MovieEntity)
+        case upcomingMovie(MovieEntity)
+        case topRatedMovie(MovieEntity)
     }
     
     enum SupplementaryElementKind {
@@ -59,14 +59,17 @@ public class MoviesViewController: DBViewController {
     
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        navigationController?.navigationBar.prefersLargeTitles = true
-//        navigationItem.largeTitleDisplayMode = .always
-//
+        navigationItem.largeTitleDisplayMode = .always
+        navigationController?.navigationBar.prefersLargeTitles = true
+        guard let tabBar = tabBarController as? MainTabBarController else { return }
+        tabBar.menuButton.isHidden = false
     }
     
     public override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-//        navigationController?.navigationBar.prefersLargeTitles = false
+        guard (navigationController?.viewControllers.count)! > 1 else { return }
+        guard let tabBar = tabBarController as? MainTabBarController else { return }
+        tabBar.menuButton.isHidden = true
     }
     
     
@@ -74,13 +77,10 @@ public class MoviesViewController: DBViewController {
         ProgressHUD.show()
         Task {
             do {
-                nowPlayingMovies = try await viewModel.getNowPlayingMovies()
-                upcomingMovies = try await viewModel.getUpcomingMovies()
-                topRatedMovies = try await viewModel.getTopRatedMovies()
+                nowPlayingMovies = await viewModel.getNowPlayingMovies()
+                upcomingMovies = await viewModel.getUpcomingMovies()
+                topRatedMovies = await viewModel.getTopRatedMovies()
                 updateSnapShot()
-            } catch (let error) {
-                guard let error = error as? DBError else {return}
-                print(error)
             }
         }
     }
@@ -171,9 +171,7 @@ public class MoviesViewController: DBViewController {
 extension MoviesViewController : UICollectionViewDelegate {
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Section:" , indexPath.section)
-        print("Row:",  indexPath.row)
-        var movie : Movie?
+        var movie : MovieEntity?
         let section = Sections(rawValue: indexPath.section)
         switch section {
         case .nowPlayingMovies:

@@ -35,6 +35,11 @@
 		09AE382E27EFB4C800A8BF12 /* MoviesHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09AE382D27EFB4C800A8BF12 /* MoviesHeaderView.xib */; };
 		09AE383027EFB4DE00A8BF12 /* MoviesHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AE382F27EFB4DE00A8BF12 /* MoviesHeaderView.swift */; };
 		09AE383327EFBC0800A8BF12 /* SectionBackGroundDecoration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AE383227EFBC0800A8BF12 /* SectionBackGroundDecoration.swift */; };
+		09B65722281FF66B00D54A6C /* BaseLayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B65721281FF66B00D54A6C /* BaseLayerViewController.swift */; };
+		09B65728282020ED00D54A6C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B65727282020ED00D54A6C /* ProfileViewController.swift */; };
+		09B6572B282021C000D54A6C /* FavoritesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B6572A282021C000D54A6C /* FavoritesTableViewCell.swift */; };
+		09B657332820F1BC00D54A6C /* AppDependencyContainerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B657322820F1BC00D54A6C /* AppDependencyContainerInterface.swift */; };
+		09B6576128212FA800D54A6C /* DBButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B6576028212FA800D54A6C /* DBButton.swift */; };
 		09B7FF0127FF3C9100EC77FE /* TabBarItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B7FF0027FF3C9100EC77FE /* TabBarItemView.swift */; };
 		09B7FF0327FF3CC400EC77FE /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B7FF0227FF3CC400EC77FE /* TabBarItem.swift */; };
 		09B7FF0727FF3CE600EC77FE /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B7FF0627FF3CE600EC77FE /* TabBar.swift */; };
@@ -89,6 +94,11 @@
 		09AE382D27EFB4C800A8BF12 /* MoviesHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MoviesHeaderView.xib; sourceTree = "<group>"; };
 		09AE382F27EFB4DE00A8BF12 /* MoviesHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesHeaderView.swift; sourceTree = "<group>"; };
 		09AE383227EFBC0800A8BF12 /* SectionBackGroundDecoration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionBackGroundDecoration.swift; sourceTree = "<group>"; };
+		09B65721281FF66B00D54A6C /* BaseLayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseLayerViewController.swift; sourceTree = "<group>"; };
+		09B65727282020ED00D54A6C /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		09B6572A282021C000D54A6C /* FavoritesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesTableViewCell.swift; sourceTree = "<group>"; };
+		09B657322820F1BC00D54A6C /* AppDependencyContainerInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependencyContainerInterface.swift; sourceTree = "<group>"; };
+		09B6576028212FA800D54A6C /* DBButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBButton.swift; sourceTree = "<group>"; };
 		09B7FF0027FF3C9100EC77FE /* TabBarItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItemView.swift; sourceTree = "<group>"; };
 		09B7FF0227FF3CC400EC77FE /* TabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItem.swift; sourceTree = "<group>"; };
 		09B7FF0627FF3CE600EC77FE /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
@@ -172,6 +182,9 @@
 		09AE36E327E8663800A8BF12 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				09B6575F28212F7B00D54A6C /* Reusables */,
+				09B657312820F19400D54A6C /* Interfaces */,
+				09B65720281FF61300D54A6C /* BaseLayer */,
 				09AE382727EF86EF00A8BF12 /* Assets */,
 				09AE372E27E8A1F700A8BF12 /* Navigation */,
 				09AE373127E8A20200A8BF12 /* Extensions */,
@@ -205,6 +218,7 @@
 		09AE373427E8A20900A8BF12 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				09B657232820204600D54A6C /* Profile */,
 				09AE373527E8A20900A8BF12 /* TvSeries */,
 				09AE373A27E8A20900A8BF12 /* Movies */,
 				09AE373F27E8A20900A8BF12 /* MainTabBar */,
@@ -312,6 +326,47 @@
 				09AE382D27EFB4C800A8BF12 /* MoviesHeaderView.xib */,
 			);
 			path = HeaderView;
+			sourceTree = "<group>";
+		};
+		09B65720281FF61300D54A6C /* BaseLayer */ = {
+			isa = PBXGroup;
+			children = (
+				09B65721281FF66B00D54A6C /* BaseLayerViewController.swift */,
+			);
+			path = BaseLayer;
+			sourceTree = "<group>";
+		};
+		09B657232820204600D54A6C /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				09B657292820218F00D54A6C /* Cell */,
+				09B65727282020ED00D54A6C /* ProfileViewController.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		09B657292820218F00D54A6C /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				09B6572A282021C000D54A6C /* FavoritesTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		09B657312820F19400D54A6C /* Interfaces */ = {
+			isa = PBXGroup;
+			children = (
+				09B657322820F1BC00D54A6C /* AppDependencyContainerInterface.swift */,
+			);
+			path = Interfaces;
+			sourceTree = "<group>";
+		};
+		09B6575F28212F7B00D54A6C /* Reusables */ = {
+			isa = PBXGroup;
+			children = (
+				09B6576028212FA800D54A6C /* DBButton.swift */,
+			);
+			path = Reusables;
 			sourceTree = "<group>";
 		};
 		09B7FEFF27FF3C3100EC77FE /* CustomTabBar */ = {
@@ -490,14 +545,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				09AE381427EEC9D100A8BF12 /* Extension + CollectionView.swift in Sources */,
+				09B657332820F1BC00D54A6C /* AppDependencyContainerInterface.swift in Sources */,
 				09AE373027E8A1F700A8BF12 /* Controller.swift in Sources */,
 				0919FF3A2809AE2A00AE159D /* MovieDetailsViewController.swift in Sources */,
+				09B65722281FF66B00D54A6C /* BaseLayerViewController.swift in Sources */,
 				09AE381227EEB9C100A8BF12 /* LayOutManager.swift in Sources */,
 				09AE374127E8A20900A8BF12 /* TvSeriesViewModel.swift in Sources */,
 				0919FF45280E7ACF00AE159D /* Animator.swift in Sources */,
 				09AE382B27EF934C00A8BF12 /* Extension + UIView.swift in Sources */,
 				09B7FF0127FF3C9100EC77FE /* TabBarItemView.swift in Sources */,
 				09AE374727E8A20900A8BF12 /* MainTabBarController.swift in Sources */,
+				09B6576128212FA800D54A6C /* DBButton.swift in Sources */,
 				09AE383027EFB4DE00A8BF12 /* MoviesHeaderView.swift in Sources */,
 				09AE36E627E8663800A8BF12 /* Presentation.docc in Sources */,
 				09BDE46628104C5C00B20511 /* DetailsViewController.swift in Sources */,
@@ -506,12 +564,14 @@
 				0919FF362809A8FB00AE159D /* DBViewController.swift in Sources */,
 				09B7FF0327FF3CC400EC77FE /* TabBarItem.swift in Sources */,
 				09AE383327EFBC0800A8BF12 /* SectionBackGroundDecoration.swift in Sources */,
+				09B65728282020ED00D54A6C /* ProfileViewController.swift in Sources */,
 				09E7C158281AE50600AA3440 /* GenreLabelView.swift in Sources */,
 				0919FF3E280C3F9D00AE159D /* MoviesCollectionViewCell.swift in Sources */,
 				09AE373327E8A20200A8BF12 /* Storybaorded.swift in Sources */,
 				09AE374A27E8A21100A8BF12 /* AppHelper.swift in Sources */,
 				0919FF332809537700AE159D /* DBCollectionViewCell.swift in Sources */,
 				09AE374227E8A20900A8BF12 /* TvSeriesViewController.swift in Sources */,
+				09B6572B282021C000D54A6C /* FavoritesTableViewCell.swift in Sources */,
 				09B7FF1D2802D2B400EC77FE /* AllMoviesViewController.swift in Sources */,
 				09AE374627E8A20900A8BF12 /* MoviesViewController.swift in Sources */,
 				09B7FF0727FF3CE600EC77FE /* TabBar.swift in Sources */,

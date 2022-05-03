@@ -12,6 +12,9 @@ import Kingfisher
 class MovieDetailsViewController: DBViewController {
     
     
+    @IBOutlet weak var favoriteButton: UIButton!
+    @IBOutlet weak var closeButton: UIButton!
+    @IBOutlet weak var ratingsLabel: UILabel!
     @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var backgroundPosterImageView: UIImageView!
@@ -19,18 +22,22 @@ class MovieDetailsViewController: DBViewController {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var genresStackView: UIStackView!
     
-    var movie : Movie!
+    var movie : MovieEntity!
     private let gradientLayer = CAGradientLayer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
+        configureFavoriteButton()
+        title = movie.tittle
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.largeTitleDisplayMode = .never
-       // print("will appear", posterImageView.frame)
+        if let _ = navigationController {
+            closeButton.isHidden = true
+        }
     }
     
     override func viewWillLayoutSubviews() {
@@ -38,19 +45,28 @@ class MovieDetailsViewController: DBViewController {
        
     }
     
+    private func configureFavoriteButton() {
+        guard movie.isFavorite else {
+            favoriteButton.setImage(UIImage(named: "heart-stroke", in: Bundle.presentationBundle, with: nil), for: .normal)
+            return
+        }
+        favoriteButton.setImage(UIImage(named: "heart-fill", in: Bundle.presentationBundle, with: nil), for: .normal)
+    }
+    
     
     
     private func setUI() {
         setupGradientLayer()
-        tittleLabel.text = movie.title
+        tittleLabel.text = movie.tittle
         descriptionLabel.text = movie.overview
+        ratingsLabel.text = String(movie.voteAvarage) + "/10"
         
         let imagePathPrefix = AppHelper.imagePathPrefix
-        if let backgroundPoster = movie.backdropPath {
+        if let backgroundPoster = movie.wallPaper {
             let url = URL(string: imagePathPrefix + backgroundPoster)
             backgroundPosterImageView.kf.setImage(with: url)
         }
-        let posterImage = movie.posterPath
+        let posterImage = movie.poster
         let url = URL(string: imagePathPrefix + posterImage)
         posterImageView.kf.setImage(with: url)
         
@@ -71,9 +87,25 @@ class MovieDetailsViewController: DBViewController {
         gradientLayer.frame = gradientView.bounds
     }
     
+    @IBAction func favoriteButtonTapped(_ sender: UIButton) {
+        guard movie.isFavorite else {
+            movie.isFavorite = true
+            CoreDataManager.shared.save(movie: movie)
+            configureFavoriteButton()
+            return
+        }
+        AppHelper.showActionAlert(viewController: self, title: movie.tittle, message: nil, cancelButtonTittle: "Cancel", actionButtonTitle: "Remove From Favorites", action: removeFromFavorites)
+    }
+    
     @IBAction func dismiss(_ sender: Any) {
-        print(backgroundPosterImageView.frame)
+        //print(backgroundPosterImageView.frame)
         dismiss(animated: true)
+    }
+    
+    private func removeFromFavorites() {
+        CoreDataManager.shared.deleteMovie(movie: movie)
+        movie.isFavorite = false
+        configureFavoriteButton()
     }
     
 

@@ -8,12 +8,6 @@
 import Foundation
 import UIKit
 
-
-public protocol AppDependencyContainerInterface {
-    func getMoviesViewModel() -> MoviesViewModel
-    func getTvSeriesViewModel() -> TvSeriesViewModel
-}
-
 public class Controller {
     
     public static var appDependencyContainer : AppDependencyContainerInterface?

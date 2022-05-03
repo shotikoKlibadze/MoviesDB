@@ -11,14 +11,13 @@ import Core
 
 class AppDependencyContainer: AppDependencyContainerInterface {
     
-    
-    
     static let appDepedencyContainer = AppDependencyContainer()
     
-    
     func getMoviesViewModel() -> MoviesViewModel {
-        let dataSource = MoviesDataSource()
-        let viewModel = MoviesViewModel(dataSource: dataSource)
+        let remoteDataSource = MoviesRemoteDataSource()
+        let localDataSource = MoviesLocalDataSource()
+        let dataRepo = MoviesDataRepository(remoteDataSource: remoteDataSource, localDataSource: localDataSource)
+        let viewModel = MoviesViewModel(dataSource: dataRepo)
         return viewModel
     }
     

@@ -83,17 +83,17 @@ class MovieCollectionViewCell : DBCollectionViewCell {
         contentView.makeCustomRound(topLeft: 8, topRight: 8, bottomLeft: 8, bottomRight: 8)
     }
     
-    func configure(with movie: Movie, isLargePoster: Bool) {
-        titleLable.text = movie.originalTitle
-        ratingsLabel.text = String(movie.voteAverage)
+    func configure(with movie: MovieEntity, isLargePoster: Bool) {
+        titleLable.text = movie.tittle
+        ratingsLabel.text = String(movie.voteAvarage)
         let imagePathPrefix = AppHelper.imagePathPrefix
         if isLargePoster {
-            if let largePoster = movie.backdropPath {
+            if let largePoster = movie.wallPaper {
                 let url = URL(string: imagePathPrefix + largePoster)
                 posterImageView.kf.setImage(with: url)
             }
         } else {
-            let url = URL(string: imagePathPrefix + movie.posterPath)
+            let url = URL(string: imagePathPrefix + movie.poster)
             posterImageView.kf.setImage(with: url)
         }
     }

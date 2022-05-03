@@ -13,12 +13,14 @@ import Kingfisher
 class AllMoviesViewController: DBViewController {
     
     var contextProvider : ContextProvider!
-    var dataSource : UICollectionViewDiffableDataSource<Int,Movie>!
+    var dataSource : UICollectionViewDiffableDataSource<Int,MovieEntity>!
     var transition = Animator()
     var sizeViewForTransition = UIView()
     var imageViewForTransition = UIImageView()
     
-    private var movies = [Movie]()
+    private var movies = [MovieEntity]()
+    
+    var favorites = [FavoriteMovieEntity]()
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -26,6 +28,24 @@ class AllMoviesViewController: DBViewController {
         super.viewDidLoad()
         setupCollectionView()
         getMovies()
+        fetchFavorites()
+    }
+    
+    func fetchFavorites() {
+       // favorites = CoreDataManager.shared.fetchFavoriteMovies()
+       // print(favorites.count)
+        
+        //CoreDataManager.shared.delete(data: favorites)
+       //favorites = CoreDataManager.shared.fetchFavoriteMovies()
+       // print(favorites.count)
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationItem.largeTitleDisplayMode = .never
+       
+        
     }
 
     private func setupCollectionView() {
@@ -62,16 +82,14 @@ class AllMoviesViewController: DBViewController {
         ProgressHUD.show()
         Task {
             do {
-                movies = try await contextProvider.provideContext()
+                movies = await contextProvider.provideContext()
                 updateSnapshot()
-            } catch (let error) {
-                print(error.localizedDescription)
             }
         }
     }
     
     private func updateSnapshot() {
-        var snapShot = NSDiffableDataSourceSnapshot<Int,Movie>()
+        var snapShot = NSDiffableDataSourceSnapshot<Int,MovieEntity>()
         snapShot.appendSections([0])
         snapShot.appendItems(movies)
         dataSource.apply(snapShot)

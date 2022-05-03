@@ -12,13 +12,24 @@ public class AppHelper {
     
     static let imagePathPrefix = "https://image.tmdb.org/t/p/w500"
     
-    static func showAllert(viewController: UIViewController, title: String, message: String) {
+    static func showInfoAlert(viewController: UIViewController, title: String, message: String) {
         DispatchQueue.main.async {
             let allertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .cancel)
             allertController.addAction(okAction)
             viewController.present(allertController, animated: true)
         }
+    }
+    
+    static func showActionAlert(viewController: UIViewController, title: String?, message: String?, cancelButtonTittle: String?, actionButtonTitle: String?, action: @escaping () -> ()) {
+        let allertController = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: cancelButtonTittle, style: .cancel)
+        let actionButton = UIAlertAction(title: actionButtonTitle, style: .destructive) { _ in
+            action()
+        }
+        allertController.addAction(cancelAction)
+        allertController.addAction(actionButton)
+        viewController.present(allertController, animated: true)
     }
     
     static let genres = [28: "Action",

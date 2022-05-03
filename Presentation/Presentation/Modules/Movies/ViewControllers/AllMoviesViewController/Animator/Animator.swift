@@ -59,11 +59,10 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
         
         
         UIView.animate(withDuration: 0.5, delay: 0, animations: {
-            newImageView.frame = CGRect(x: 0, y: 47, width: UIScreen.main.bounds.width, height: 250)
-//            (viewController.posterImageView.superview?.convert(viewController.posterImageView.frame, to: containerView)) ?? CGRect()
+            newImageView.frame = CGRect(x: 0, y: 47, width: UIScreen.main.bounds.width, height: 300)
+
             newContentView.frame = (viewController.view.superview?.convert(viewController.view.frame, to: containerView)) ?? CGRect()
-            //print("newImage" , newImageView.frame)
-            //print("the image", viewController.posterImageView.frame)
+           
         }) { (_) in
             //newImageView.frame = CGRect(x: 0.0, y: 44.0, width: 390, height: 250)
             UIView.animate(withDuration: 0.1, animations: {
@@ -108,7 +107,7 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
         
         viewController.view.layoutIfNeeded()
         
-        newImageView.frame = (viewController.posterImageView.superview?.convert(viewController.posterImageView.frame, to: containerView)) ?? CGRect()
+        newImageView.frame = CGRect(x: 0, y: 47, width: UIScreen.main.bounds.width, height: 250)
         viewController.posterImageView.alpha = 0
         
         UIView.animate(withDuration: 0.1, animations: {

@@ -36,7 +36,7 @@ class DetailsViewController: UIViewController {
     
     let containerView = UIView()
     
-    var movie : Movie!
+    var movie : MovieData!
 
     override func viewDidLoad() {
         super.viewDidLoad()
