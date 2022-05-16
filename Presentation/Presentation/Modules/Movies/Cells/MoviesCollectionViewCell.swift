@@ -102,4 +102,13 @@ class MovieCollectionViewCell : DBCollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.removeFromSuperview()
+    }
+    
+//    deinit {
+//        print ("something")
+//    }
+    
 }

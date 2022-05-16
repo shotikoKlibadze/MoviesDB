@@ -56,12 +56,11 @@ class ProfileViewController: UITableViewController {
         }
         
         if indexPath.row == 0 {
-           
-        } else {
             let vc = Controller.favoriteMoviesViewController()
             tabBar.controller?.pushViewController(vc, animated: true)
+        } else {
+            
         }
-       
         parrentVC?.closeMenu()
     }
     

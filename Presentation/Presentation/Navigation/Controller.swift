@@ -36,7 +36,7 @@ public class Controller {
     
     
     static func favoriteMoviesViewController() -> UIViewController {
-        let vc = FavoriteMoviesViewController.instantiateFromStoryboard()
+        let vc = FavoriteMoviesViewController()
         vc.viewModel = appDependencyContainer?.getMoviesViewModel()
         return vc
     }

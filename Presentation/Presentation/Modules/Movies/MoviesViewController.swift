@@ -11,7 +11,7 @@ import ProgressHUD
 import RxSwift
 
 public class MoviesViewController: DBViewController {
-    
+   
     let bag = DisposeBag()
     var viewModel: MoviesViewModel!
     
@@ -122,7 +122,7 @@ public class MoviesViewController: DBViewController {
             guard let sectionKind = Sections(rawValue: indexPath.section) else {
                 fatalError("Unhandled section : \(indexPath.section)")
             }
-            
+
             if kind == SupplementaryElementKind.sectionHeader {
                 switch sectionKind {
                 case .nowPlayingMovies:
@@ -189,5 +189,6 @@ extension MoviesViewController : UICollectionViewDelegate {
         vc.viewModel = viewModel
         navigationController?.pushViewController(vc, animated: true)
     }
+    
 }
 

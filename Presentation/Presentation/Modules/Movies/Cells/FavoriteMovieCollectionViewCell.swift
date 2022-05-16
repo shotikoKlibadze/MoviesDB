@@ -9,7 +9,7 @@ import UIKit
 import Kingfisher
 import Core
 
-class FavoriteMovieCollectionViewCell: UICollectionViewCell {
+class FavoriteMovieCollectionViewCell: DBCollectionViewCell {
     
     let imageView : UIImageView = {
         let imgv = UIImageView()
@@ -26,7 +26,9 @@ class FavoriteMovieCollectionViewCell: UICollectionViewCell {
     
     private func setupUI() {
         contentView.addSubview(imageView)
-        imageView.fillSuperview(padding: .init(top: 10, left: 10, bottom: 10, right: 10))
+        imageView.fillSuperview()
+        contentView.clipsToBounds = true
+        contentView.layer.cornerRadius = 10
     }
     
     func configure(with movie: MovieEntity) {
@@ -36,9 +38,17 @@ class FavoriteMovieCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+//    deinit {
+//        print ("favorite cell")
+//    }
     
     
 }

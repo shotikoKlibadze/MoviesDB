@@ -10,8 +10,8 @@ import Core
 import ProgressHUD
 
 class FavoriteMoviesViewController: DBViewController {
-
-    @IBOutlet weak var collectionView: UICollectionView!
+    
+    var collectionView : UICollectionView?
     
     var dataSource : UICollectionViewDiffableDataSource<Int,MovieEntity>!
     
@@ -21,7 +21,7 @@ class FavoriteMoviesViewController: DBViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchMovies()
-       
+        setupCollectionView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -29,15 +29,17 @@ class FavoriteMoviesViewController: DBViewController {
         navigationItem.largeTitleDisplayMode = .never
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        setupCollectionView()
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        collectionView?.fillSuperview()
     }
     
     private func setupCollectionView() {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: configureLayout())
         collectionView.registerClass(class: FavoriteMovieCollectionViewCell.self)
-        collectionView.collectionViewLayout = configureLayout()
         collectionView.dataSource = dataSource
+        view.addSubview(collectionView)
+        self.collectionView = collectionView
         
         dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, model in
             let cell = collectionView.deque(FavoriteMovieCollectionViewCell.self, for: indexPath)
@@ -49,7 +51,7 @@ class FavoriteMoviesViewController: DBViewController {
     private func fetchMovies() {
         ProgressHUD.show()
         Task {
-            let movies = await viewModel.getFavoriteMovies()
+            let movies = await viewModel!.getFavoriteMovies()
             self.movies = movies
             print(movies.count)
             configureSnapshot()

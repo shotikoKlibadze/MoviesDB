@@ -108,9 +108,15 @@ class CastMemberCollectionViewCell :  UICollectionViewCell {
         shadowView.layer.shadowColor = UIColor(named: "DBShadowColor", in: Bundle.presentationBundle, compatibleWith: nil)?.cgColor
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+    }
     
     
     
+//    deinit {
+//        print ("castcell")
+//    }
     
     
     
