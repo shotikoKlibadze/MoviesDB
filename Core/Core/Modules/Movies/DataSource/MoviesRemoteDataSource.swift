@@ -12,9 +12,12 @@ public protocol MoviesRemoteDataSourceInterface {
     func getUpcomingMovies() async -> [MovieData]
     func getTopRatedMovies() async -> [MovieData]
     func getNowPlayingMovies() async -> [MovieData]
+    func getSimilarMovies(movieID: Int) async -> [MovieData]
+    func getCastMembers(movieID: Int) async -> [ActorsData]
 }
 
 public class MoviesRemoteDataSource: MoviesRemoteDataSourceInterface {
+   
     private let key = "f4fc52063b2419f14cdaa0ac0fd23462"
     
     public init() {
@@ -41,6 +44,20 @@ public class MoviesRemoteDataSource: MoviesRemoteDataSourceInterface {
         let networkCall = NetworkManager<MovieResponse>.shared
         guard let data = await networkCall.sendAsyncRequest(path: path) else { return [] }
         return data.results
+    }
+    
+    public func getSimilarMovies(movieID: Int) async -> [MovieData] {
+        let path =  "https://api.themoviedb.org/3/movie/\(movieID)/similar?api_key=\(key)&language=en-US&page=1"
+        let networkCall = NetworkManager<MovieResponse>.shared
+        guard let data = await networkCall.sendAsyncRequest(path: path) else { return [] }
+        return data.results
+    }
+    
+    public func getCastMembers(movieID: Int) async -> [ActorsData] {
+        let path = "https://api.themoviedb.org/3/movie/\(movieID)/credits?api_key=\(key)&language=en-US"
+        let networkCall = NetworkManager<MovieCastResponse>.shared
+        guard let data = await networkCall.sendAsyncRequest(path: path) else { return [] }
+        return data.cast
     }
     
 }

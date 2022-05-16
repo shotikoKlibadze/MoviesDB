@@ -61,6 +61,7 @@ class MovieCollectionViewCell : DBCollectionViewCell {
         setupLayout()
         setUI()
         contentView.backgroundColor = .yellow
+        
     }
     
     private func setupHierarchy() {
@@ -79,7 +80,6 @@ class MovieCollectionViewCell : DBCollectionViewCell {
     
     private func setUI() {
         titleView.backgroundColor = UIColor.DBTopLayerBackground()
-        //contentView.layer.cornerRadius = 8
         contentView.makeCustomRound(topLeft: 8, topRight: 8, bottomLeft: 8, bottomRight: 8)
     }
     

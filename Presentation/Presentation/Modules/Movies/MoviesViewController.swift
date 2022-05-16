@@ -87,7 +87,7 @@ public class MoviesViewController: DBViewController {
     
     private func setupCollectionView() {
         //Layout
-        let layOut = LaoOutManager().createLayout()
+        let layOut = MoviesDashboardPageLaoOutManager().createLayout()
         collectionView.collectionViewLayout = layOut
         collectionView.delegate = self
         //Cell Registration
@@ -184,12 +184,9 @@ extension MoviesViewController : UICollectionViewDelegate {
             return
         }
         
-        //let vc = DetailsViewController()
-       // vc.movie = movie
         let vc = MovieDetailsViewController.instantiateFromStoryboard()
         vc.movie = movie
-       // vc.modalPresentationStyle = .overFullScreen
-       // present(vc, animated: true)
+        vc.viewModel = viewModel
         navigationController?.pushViewController(vc, animated: true)
     }
 }

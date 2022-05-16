@@ -8,7 +8,7 @@
 import Foundation
 
 public protocol MoviesLocalDataSourceInterface {
-    func fetchFavoriteMovies() -> [FavoriteMovieEntity]
+    func fetchFavoriteMovies() async -> [FavoriteMovieEntity]
 }
 
 public class MoviesLocalDataSource : MoviesLocalDataSourceInterface {
@@ -17,7 +17,7 @@ public class MoviesLocalDataSource : MoviesLocalDataSourceInterface {
     
     public init () {}
     
-    public func fetchFavoriteMovies() -> [FavoriteMovieEntity] {
+    public func fetchFavoriteMovies() async -> [FavoriteMovieEntity] {
         let managedContext = manager.persistentContainer.viewContext
         let fetchRequest = FavoriteMovieEntity.fetchRequest()
         var data = [FavoriteMovieEntity]()

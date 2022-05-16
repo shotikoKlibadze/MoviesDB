@@ -11,11 +11,13 @@ class ProfileViewController: UITableViewController {
     
     let favorites = ["Favorite Movies", "Favorite TvSeries"]
     
-    var controller : MainTabBarController?
+    var tabBar : MainTabBarController?
     var parrentVC : BaseLayerViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .systemGray5
+        tableView.separatorStyle = .none
 
     }
     
@@ -48,22 +50,21 @@ class ProfileViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let controller = controller else {
+        tableView.deselectRow(at: indexPath, animated: true)
+        guard let tabBar = tabBar else {
             return
         }
-
+        
         if indexPath.row == 0 {
-            let vc = UIViewController()
-            vc.view.backgroundColor = .red
-            controller.controller?.pushViewController(vc, animated: true)
+           
         } else {
-            let vc = UIViewController()
-            vc.view.backgroundColor = .blue
-            controller.controller?.pushViewController(vc, animated: true)
+            let vc = Controller.favoriteMoviesViewController()
+            tabBar.controller?.pushViewController(vc, animated: true)
         }
        
         parrentVC?.closeMenu()
     }
+    
 
 
 }

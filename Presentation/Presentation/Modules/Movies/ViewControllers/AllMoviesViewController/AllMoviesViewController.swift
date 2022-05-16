@@ -28,24 +28,11 @@ class AllMoviesViewController: DBViewController {
         super.viewDidLoad()
         setupCollectionView()
         getMovies()
-        fetchFavorites()
     }
-    
-    func fetchFavorites() {
-       // favorites = CoreDataManager.shared.fetchFavoriteMovies()
-       // print(favorites.count)
         
-        //CoreDataManager.shared.delete(data: favorites)
-       //favorites = CoreDataManager.shared.fetchFavoriteMovies()
-       // print(favorites.count)
-        
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.largeTitleDisplayMode = .never
-       
-        
     }
 
     private func setupCollectionView() {
@@ -105,6 +92,7 @@ extension AllMoviesViewController : UICollectionViewDelegate {
         vc.modalPresentationStyle = .overFullScreen
         vc.transitioningDelegate = self
         vc.movie = movies[indexPath.row]
+        vc.viewModel = contextProvider.viewModel
         if let cell = collectionView.cellForItem(at: indexPath) as? MovieCollectionViewCell {
             let imageView = cell.posterImageView
             sizeViewForTransition = imageView

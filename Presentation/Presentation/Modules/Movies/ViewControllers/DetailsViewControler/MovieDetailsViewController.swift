@@ -8,10 +8,11 @@
 import UIKit
 import Core
 import Kingfisher
+import ProgressHUD
 
 class MovieDetailsViewController: DBViewController {
     
-    
+    @IBOutlet weak var overtviewTextView: UITextView!
     @IBOutlet weak var favoriteButton: UIButton!
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var ratingsLabel: UILabel!
@@ -19,17 +20,51 @@ class MovieDetailsViewController: DBViewController {
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var backgroundPosterImageView: UIImageView!
     @IBOutlet weak var tittleLabel: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var genresStackView: UIStackView!
+    @IBOutlet weak var collectionView: UICollectionView!
     
     var movie : MovieEntity!
+    var viewModel : MoviesViewModel!
+    
+    var similarMovies = [MovieEntity]()
+    var cast = [ActorEntity]()
+    
     private let gradientLayer = CAGradientLayer()
+    
+    enum DataItem : Hashable {
+        case cast(ActorEntity)
+        case similarMovies(MovieEntity)
+    }
+    
+    enum Section : Int, CaseIterable {
+        case cast
+        case similarMovies
+        var sectionHeader : String {
+            switch self {
+            case .cast:
+                return "Cast"
+            case .similarMovies:
+                return "Similar Movies"
+            }
+        }
+    }
+    
+    enum SupplementaryElementKind {
+        static let sectionHeader = "sectionHeader"
+    }
+    
+    private var dataSource : UICollectionViewDiffableDataSource<Section,DataItem>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        favoriteButton.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
+        favoriteButton.imageView?.contentMode = .scaleAspectFit
         setUI()
         configureFavoriteButton()
-        title = movie.tittle
+        setupCollectionView()
+        overtviewTextView.textContainer.heightTracksTextView = true
+        overtviewTextView.isScrollEnabled = false
+        getData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,25 +75,88 @@ class MovieDetailsViewController: DBViewController {
         }
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-       
+    private func getData() {
+        ProgressHUD.show()
+        Task {
+            similarMovies = await viewModel.getSimilarMoives(movieID: movie.id)
+            cast = await viewModel.getCastMembers(movieID: movie.id)
+            configureSnapshot()
+        }
+    }
+    
+    private func setupCollectionView() {
+        let layout = MovieDetailsPageLayoutManager().createLayout()
+        collectionView.collectionViewLayout = layout
+        collectionView.register(MovieCollectionViewCell.self, forCellWithReuseIdentifier: MovieCollectionViewCell.identifier)
+        collectionView.register(CastMemberCollectionViewCell.self, forCellWithReuseIdentifier: CastMemberCollectionViewCell.identifier)
+        collectionView.register(UINib(nibName: "MoviesHeaderView", bundle: Bundle.presentationBundle), forSupplementaryViewOfKind: SupplementaryElementKind.sectionHeader, withReuseIdentifier: MoviesHeaderView.identifier)
+        
+        dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: {
+            collectionView, indexPath, model in
+            guard let sectionKind = Section(rawValue: indexPath.section) else {
+                fatalError("Unhandled section : \(indexPath.section)")
+            }
+            switch (sectionKind, model) {
+            case (.cast, .cast(let actor)):
+                guard let cell = collectionView.deque(CastMemberCollectionViewCell.self, for: indexPath) else { fatalError("Cell Can't Be Found") }
+                cell.configure(with: actor)
+                return cell
+            case (.similarMovies, .similarMovies(let movie)):
+                guard let cell = collectionView.deque(MovieCollectionViewCell.self, for: indexPath) else { fatalError("Cell Can't Be Found") }
+                cell.configure(with: movie, isLargePoster: false)
+                return cell
+            default :
+                return nil
+            }
+        })
+        
+        dataSource.supplementaryViewProvider = { collectionView , kind , indexPath in
+            guard let sectionKind = Section(rawValue: indexPath.section) else {
+                fatalError("Unhandled section : \(indexPath.section)")
+            }
+            if kind == SupplementaryElementKind.sectionHeader {
+                switch sectionKind {
+                case .cast:
+                    let view = collectionView.dequeueReusableSupplementaryView(ofKind: SupplementaryElementKind.sectionHeader, withReuseIdentifier: MoviesHeaderView.identifier, for: indexPath) as! MoviesHeaderView
+                    view.seeAllBUtton.isHidden = true
+                    view.sectionHeaderLabel.text = sectionKind.sectionHeader
+                    return view
+                case .similarMovies:
+                    let view = collectionView.dequeueReusableSupplementaryView(ofKind: SupplementaryElementKind.sectionHeader, withReuseIdentifier: MoviesHeaderView.identifier, for: indexPath) as! MoviesHeaderView
+                    view.seeAllBUtton.isHidden = true
+                    view.sectionHeaderLabel.text = sectionKind.sectionHeader
+                    return view
+                }
+            } else {
+                return nil
+            }
+            
+        }
+    }
+    
+    @MainActor
+    private func configureSnapshot() {
+        var snapshot = NSDiffableDataSourceSnapshot<Section,DataItem>()
+        snapshot.appendSections(Section.allCases)
+        snapshot.appendItems(cast.map({DataItem.cast($0)}), toSection: .cast)
+        snapshot.appendItems(similarMovies.map({DataItem.similarMovies($0)}), toSection: .similarMovies)
+        dataSource.apply(snapshot)
+        ProgressHUD.dismiss()
     }
     
     private func configureFavoriteButton() {
         guard movie.isFavorite else {
-            favoriteButton.setImage(UIImage(named: "heart-stroke", in: Bundle.presentationBundle, with: nil), for: .normal)
+            favoriteButton.tintColor = .white
             return
         }
-        favoriteButton.setImage(UIImage(named: "heart-fill", in: Bundle.presentationBundle, with: nil), for: .normal)
+        favoriteButton.tintColor = .systemRed
     }
     
-    
-    
     private func setUI() {
+        title = movie.tittle
         setupGradientLayer()
         tittleLabel.text = movie.tittle
-        descriptionLabel.text = movie.overview
+        overtviewTextView.text = movie.overview
         ratingsLabel.text = String(movie.voteAvarage) + "/10"
         
         let imagePathPrefix = AppHelper.imagePathPrefix
@@ -98,7 +196,6 @@ class MovieDetailsViewController: DBViewController {
     }
     
     @IBAction func dismiss(_ sender: Any) {
-        //print(backgroundPosterImageView.frame)
         dismiss(animated: true)
     }
     
@@ -108,5 +205,4 @@ class MovieDetailsViewController: DBViewController {
         configureFavoriteButton()
     }
     
-
 }

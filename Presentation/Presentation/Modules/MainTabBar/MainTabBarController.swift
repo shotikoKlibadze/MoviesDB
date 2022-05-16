@@ -14,14 +14,14 @@ public class MainTabBarController: UITabBarController {
     let moviesViewController = Controller.moviesViewController()
     let tvSeriesVewController = Controller.tvSeriesViewController()
     
-    let menuButton : DBButton = {
-        let btn = DBButton(frame: CGRect(x: 20, y: 45, width: 30, height: 30))
-       // btn.translatesAutoresizingMaskIntoConstraints = false
-        btn.setImage(UIImage(named: "open", in: Bundle.presentationBundle, with: .none)?.withRenderingMode(.alwaysOriginal), for: .normal)
+    let menuButton : UIButton = {
+        let btn = UIButton(frame: CGRect(x: 20, y: 55, width: 30, height: 30))
+        btn.setImage(UIImage(named: "open", in: Bundle.presentationBundle, with: .none), for: .normal)
+        
+        btn.cornerRadius = 15
+        btn.clipsToBounds = true
         return btn
     }()
-    
-
     
     var baseController : BaseLayerViewController?
     var controller : UINavigationController?
@@ -38,8 +38,6 @@ public class MainTabBarController: UITabBarController {
             tvSeriesVewController
         ]
         getSelectedViewControllersNavController()
-        
-        
         ErrorHandler.shared.injectErrorReciever(errorReciever: self)
         
         //tabBar.isTranslucent = false
@@ -48,18 +46,9 @@ public class MainTabBarController: UITabBarController {
         setupProperties()
         setupHierarchy()
         setupLayout()
-        
         bind()
         view.layoutIfNeeded()
         setupMenuButton()
-        
-        //menuButton.clipsToBounds = true
-      //  menuButton.cornerRadius = menuButton.frame.height / 2
-        print(menuButton.frame.height)
-        
-       // menuButton.addShadow(offset: CGSize.init(width: 0, height: 3), color: UIColor.black, radius: 2.0, opacity: 0.35)
-        //hidesBottomBarWhenPushed = true
-
     }
     
     private func getSelectedViewControllersNavController() {
@@ -71,16 +60,8 @@ public class MainTabBarController: UITabBarController {
 
 
     private func setupMenuButton() {
-       
         view.addSubview(menuButton)
-       // menuButton.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 45, left: 20, bottom: 0, right: 0), size: .init(width: 30, height: 30))
-      //  menuButton.cornerRadius = 15
-       // menuButton.layer.masksToBounds = true
-        
-        
         menuButton.addTarget(self, action: #selector(openSideMenu), for: .touchUpInside)
-        
-        
     }
     
     @objc func openSideMenu() {
@@ -99,14 +80,6 @@ public class MainTabBarController: UITabBarController {
         }
         baseController = (parent as! BaseLayerViewController)
     }
-    
-    
-    
-    
-//    public override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        navigationController?.isNavigationBarHidden = true
-//    }
     
     private func setupHierarchy() {
         //view.addSubview(customTabBar)

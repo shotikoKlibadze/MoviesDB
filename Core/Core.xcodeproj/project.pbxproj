@@ -24,6 +24,8 @@
 		09B657672821395800D54A6C /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B657662821395800D54A6C /* CoreDataManager.swift */; };
 		09B6576A28213F5600D54A6C /* FavoriteMovieEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B6576828213F5600D54A6C /* FavoriteMovieEntity+CoreDataClass.swift */; };
 		09B6576B28213F5600D54A6C /* FavoriteMovieEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B6576928213F5600D54A6C /* FavoriteMovieEntity+CoreDataProperties.swift */; };
+		09DA6AF9282BE2C10025DBD4 /* MovieCastResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DA6AF8282BE2C10025DBD4 /* MovieCastResponse.swift */; };
+		09DA6AFB282BE3970025DBD4 /* ActorEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DA6AFA282BE3970025DBD4 /* ActorEntity.swift */; };
 		1AE74E4FB942C6DC1A2D9D12 /* Pods_Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECD0BCDE92C3D89333075566 /* Pods_Core.framework */; };
 /* End PBXBuildFile section */
 
@@ -46,6 +48,8 @@
 		09B657662821395800D54A6C /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		09B6576828213F5600D54A6C /* FavoriteMovieEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteMovieEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		09B6576928213F5600D54A6C /* FavoriteMovieEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteMovieEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		09DA6AF8282BE2C10025DBD4 /* MovieCastResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCastResponse.swift; sourceTree = "<group>"; };
+		09DA6AFA282BE3970025DBD4 /* ActorEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorEntity.swift; sourceTree = "<group>"; };
 		9CA0310BFF7AABAF8EB8E4E1 /* Pods-Core.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Core.release.xcconfig"; path = "Target Support Files/Pods-Core/Pods-Core.release.xcconfig"; sourceTree = "<group>"; };
 		C0D3588767E9CC8CCA265985 /* Pods-Core.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Core.debug.xcconfig"; path = "Target Support Files/Pods-Core/Pods-Core.debug.xcconfig"; sourceTree = "<group>"; };
 		ECD0BCDE92C3D89333075566 /* Pods_Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -161,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				09AE375B27E8A24900A8BF12 /* MovieResponse.swift */,
+				09DA6AF8282BE2C10025DBD4 /* MovieCastResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -178,6 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				09B6572D2820ED7F00D54A6C /* MovieEntity.swift */,
+				09DA6AFA282BE3970025DBD4 /* ActorEntity.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -326,11 +332,13 @@
 			files = (
 				09AE375027E8A24200A8BF12 /* NetworkManager.swift in Sources */,
 				09B657672821395800D54A6C /* CoreDataManager.swift in Sources */,
+				09DA6AF9282BE2C10025DBD4 /* MovieCastResponse.swift in Sources */,
 				09AE375E27E8A24900A8BF12 /* MoviesRemoteDataSource.swift in Sources */,
 				09B6576A28213F5600D54A6C /* FavoriteMovieEntity+CoreDataClass.swift in Sources */,
 				09AE375D27E8A24900A8BF12 /* TvSeriesDataSourceInterface.swift in Sources */,
 				09AE376227E8A7D600A8BF12 /* Extension + URLSession.swift in Sources */,
 				09B657392820F26700D54A6C /* MoviesDataRepositoryInterface.swift in Sources */,
+				09DA6AFB282BE3970025DBD4 /* ActorEntity.swift in Sources */,
 				09AE374D27E8A23900A8BF12 /* DBError.swift in Sources */,
 				09B6572E2820ED7F00D54A6C /* MovieEntity.swift in Sources */,
 				09B6573B2820F2D100D54A6C /* MoviesLocalDataSource.swift in Sources */,

@@ -73,13 +73,13 @@
     </objects>
     <resources>
         <namedColor name="DBLalebColor">
-            <color red="0.1429178356849018" green="0.1429178356849018" blue="0.1429178356849018" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.14300000667572021" green="0.14300000667572021" blue="0.14300000667572021" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="DBSecondaryBackGround">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="DBgreen">
-            <color red="0.14952367013661649" green="0.41643786430358887" blue="0.66527402400970459" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.15000000596046448" green="0.41600000858306885" blue="0.66500002145767212" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
     </resources>
 </document>

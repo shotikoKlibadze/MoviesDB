@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-struct LaoOutManager {
+struct MoviesDashboardPageLaoOutManager {
     
     enum DecorationKind {
         static let backgroundDecoration = "SectionBackGroundDecoration"

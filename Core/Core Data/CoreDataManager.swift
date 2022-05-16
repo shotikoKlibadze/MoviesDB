@@ -28,15 +28,21 @@ public class CoreDataManager {
         return container
     }()
     
+    lazy var managedContext : NSManagedObjectContext = {
+        return self.persistentContainer.viewContext
+    }()
     
     private init () {
         
     }
     
     public func save(movie: MovieEntity) {
-        let managedContext = persistentContainer.viewContext
-        let entity = NSEntityDescription.entity(forEntityName: "FavoriteMovieEntity", in: managedContext)!
+        guard let entity = NSEntityDescription.entity(forEntityName: "FavoriteMovieEntity", in: managedContext) else { return }
         let favoriteMoive = NSManagedObject(entity: entity, insertInto: managedContext)
+        
+       // let favoriteMovie = FavoriteMovieEntity(context: managedContext)
+       // favoriteMovie.id = movie.id
+        
         
         favoriteMoive.setValue(movie.id, forKey: "id")
         favoriteMoive.setValue(movie.genreIDS, forKey: "genreIDS")
@@ -62,12 +68,11 @@ public class CoreDataManager {
         fetchRequest = FavoriteMovieEntity.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "id == %@", NSNumber(integerLiteral: movie.id))
         fetchRequest.includesPropertyValues = false
-        let context = persistentContainer.viewContext
-        
+     
         do {
-            let objects = try context.fetch(fetchRequest)
-            objects.forEach({context.delete($0)})
-            try context.save()
+            let objects = try managedContext.fetch(fetchRequest)
+            objects.forEach({managedContext.delete($0)})
+            try managedContext.save()
         } catch {
             let error = DBError(errorMessage: "Couldn't remove movie", debugMessage: "CoreDataError", endPoint: "Storage")
             ErrorHandler.shared.handleError(error: error)

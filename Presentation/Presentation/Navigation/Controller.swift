@@ -33,4 +33,13 @@ public class Controller {
         navController.tabBarItem.image = UIImage(systemName: "tv")
         return navController
     }
+    
+    
+    static func favoriteMoviesViewController() -> UIViewController {
+        let vc = FavoriteMoviesViewController.instantiateFromStoryboard()
+        vc.viewModel = appDependencyContainer?.getMoviesViewModel()
+        return vc
+    }
+    
+    
 }

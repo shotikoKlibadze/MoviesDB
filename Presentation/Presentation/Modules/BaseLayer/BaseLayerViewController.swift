@@ -97,7 +97,7 @@ public class BaseLayerViewController: UIViewController {
         mainController.didMove(toParent: self)
         
         let profileVC = ProfileViewController()
-        profileVC.controller = mainController
+        profileVC.tabBar = mainController
         let profileView = profileVC.view!
         sideView.addSubview(profileView)
         profileView.fillSuperview()

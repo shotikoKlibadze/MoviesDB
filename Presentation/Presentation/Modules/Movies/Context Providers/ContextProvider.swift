@@ -9,13 +9,14 @@ import Foundation
 import Core
 
 protocol ContextProvider {
+    var viewModel : MoviesViewModel! { get set }
     func provideContext() async -> [MovieEntity]
 }
 
 class UpcomingMoviesProvider : ContextProvider {
     
-    var viewModel : MoviesViewModel!
-  
+    var viewModel: MoviesViewModel!
+    
     init() {
     }
     
@@ -28,8 +29,7 @@ class UpcomingMoviesProvider : ContextProvider {
 class TopRatedMoviesProvider : ContextProvider {
 
     var viewModel : MoviesViewModel!
-    var movies = [MovieData]()
-
+   
     init() {}
 
     func provideContext() async -> [MovieEntity] {

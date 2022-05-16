@@ -32,4 +32,16 @@ public class MoviesViewModel {
         return await dataSource.getTopRatedMovies()
     }
     
+    func getSimilarMoives(movieID: Int) async -> [MovieEntity] {
+        return await dataSource.getSimilarMovies(movieID: movieID)
+    }
+    
+    func getCastMembers(movieID: Int) async -> [ActorEntity] {
+        return await dataSource.getCastMembers(movieID: movieID)
+    }
+    
+    func getFavoriteMovies() async -> [MovieEntity] {
+        return await dataSource.getFavoriteMovies()
+    }
+    
 }

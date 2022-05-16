@@ -26,5 +26,4 @@ public class ErrorHandler {
         errorReciever?.handleError(error: error)
     }
     
-    
 }
