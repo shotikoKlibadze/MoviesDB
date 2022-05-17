@@ -62,7 +62,8 @@ public class BaseLayerViewController: UIViewController {
     }
     
     private func performAnimations() {
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: { [weak self] in
+            guard let self = self else { return }
             self.view.layoutIfNeeded()
             self.darkCoverView.alpha = self.isSideViewOpen ? 1 : 0
         })

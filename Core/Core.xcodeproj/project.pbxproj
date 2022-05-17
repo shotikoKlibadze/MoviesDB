@@ -32,10 +32,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0923A9F42833645F00D31811 /* ActorCoreDataEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ActorCoreDataEntity+CoreDataClass.swift"; path = "../ActorCoreDataEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		0923A9F52833645F00D31811 /* ActorCoreDataEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ActorCoreDataEntity+CoreDataProperties.swift"; path = "../ActorCoreDataEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		0923A9F62833645F00D31811 /* MovieCoreDataEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MovieCoreDataEntity+CoreDataClass.swift"; path = "../MovieCoreDataEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		0923A9F72833645F00D31811 /* MovieCoreDataEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MovieCoreDataEntity+CoreDataProperties.swift"; path = "../MovieCoreDataEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		0923A9F42833645F00D31811 /* ActorCoreDataEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActorCoreDataEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		0923A9F52833645F00D31811 /* ActorCoreDataEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActorCoreDataEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		0923A9F62833645F00D31811 /* MovieCoreDataEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MovieCoreDataEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		0923A9F72833645F00D31811 /* MovieCoreDataEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MovieCoreDataEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		09AE36F727E8665700A8BF12 /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		09AE36FA27E8665700A8BF12 /* Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Core.h; sourceTree = "<group>"; };
 		09AE36FB27E8665700A8BF12 /* Core.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Core.docc; sourceTree = "<group>"; };
@@ -74,10 +74,6 @@
 		09AE36ED27E8665700A8BF12 = {
 			isa = PBXGroup;
 			children = (
-				0923A9F42833645F00D31811 /* ActorCoreDataEntity+CoreDataClass.swift */,
-				0923A9F52833645F00D31811 /* ActorCoreDataEntity+CoreDataProperties.swift */,
-				0923A9F62833645F00D31811 /* MovieCoreDataEntity+CoreDataClass.swift */,
-				0923A9F72833645F00D31811 /* MovieCoreDataEntity+CoreDataProperties.swift */,
 				09B657652821393F00D54A6C /* Core Data */,
 				09AE36F927E8665700A8BF12 /* Core */,
 				09AE36F827E8665700A8BF12 /* Products */,
@@ -199,18 +195,22 @@
 		09B657652821393F00D54A6C /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
-				09B6576C28213F6E00D54A6C /* Favorite Movie Entity */,
+				09B6576C28213F6E00D54A6C /* MovieEntity */,
 				09B65762282138F000D54A6C /* MoviesDB.xcdatamodeld */,
 				09B657662821395800D54A6C /* CoreDataManager.swift */,
 			);
 			path = "Core Data";
 			sourceTree = "<group>";
 		};
-		09B6576C28213F6E00D54A6C /* Favorite Movie Entity */ = {
+		09B6576C28213F6E00D54A6C /* MovieEntity */ = {
 			isa = PBXGroup;
 			children = (
+				0923A9F42833645F00D31811 /* ActorCoreDataEntity+CoreDataClass.swift */,
+				0923A9F52833645F00D31811 /* ActorCoreDataEntity+CoreDataProperties.swift */,
+				0923A9F62833645F00D31811 /* MovieCoreDataEntity+CoreDataClass.swift */,
+				0923A9F72833645F00D31811 /* MovieCoreDataEntity+CoreDataProperties.swift */,
 			);
-			path = "Favorite Movie Entity";
+			path = MovieEntity;
 			sourceTree = "<group>";
 		};
 		0FF568E3161BC68A9F66A1BB /* Frameworks */ = {

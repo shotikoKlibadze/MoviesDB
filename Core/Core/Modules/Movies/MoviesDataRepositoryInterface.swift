@@ -17,13 +17,10 @@ public protocol MoviesDataRepositoryInterface {
     func getCastMembers(movieID: Int) async -> [ActorEntity]
     //Local
     func getFavoriteMovies() async -> [MovieEntity]
-    
 }
 
 public class MoviesDataRepository : MoviesDataRepositoryInterface {
    
-    
-    
     let remoteDataSource : MoviesRemoteDataSourceInterface
     let localDataSource : MoviesLocalDataSourceInterface
     
@@ -93,9 +90,7 @@ public class MoviesDataRepository : MoviesDataRepositoryInterface {
     public func getFavoriteMovies() async -> [MovieEntity] {
         let movieData = await localDataSource.fetchFavoriteMovies()
         let entities = movieData.map { movie -> MovieEntity in
-            
             let movieCast = movie.actors.allObjects as! [ActorCoreDataEntity]
-            
             let cast = movieCast.map {
                 ActorEntity(id: Int($0.id), name: $0.name, profilePic: $0.profilePic, characterPlayed: $0.characterPlayed)
             }

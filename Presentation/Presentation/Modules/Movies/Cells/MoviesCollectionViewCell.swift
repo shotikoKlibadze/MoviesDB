@@ -31,7 +31,7 @@ class MovieCollectionViewCell : DBCollectionViewCell {
 
     let ratingsLabel : UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Helvetica Neue", size: 13)
+        label.font = UIFont(name: "Helvetica Neue", size: 10)
         label.textColor = .systemGray2
         return label
     }()
@@ -49,17 +49,18 @@ class MovieCollectionViewCell : DBCollectionViewCell {
         let label = UILabel()
         label.font = UIFont(name: "Helvetica Neue", size: 14)
         label.textColor = UIColor.DBLalebColor()
-        label.numberOfLines = 1
+        label.numberOfLines = 2
         label.adjustsFontSizeToFitWidth = true
-        label.minimumScaleFactor = 0.5
+       // label.minimumScaleFactor = 0.5
         return label
     }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setUI()
         setupHierarchy()
         setupLayout()
-        setUI()
+       
         contentView.backgroundColor = .yellow
         
     }
@@ -74,13 +75,15 @@ class MovieCollectionViewCell : DBCollectionViewCell {
         posterImageView.anchor(top: contentView.topAnchor, leading: contentView.leadingAnchor, bottom: titleView.topAnchor, trailing: contentView.trailingAnchor)
         titleView.anchor(top: posterImageView.bottomAnchor, leading: contentView.leadingAnchor, bottom: contentView.bottomAnchor, trailing: contentView.trailingAnchor, size: .init(width: 0, height: 50))
         stackView.anchor(top: titleView.topAnchor, leading: titleView.leadingAnchor, bottom: nil, trailing: nil, padding: UIEdgeInsets.init(top: 8, left: 10, bottom: 0, right: 0))
-        starImageView.anchor(top: nil, leading: nil, bottom: nil, trailing: nil, size: .init(width: 15, height: 15))
-        titleLable.anchor(top: stackView.bottomAnchor, leading: titleView.leadingAnchor, bottom: nil, trailing: titleView.trailingAnchor, padding: UIEdgeInsets.init(top: 4, left: 10, bottom: 0, right: 10))
+        starImageView.anchor(top: nil, leading: nil, bottom: nil, trailing: nil, size: .init(width: 8, height: 8))
+        titleLable.anchor(top: stackView.bottomAnchor, leading: titleView.leadingAnchor, bottom: titleView.bottomAnchor, trailing: titleView.trailingAnchor, padding: UIEdgeInsets.init(top: 4, left: 10, bottom: 5, right: 10))
     }
     
     private func setUI() {
         titleView.backgroundColor = UIColor.DBTopLayerBackground()
-        contentView.makeCustomRound(topLeft: 8, topRight: 8, bottomLeft: 8, bottomRight: 8)
+        contentView.clipsToBounds = false
+        contentView.layer.masksToBounds = true
+        contentView.layer.cornerRadius = 8
     }
     
     func configure(with movie: MovieEntity, isLargePoster: Bool) {
@@ -107,8 +110,8 @@ class MovieCollectionViewCell : DBCollectionViewCell {
         self.removeFromSuperview()
     }
     
-//    deinit {
-//        print ("something")
-//    }
+    deinit {
+        print ("movie cell")
+    }
     
 }

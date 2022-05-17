@@ -26,7 +26,7 @@ class MoviesHeaderView : UICollectionReusableView {
         guard let controller = controller, let contextProvider = contextProvider  else {
             return
         }
-        let vc = AllMoviesViewController.instantiateFromStoryboard()
+        let vc = AllMoviesViewController()
         vc.contextProvider = contextProvider
         controller.navigationController?.pushViewController(vc, animated: true)
     }

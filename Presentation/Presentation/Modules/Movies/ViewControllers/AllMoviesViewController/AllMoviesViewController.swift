@@ -20,12 +20,17 @@ class AllMoviesViewController: DBViewController {
     
     private var movies = [MovieEntity]()
     
-    @IBOutlet weak var collectionView: UICollectionView!
+    var collectionView: UICollectionView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
         getMovies()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        collectionView?.frame = view.bounds
     }
         
     override func viewWillAppear(_ animated: Bool) {
@@ -34,11 +39,13 @@ class AllMoviesViewController: DBViewController {
     }
 
     private func setupCollectionView() {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
         collectionView.register(MovieCollectionViewCell.self, forCellWithReuseIdentifier: MovieCollectionViewCell.identifier)
-        collectionView.collectionViewLayout = createLayout()
         collectionView.dataSource = dataSource
         collectionView.delegate = self
-        view.layoutSubviews()
+        collectionView.backgroundColor = UIColor.DBBackgroundColor()
+        self.collectionView = collectionView
+        view.addSubview(collectionView)
         dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, model in
             
             guard let cell = collectionView.deque(MovieCollectionViewCell.self, for: indexPath) else { fatalError() }

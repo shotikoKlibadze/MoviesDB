@@ -95,7 +95,7 @@ class CastMemberCollectionViewCell :  UICollectionViewCell {
             let url = URL(string: imagePathPrefix + posterURL)
             posterImageView.kf.setImage(with: url)
         } else {
-            //posterImageView.image = UIImage(systemName: "person")!
+            posterImageView.image = UIImage(systemName: "person")!
         }
     }
     
@@ -114,9 +114,9 @@ class CastMemberCollectionViewCell :  UICollectionViewCell {
     
     
     
-//    deinit {
-//        print ("castcell")
-//    }
+    deinit {
+        print ("castcell")
+    }
     
     
     

@@ -19,9 +19,8 @@ public class MoviesViewController: DBViewController {
     var topRatedMovies = [MovieEntity]()
     var nowPlayingMovies = [MovieEntity]()
     
-    @IBOutlet weak var collectionView: UICollectionView!
+    var collectionView : UICollectionView?
     
-
     enum Sections : Int, CaseIterable {
         case nowPlayingMovies
         case upcomingMovies
@@ -52,10 +51,14 @@ public class MoviesViewController: DBViewController {
 
     public override func viewDidLoad() {
         super.viewDidLoad()
+        
         getMovies()
         setupCollectionView()
-        collectionView.backgroundColor = .clear
         title = "Movies"
+    }
+    
+    public override func viewDidLayoutSubviews() {
+        collectionView?.fillSuperview()
     }
     
     public override func viewWillAppear(_ animated: Bool) {
@@ -89,8 +92,12 @@ public class MoviesViewController: DBViewController {
     private func setupCollectionView() {
         //Layout
         let layOut = MoviesDashboardPageLaoOutManager().createLayout()
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layOut)
         collectionView.collectionViewLayout = layOut
         collectionView.delegate = self
+        collectionView.backgroundColor = UIColor.DBBackgroundColor()
+        view.addSubview(collectionView)
+        self.collectionView = collectionView
         //Cell Registration
         collectionView.register(MovieCollectionViewCell.self, forCellWithReuseIdentifier: MovieCollectionViewCell.identifier)
         //View Registration

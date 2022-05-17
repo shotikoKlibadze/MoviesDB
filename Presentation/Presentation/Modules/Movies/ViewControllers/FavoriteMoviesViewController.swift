@@ -12,9 +12,7 @@ import ProgressHUD
 class FavoriteMoviesViewController: DBViewController {
     
     var collectionView : UICollectionView?
-    
     var dataSource : UICollectionViewDiffableDataSource<Int,MovieEntity>!
-    
     var viewModel : MoviesViewModel!
     var movies = [MovieEntity]()
     
@@ -53,9 +51,6 @@ class FavoriteMoviesViewController: DBViewController {
         Task {
             let movies = await viewModel!.getFavoriteMovies()
             self.movies = movies
-            print(movies[0].cast?.count)
-            print(movies[0].genreIDS.count)
-            
             configureSnapshot()
         }
     }

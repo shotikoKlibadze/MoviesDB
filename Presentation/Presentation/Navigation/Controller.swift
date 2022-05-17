@@ -14,7 +14,7 @@ public class Controller {
     
     static func moviesViewController() -> UINavigationController {
         let navController = UINavigationController()
-        let vc = MoviesViewController.instantiateFromStoryboard()
+        let vc = MoviesViewController()
         let viewModel = appDependencyContainer?.getMoviesViewModel()
         vc.viewModel = viewModel
         navController.viewControllers = [vc]
@@ -33,7 +33,6 @@ public class Controller {
         navController.tabBarItem.image = UIImage(systemName: "tv")
         return navController
     }
-    
     
     static func favoriteMoviesViewController() -> UIViewController {
         let vc = FavoriteMoviesViewController()
