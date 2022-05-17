@@ -188,7 +188,7 @@ class MovieDetailsViewController: DBViewController {
     @IBAction func favoriteButtonTapped(_ sender: UIButton) {
         guard movie.isFavorite else {
             movie.isFavorite = true
-            CoreDataManager.shared.save(movie: movie)
+            CoreDataManager.shared.save(movie: movie, movieCast: cast)
             configureFavoriteButton()
             return
         }

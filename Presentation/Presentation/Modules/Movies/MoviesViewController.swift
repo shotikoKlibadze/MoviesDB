@@ -21,6 +21,7 @@ public class MoviesViewController: DBViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
+
     enum Sections : Int, CaseIterable {
         case nowPlayingMovies
         case upcomingMovies

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreMedia
 
 public protocol MoviesDataRepositoryInterface {
     //Remote
@@ -37,7 +38,7 @@ public class MoviesDataRepository : MoviesDataRepositoryInterface {
         let favoriteMovieIDs = await getFavoriteMovieIDs()
         let entities = movieData.map { movieData -> MovieEntity in
             let isFavorite = favoriteMovieIDs.contains(movieData.id)
-            let entity = MovieEntity(id: movieData.id, poster: movieData.posterPath, wallPaper: movieData.backdropPath, genreIDS: movieData.genreIDS, tittle: movieData.originalTitle, releaseDate: movieData.releaseDate, voteAvarage: String(movieData.voteAverage), overview: movieData.overview, isFavorite: isFavorite)
+            let entity = MovieEntity(id: movieData.id, poster: movieData.posterPath, wallPaper: movieData.backdropPath, genreIDS: movieData.genreIDS, tittle: movieData.originalTitle, releaseDate: movieData.releaseDate, voteAvarage: String(movieData.voteAverage), overview: movieData.overview, isFavorite: isFavorite, cast: nil)
             return entity
             
         }
@@ -50,7 +51,7 @@ public class MoviesDataRepository : MoviesDataRepositoryInterface {
         let favoriteMovieIDs = await getFavoriteMovieIDs()
         let entities = movieData.map { movieData -> MovieEntity in
             let isFavorite = favoriteMovieIDs.contains(movieData.id)
-            let entity = MovieEntity(id: movieData.id, poster: movieData.posterPath, wallPaper: movieData.backdropPath, genreIDS: movieData.genreIDS, tittle: movieData.originalTitle, releaseDate: movieData.releaseDate, voteAvarage: String(movieData.voteAverage), overview: movieData.overview, isFavorite: isFavorite)
+            let entity = MovieEntity(id: movieData.id, poster: movieData.posterPath, wallPaper: movieData.backdropPath, genreIDS: movieData.genreIDS, tittle: movieData.originalTitle, releaseDate: movieData.releaseDate, voteAvarage: String(movieData.voteAverage), overview: movieData.overview, isFavorite: isFavorite, cast: nil)
             return entity
             
         }
@@ -60,7 +61,7 @@ public class MoviesDataRepository : MoviesDataRepositoryInterface {
     public func getNowPlayingMovies() async -> [MovieEntity] {
         let movieData = await remoteDataSource.getNowPlayingMovies()
         guard !movieData.isEmpty else { return [] }
-        let entities = movieData.map({MovieEntity(id: $0.id, poster: $0.posterPath, wallPaper: $0.backdropPath, genreIDS: $0.genreIDS, tittle: $0.originalTitle, releaseDate: $0.releaseDate, voteAvarage: String($0.voteAverage), overview: $0.overview, isFavorite: false)})
+        let entities = movieData.map({MovieEntity(id: $0.id, poster: $0.posterPath, wallPaper: $0.backdropPath, genreIDS: $0.genreIDS, tittle: $0.originalTitle, releaseDate: $0.releaseDate, voteAvarage: String($0.voteAverage), overview: $0.overview, isFavorite: false, cast: nil)})
         return entities
     }
     
@@ -70,7 +71,7 @@ public class MoviesDataRepository : MoviesDataRepositoryInterface {
         let favoriteMovieIDs = await getFavoriteMovieIDs()
         let entities = movieData.map { movieData -> MovieEntity in
             let isFavorite = favoriteMovieIDs.contains(movieData.id)
-            let entity = MovieEntity(id: movieData.id, poster: movieData.posterPath, wallPaper: movieData.backdropPath, genreIDS: movieData.genreIDS, tittle: movieData.originalTitle, releaseDate: movieData.releaseDate, voteAvarage: String(movieData.voteAverage), overview: movieData.overview, isFavorite: isFavorite)
+            let entity = MovieEntity(id: movieData.id, poster: movieData.posterPath, wallPaper: movieData.backdropPath, genreIDS: movieData.genreIDS, tittle: movieData.originalTitle, releaseDate: movieData.releaseDate, voteAvarage: String(movieData.voteAverage), overview: movieData.overview, isFavorite: isFavorite, cast: nil)
             return entity
             
         }
@@ -92,11 +93,17 @@ public class MoviesDataRepository : MoviesDataRepositoryInterface {
     public func getFavoriteMovies() async -> [MovieEntity] {
         let movieData = await localDataSource.fetchFavoriteMovies()
         let entities = movieData.map { movie -> MovieEntity in
-            let entity = MovieEntity(id: Int(movie.id), poster: movie.poster!, wallPaper: movie.wallPaper!, genreIDS: movie.genreIDS!.map{Int(truncating: $0)}, tittle: movie.tittle!, releaseDate: movie.releaseDate!, voteAvarage: movie.voteAvarage!, overview: movie.overview!, isFavorite: movie.isFavorite)
+            
+            let movieCast = movie.actors.allObjects as! [ActorCoreDataEntity]
+            
+            let cast = movieCast.map {
+                ActorEntity(id: Int($0.id), name: $0.name, profilePic: $0.profilePic, characterPlayed: $0.characterPlayed)
+            }
+            let entity = MovieEntity(id: Int(movie.id), poster: movie.poster, wallPaper: movie.wallPaper, genreIDS: movie.genreIDS.map{Int(truncating: $0)}, tittle: movie.tittle, releaseDate: movie.releaseDate, voteAvarage: movie.voteAvarage, overview: movie.overview, isFavorite: movie.isFavorite, cast: cast)
             return entity
         }
         return entities
     }
-   
+    
     
 }

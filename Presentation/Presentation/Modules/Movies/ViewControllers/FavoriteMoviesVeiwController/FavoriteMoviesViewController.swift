@@ -53,7 +53,9 @@ class FavoriteMoviesViewController: DBViewController {
         Task {
             let movies = await viewModel!.getFavoriteMovies()
             self.movies = movies
-            print(movies.count)
+            print(movies[0].cast?.count)
+            print(movies[0].genreIDS.count)
+            
             configureSnapshot()
         }
     }

@@ -20,8 +20,6 @@ class AllMoviesViewController: DBViewController {
     
     private var movies = [MovieEntity]()
     
-    var favorites = [FavoriteMovieEntity]()
-    
     @IBOutlet weak var collectionView: UICollectionView!
     
     override func viewDidLoad() {

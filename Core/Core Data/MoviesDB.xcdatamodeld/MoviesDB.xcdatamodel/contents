@@ -1,17 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21A559" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="FavoriteMovieEntity" representedClassName="FavoriteMovieEntity" syncable="YES">
-        <attribute name="genreIDS" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
+    <entity name="ActorCoreDataEntity" representedClassName="ActorCoreDataEntity" syncable="YES">
+        <attribute name="characterPlayed" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="isFavorite" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="overview" optional="YES" attributeType="String"/>
-        <attribute name="poster" optional="YES" attributeType="String"/>
-        <attribute name="releaseDate" optional="YES" attributeType="String"/>
-        <attribute name="tittle" optional="YES" attributeType="String"/>
-        <attribute name="voteAvarage" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="profilePic" optional="YES" attributeType="String"/>
+        <relationship name="movie" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MovieCoreDataEntity" inverseName="actors" inverseEntity="MovieCoreDataEntity"/>
+    </entity>
+    <entity name="MovieCoreDataEntity" representedClassName="MovieCoreDataEntity" syncable="YES">
+        <attribute name="genreIDS" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
+        <attribute name="id" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="isFavorite" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="overview" attributeType="String"/>
+        <attribute name="poster" attributeType="String"/>
+        <attribute name="releaseDate" attributeType="String"/>
+        <attribute name="tittle" attributeType="String"/>
+        <attribute name="voteAvarage" attributeType="String"/>
         <attribute name="wallPaper" optional="YES" attributeType="String"/>
+        <relationship name="actors" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ActorCoreDataEntity" inverseName="movie" inverseEntity="ActorCoreDataEntity"/>
     </entity>
     <elements>
-        <element name="FavoriteMovieEntity" positionX="-63" positionY="-18" width="128" height="164"/>
+        <element name="MovieCoreDataEntity" positionX="-63" positionY="-18" width="128" height="179"/>
+        <element name="ActorCoreDataEntity" positionX="-63" positionY="54" width="128" height="14"/>
     </elements>
 </model>

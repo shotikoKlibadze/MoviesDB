@@ -36,24 +36,31 @@ public class CoreDataManager {
         
     }
     
-    public func save(movie: MovieEntity) {
-        guard let entity = NSEntityDescription.entity(forEntityName: "FavoriteMovieEntity", in: managedContext) else { return }
-        let favoriteMoive = NSManagedObject(entity: entity, insertInto: managedContext)
+    public func save(movie: MovieEntity, movieCast: [ActorEntity]) {
+        let favoriteMove = MovieCoreDataEntity(context: managedContext)
+        guard let actors = favoriteMove.actors.mutableCopy() as? NSMutableSet else { return }
         
-       // let favoriteMovie = FavoriteMovieEntity(context: managedContext)
-       // favoriteMovie.id = movie.id
+        movieCast.forEach { castMember in
+            let actor = ActorCoreDataEntity(context: managedContext)
+            actor.id = Int32(castMember.id)
+            actor.profilePic = castMember.profilePic ?? ""
+            actor.name = castMember.name
+            actor.characterPlayed = castMember.characterPlayed ?? ""
+            actors.add(actor)
+            
+        }
         
-        
-        favoriteMoive.setValue(movie.id, forKey: "id")
-        favoriteMoive.setValue(movie.genreIDS, forKey: "genreIDS")
-        favoriteMoive.setValue(movie.isFavorite, forKey: "isFavorite")
-        favoriteMoive.setValue(movie.overview, forKey: "overview")
-        favoriteMoive.setValue(movie.poster, forKey: "poster")
-        favoriteMoive.setValue(movie.releaseDate, forKey: "releaseDate")
-        favoriteMoive.setValue(movie.tittle, forKey: "tittle")
-        favoriteMoive.setValue(movie.voteAvarage, forKey: "voteAvarage")
-        favoriteMoive.setValue(movie.wallPaper, forKey: "wallPaper")
-        
+        favoriteMove.id = Int32(movie.id)
+        favoriteMove.genreIDS = movie.genreIDS.map({NSNumber(value: $0)})
+        favoriteMove.isFavorite = movie.isFavorite
+        favoriteMove.overview = movie.overview
+        favoriteMove.poster = movie.poster
+        favoriteMove.releaseDate = movie.releaseDate
+        favoriteMove.tittle = movie.tittle
+        favoriteMove.voteAvarage = movie.voteAvarage
+        favoriteMove.wallPaper = movie.wallPaper
+        favoriteMove.actors = actors
+             
         do {
             try managedContext.save()
         } catch {
@@ -64,8 +71,8 @@ public class CoreDataManager {
     }
     
     public func deleteMovie(movie: MovieEntity) {
-        let fetchRequest : NSFetchRequest<FavoriteMovieEntity>
-        fetchRequest = FavoriteMovieEntity.fetchRequest()
+        
+        let fetchRequest = MovieCoreDataEntity.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "id == %@", NSNumber(integerLiteral: movie.id))
         fetchRequest.includesPropertyValues = false
      
@@ -78,5 +85,4 @@ public class CoreDataManager {
             ErrorHandler.shared.handleError(error: error)
         }
     }
-
 }
