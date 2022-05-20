@@ -36,6 +36,7 @@ class FavoriteMoviesViewController: DBViewController {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: configureLayout())
         collectionView.registerClass(class: FavoriteMovieCollectionViewCell.self)
         collectionView.dataSource = dataSource
+        collectionView.delegate = self
         view.addSubview(collectionView)
         self.collectionView = collectionView
         
@@ -72,5 +73,21 @@ class FavoriteMoviesViewController: DBViewController {
         snapShot.appendItems(movies)
         dataSource.apply(snapShot)
         ProgressHUD.dismiss()
+    }
+}
+
+extension FavoriteMoviesViewController : UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let movie = movies[indexPath.row]
+        var moviesToPass = movies
+        moviesToPass.remove(at: indexPath.row)
+        moviesToPass.insert(movie, at: 0)
+        
+        let vc = BrowseFavoriteMoviesViewController()
+        vc.movies = moviesToPass
+        vc.movie = movie
+        vc.modalPresentationStyle = .overFullScreen
+        present(vc, animated: true)
     }
 }

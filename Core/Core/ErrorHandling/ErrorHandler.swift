@@ -14,6 +14,7 @@ public protocol ErrorReciever {
 public class ErrorHandler {
     
     static public let shared = ErrorHandler()
+    
     private var errorReciever : ErrorReciever?
     
     public init() {}

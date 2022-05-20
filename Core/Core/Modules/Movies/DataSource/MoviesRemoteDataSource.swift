@@ -21,6 +21,7 @@ public class MoviesRemoteDataSource: MoviesRemoteDataSourceInterface {
     private let key = "f4fc52063b2419f14cdaa0ac0fd23462"
     
     public init() {
+        
     }
     
     public func getUpcomingMovies()  async -> [MovieData] {

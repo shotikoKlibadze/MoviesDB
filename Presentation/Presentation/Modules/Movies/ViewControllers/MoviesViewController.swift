@@ -76,7 +76,6 @@ public class MoviesViewController: DBViewController {
         tabBar.menuButton.isHidden = true
     }
     
-    
     private func getMovies(){
         ProgressHUD.show()
         Task {

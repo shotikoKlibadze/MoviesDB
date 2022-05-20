@@ -106,7 +106,4 @@ public class BaseLayerViewController: UIViewController {
         profileVC.didMove(toParent: self)
         
     }
-    
-    
-
 }
