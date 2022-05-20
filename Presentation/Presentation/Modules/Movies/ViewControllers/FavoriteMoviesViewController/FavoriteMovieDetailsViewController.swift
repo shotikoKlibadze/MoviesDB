@@ -61,9 +61,28 @@ class FavoriteMovieDetailsViewController: UIViewController {
         return stack
     }()
     
-    let textView : UITextView = {
-        let textView = UITextView()
-        return textView
+    let overviewSeparator = SeparatorView()
+        
+    let overviewSectionLabel : UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "Helvetica Neue Bold", size: 20)
+        label.textColor = UIColor.DBLalebColor()
+        label.text = "Overview"
+        return label
+    }()
+    
+    let overViewStackView : UIStackView = {
+        let stack = UIStackView()
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.axis = .vertical
+        return stack
+    }()
+    
+    let overViewLabel : UILabel = {
+        let overViewLabel = UILabel()
+        overViewLabel.numberOfLines = 0
+        overViewLabel.font = UIFont(name: "Helvetica Neue", size: 13)
+        return overViewLabel
     }()
     
     var collectionView : UICollectionView?
@@ -81,13 +100,20 @@ class FavoriteMovieDetailsViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor.DBTopLayerBackground()
         view.addSubview(scrollView)
+        setupHeirarchy()
         setupUI()
     }
     
     override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         scrollView.frame = view.bounds
-        setupLayout()
         scrollView.contentSize = CGSize(width: view.width, height: view.height * 1.5)
+        setupLayout()
+    }
+    
+    private func  setupHeirarchy() {
+        scrollView.addSubviews(wallpapaerImageView, movieTitleLabel, posterImageView, releaseDateLabel, genreStackView, overviewSeparator)
+        overviewSeparator.addSubviews(overviewSectionLabel, overViewLabel)
     }
     
     private func setupUI() {
@@ -115,10 +141,13 @@ class FavoriteMovieDetailsViewController: UIViewController {
                 genreStackView.addArrangedSubview(labelView)
             }
         }
+        
+        //OverView
+        overViewLabel.text = movie.overview
     }
     
     private func setupLayout() {
-        scrollView.addSubviews(wallpapaerImageView, movieTitleLabel, posterImageView, releaseDateLabel, genreStackView)
+        
         wallpapaerImageView.anchor(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: nil, trailing: nil, size: .init(width: scrollView.width, height: 200))
         
         movieTitleLabel.sizeToFit()
@@ -131,6 +160,22 @@ class FavoriteMovieDetailsViewController: UIViewController {
         
         genreStackView.centerYAnchor.constraint(equalTo: posterImageView.centerYAnchor).isActive = true
         genreStackView.anchor(top: nil, leading: posterImageView.trailingAnchor, bottom: nil, trailing: nil, padding: .init(top: 0, left: 30, bottom: 0, right: 0))
+        
+        setupMovieOverviewSection()
+    }
+    
+    private func setupMovieOverviewSection() {
+        overviewSectionLabel.sizeToFit()
+        overViewLabel.sizeToFit()
+        
+        let overviewLabelSize = overViewLabel.sizeThatFits(.init(width: scrollView.width, height: scrollView.height))
+        let overviewSectionLabelSize = overviewSectionLabel.sizeThatFits(.init(width: scrollView.width, height: scrollView.height))
+        
+        overviewSeparator.anchor(top: posterImageView.bottomAnchor, leading: scrollView.leadingAnchor, bottom: nil, trailing: scrollView.trailingAnchor, padding: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: scrollView.width, height: 0))
+        
+        overviewSectionLabel.anchor(top: overviewSeparator.topAnchor, leading: overviewSeparator.leadingAnchor, bottom: overViewLabel.topAnchor, trailing: overviewSeparator.trailingAnchor, padding: .init(top: 10, left: 10, bottom: 5, right: 10), size: .init(width: 0, height: overviewSectionLabelSize.height))
+        
+        overViewLabel.anchor(top: nil, leading: overviewSeparator.leadingAnchor, bottom: overviewSeparator.bottomAnchor, trailing: overviewSeparator.trailingAnchor, padding: .init(top: 0, left: 10, bottom: 10, right: 10), size: .init(width: 0, height: overviewLabelSize.height))
     }
     
     private func dateString(date: String) -> String? {
