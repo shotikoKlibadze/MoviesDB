@@ -14,6 +14,7 @@ class GenreLabelView : UIView {
         label.font = UIFont(name: "Helvetica Neue", size: 14)
         label.textColor = UIColor.DBLalebColor()
         label.numberOfLines = 1
+        label.textAlignment = .center
         //label.adjustsFontSizeToFitWidth = true
         //label.minimumScaleFactor = 0.5
         return label

@@ -110,8 +110,5 @@ class MovieCollectionViewCell : DBCollectionViewCell {
         self.removeFromSuperview()
     }
     
-    deinit {
-        print ("movie cell")
-    }
-    
+
 }

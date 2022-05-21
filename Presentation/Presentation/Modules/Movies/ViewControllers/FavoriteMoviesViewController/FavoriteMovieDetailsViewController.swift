@@ -12,6 +12,13 @@ import Kingfisher
 class FavoriteMovieDetailsViewController: UIViewController {
     
     let movie : MovieEntity
+    var separator1 = UIView()
+    var separator2 = UIView()
+    
+    //CollectionView
+    var collectionView : UICollectionView?
+    
+    var dataSource : UICollectionViewDiffableDataSource<Int,ActorEntity>!
     
     lazy var scrollView : UIScrollView = {
         let scrollView = UIScrollView()
@@ -20,10 +27,16 @@ class FavoriteMovieDetailsViewController: UIViewController {
         return scrollView
     }()
     
+    let contentView : UIView = {
+        let view = UIView()
+        return view
+    }()
+    
     let wallpapaerImageView : UIImageView = {
         let imgv = UIImageView()
         imgv.contentMode = .scaleAspectFill
         imgv.clipsToBounds = true
+        imgv.backgroundColor = .red
         return imgv
     }()
     
@@ -61,8 +74,6 @@ class FavoriteMovieDetailsViewController: UIViewController {
         return stack
     }()
     
-    let overviewSeparator = SeparatorView()
-        
     let overviewSectionLabel : UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Helvetica Neue Bold", size: 20)
@@ -71,21 +82,24 @@ class FavoriteMovieDetailsViewController: UIViewController {
         return label
     }()
     
-    let overViewStackView : UIStackView = {
-        let stack = UIStackView()
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.axis = .vertical
-        return stack
-    }()
-    
     let overViewLabel : UILabel = {
         let overViewLabel = UILabel()
         overViewLabel.numberOfLines = 0
+        overViewLabel.sizeToFit()
         overViewLabel.font = UIFont(name: "Helvetica Neue", size: 13)
         return overViewLabel
     }()
     
-    var collectionView : UICollectionView?
+    let castSectionLabel : UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "Helvetica Neue Bold", size: 20)
+        label.textColor = UIColor.DBLalebColor()
+        label.text = "Cast"
+        label.sizeToFit()
+        return label
+    }()
+    
+   
     
     init(with movie: MovieEntity) {
         self.movie = movie
@@ -99,21 +113,71 @@ class FavoriteMovieDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.DBTopLayerBackground()
-        view.addSubview(scrollView)
         setupHeirarchy()
+        setupScrollView()
         setupUI()
+        setupCollectionView()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        scrollView.frame = view.bounds
-        scrollView.contentSize = CGSize(width: view.width, height: view.height * 1.5)
         setupLayout()
+        
+    }
+    
+    private func setupCollectionView() {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
+        collectionView.dataSource = dataSource
+        collectionView.registerClass(class: CastMemberCollectionViewCell.self)
+        contentView.addSubview(collectionView)
+        self.collectionView = collectionView
+        
+        dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: {
+            collectionView, indexPath, model in
+            guard let cell = collectionView.deque(CastMemberCollectionViewCell.self, for: indexPath) else { fatalError("Cell Can't Be Found") }
+            cell.configure(with: model)
+            return cell
+        })
+        snapshot()
+        
+    }
+    
+    private func snapshot() {
+        var snapShot = NSDiffableDataSourceSnapshot<Int,ActorEntity>()
+        snapShot.appendSections([0])
+        guard let cast = movie.cast else { return }
+        snapShot.appendItems(cast)
+        dataSource.apply(snapShot)
+    }
+    
+    private func setupScrollView() {
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        scrollView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
+        contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+        contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
+        contentView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
+        contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+        contentView.heightAnchor.constraint(equalToConstant: 1500).isActive = true
     }
     
     private func  setupHeirarchy() {
-        scrollView.addSubviews(wallpapaerImageView, movieTitleLabel, posterImageView, releaseDateLabel, genreStackView, overviewSeparator)
-        overviewSeparator.addSubviews(overviewSectionLabel, overViewLabel)
+        contentView.addSubview(wallpapaerImageView)
+        contentView.addSubview(movieTitleLabel)
+        contentView.addSubview(releaseDateLabel)
+        contentView.addSubview(genreStackView)
+        contentView.addSubview(posterImageView)
+        contentView.addSubview(separator1)
+        contentView.addSubview(overviewSectionLabel)
+        contentView.addSubview(overViewLabel)
+        contentView.addSubview(separator2)
+        contentView.addSubview(castSectionLabel)
     }
     
     private func setupUI() {
@@ -126,13 +190,13 @@ class FavoriteMovieDetailsViewController: UIViewController {
         let posterImgURL = movie.poster
         let url = URL(string: urlPrefix + posterImgURL)
         posterImageView.kf.setImage(with: url)
-        
+
         //Labels
         movieTitleLabel.text = movie.tittle
         if let date = dateString(date: movie.releaseDate) {
             releaseDateLabel.text = date
         }
-        
+
         //GenreLabels
         for i in movie.genreIDS.indices {
             let labelView = GenreLabelView()
@@ -141,43 +205,43 @@ class FavoriteMovieDetailsViewController: UIViewController {
                 genreStackView.addArrangedSubview(labelView)
             }
         }
-        
+
         //OverView
         overViewLabel.text = movie.overview
     }
     
     private func setupLayout() {
         
-        wallpapaerImageView.anchor(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: nil, trailing: nil, size: .init(width: scrollView.width, height: 200))
+        wallpapaerImageView.anchor(top: contentView.topAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, size: .init(width: 0, height: 200))
         
         movieTitleLabel.sizeToFit()
         let labelSize = movieTitleLabel.sizeThatFits(CGSize(width: scrollView.width, height: scrollView.height))
-        movieTitleLabel.anchor(top: wallpapaerImageView.bottomAnchor, leading: scrollView.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 5, left: 10, bottom: 0, right: 0), size: .init(width: scrollView.width, height: labelSize.height))
+        movieTitleLabel.anchor(top: wallpapaerImageView.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(top: 5, left: 10, bottom: 0, right: 0), size: .init(width: 0, height: labelSize.height))
         
-        releaseDateLabel.anchor(top: movieTitleLabel.bottomAnchor, leading: scrollView.leadingAnchor, bottom: nil, trailing: scrollView.trailingAnchor , padding: .init(top: 5, left: 10, bottom: 0, right: 0))
-        
-        posterImageView.anchor(top: releaseDateLabel.bottomAnchor, leading: scrollView.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 13, left: 30, bottom: 0, right: 0), size: .init(width: 130, height: 190))
-        
+        releaseDateLabel.anchor(top: movieTitleLabel.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor , padding: .init(top: 5, left: 10, bottom: 0, right: 0))
+
+        posterImageView.anchor(top: releaseDateLabel.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 13, left: 30, bottom: 0, right: 0), size: .init(width: 130, height: 190))
+
         genreStackView.centerYAnchor.constraint(equalTo: posterImageView.centerYAnchor).isActive = true
         genreStackView.anchor(top: nil, leading: posterImageView.trailingAnchor, bottom: nil, trailing: nil, padding: .init(top: 0, left: 30, bottom: 0, right: 0))
-        
-        setupMovieOverviewSection()
-    }
-    
-    private func setupMovieOverviewSection() {
-        overviewSectionLabel.sizeToFit()
+
+        //OverView Section
+        separator1.anchor(top: posterImageView.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 0.3))
+        separator1.backgroundColor = .lightGray
+
+        overviewSectionLabel.anchor(top: separator1.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(top: 10, left: 10, bottom: 0, right: 0))
         overViewLabel.sizeToFit()
-        
         let overviewLabelSize = overViewLabel.sizeThatFits(.init(width: scrollView.width, height: scrollView.height))
-        let overviewSectionLabelSize = overviewSectionLabel.sizeThatFits(.init(width: scrollView.width, height: scrollView.height))
+        overViewLabel.anchor(top: overviewSectionLabel.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(top: 10, left: 10, bottom: 0, right: 10), size: .init(width: 0, height: overviewLabelSize.height))
+        separator2.translatesAutoresizingMaskIntoConstraints = false
+        separator2.anchor(top: overViewLabel.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(top: 13, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 0.3))
+        separator2.backgroundColor = .lightGray
         
-        overviewSeparator.anchor(top: posterImageView.bottomAnchor, leading: scrollView.leadingAnchor, bottom: nil, trailing: scrollView.trailingAnchor, padding: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: scrollView.width, height: 0))
+        castSectionLabel.anchor(top: separator2.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(top: 10, left: 10, bottom: 20, right: 0))
         
-        overviewSectionLabel.anchor(top: overviewSeparator.topAnchor, leading: overviewSeparator.leadingAnchor, bottom: overViewLabel.topAnchor, trailing: overviewSeparator.trailingAnchor, padding: .init(top: 10, left: 10, bottom: 5, right: 10), size: .init(width: 0, height: overviewSectionLabelSize.height))
-        
-        overViewLabel.anchor(top: nil, leading: overviewSeparator.leadingAnchor, bottom: overviewSeparator.bottomAnchor, trailing: overviewSeparator.trailingAnchor, padding: .init(top: 0, left: 10, bottom: 10, right: 10), size: .init(width: 0, height: overviewLabelSize.height))
+        collectionView?.anchor(top: castSectionLabel.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(top: 10, left: 0, bottom: 20, right: 0), size: .init(width: 0, height: 180))
     }
-    
+
     private func dateString(date: String) -> String? {
         let isoDateFormatter = ISO8601DateFormatter()
         isoDateFormatter.formatOptions = [.withFullDate]
@@ -190,9 +254,6 @@ class FavoriteMovieDetailsViewController: UIViewController {
         let stringToReturn = formatter.string(from: date)
         return stringToReturn
     }
-    
-
-
 }
 
 extension FavoriteMovieDetailsViewController : UIScrollViewDelegate {
@@ -201,4 +262,21 @@ extension FavoriteMovieDetailsViewController : UIScrollViewDelegate {
         guard offset < 0 else { return }
         wallpapaerImageView.transform = CGAffineTransform(translationX: 0, y: offset)
     }
+}
+
+extension FavoriteMovieDetailsViewController {
+    
+    private func createLayout() -> UICollectionViewLayout {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets = .init(top: 5, leading: 0, bottom: 0, trailing: 0)
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.28), heightDimension: .absolute(150))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.orthogonalScrollingBehavior = .continuous
+        
+        return UICollectionViewCompositionalLayout(section: section)
+    }
+    
 }

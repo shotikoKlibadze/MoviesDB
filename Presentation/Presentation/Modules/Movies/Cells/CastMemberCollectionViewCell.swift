@@ -112,18 +112,4 @@ class CastMemberCollectionViewCell :  UICollectionViewCell {
         super.prepareForReuse()
     }
     
-    
-    
-    deinit {
-        print ("castcell")
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }
