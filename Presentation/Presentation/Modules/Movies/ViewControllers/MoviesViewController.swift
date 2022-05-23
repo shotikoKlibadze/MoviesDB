@@ -194,8 +194,15 @@ extension MoviesViewController : UICollectionViewDelegate {
         let vc = MovieDetailsViewController.instantiateFromStoryboard()
         vc.movie = movie
         vc.viewModel = viewModel
+        vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
     
+}
+
+extension MoviesViewController : FavoriteMovieStatusChangeDelegate {
+    func refresh() {
+        getMovies()
+    }
 }
 

@@ -99,8 +99,6 @@ class FavoriteMovieDetailsViewController: UIViewController {
         return label
     }()
     
-   
-    
     init(with movie: MovieEntity) {
         self.movie = movie
         super.init(nibName: nil, bundle: nil)
@@ -165,7 +163,6 @@ class FavoriteMovieDetailsViewController: UIViewController {
         contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
         contentView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
         contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
-       // contentView.heightAnchor.constraint(equalToConstant: 1500).isActive = true
     }
     
     private func  setupHeirarchy() {
@@ -241,7 +238,6 @@ class FavoriteMovieDetailsViewController: UIViewController {
         
         collectionView?.anchor(top: castSectionLabel.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(top: 10, left: 0, bottom: 20, right: 0), size: .init(width: 0, height: 180))
         collectionView?.translatesAutoresizingMaskIntoConstraints = false
-       // collectionView?.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -50).isActive = true
         collectionView?.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -20).isActive = true
     }
 

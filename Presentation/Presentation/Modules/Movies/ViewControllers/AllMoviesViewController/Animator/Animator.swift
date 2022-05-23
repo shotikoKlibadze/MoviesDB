@@ -13,8 +13,6 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
     var sizeViewForTransition = UIView()
     var imageViewForTransition = UIImageView()
 
-    
-
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
       return duration
     }
@@ -40,16 +38,14 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
         viewController.view.alpha = 0
         
         let newContentView = UIView()
-        newContentView.backgroundColor = .white
-       // newContentView.layer.cornerRadius = 12
+        newContentView.backgroundColor = UIColor.DBBackgroundColor()
         newContentView.layer.cornerCurve = .continuous
         containerView.addSubview(newContentView)
         
         let newImageView = UIImageView()
         newImageView.contentMode = .scaleAspectFill
         newImageView.image = imageView?.image
-        newImageView.backgroundColor = .white
-        //newImageView.layer.cornerRadius = 12
+        newImageView.backgroundColor = UIColor.DBBackgroundColor()
         newImageView.layer.cornerCurve = .continuous
         newImageView.clipsToBounds = true
         containerView.addSubview(newImageView)
@@ -64,21 +60,12 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
             newContentView.frame = (viewController.view.superview?.convert(viewController.view.frame, to: containerView)) ?? CGRect()
            
         }) { (_) in
-            //newImageView.frame = CGRect(x: 0.0, y: 44.0, width: 390, height: 250)
             UIView.animate(withDuration: 0.1, animations: {
                 viewController.view.alpha = 1
-                //newImageView.frame = CGRect(x: 0.0, y: 44.0, width: 390, height: 250)
-               
             }, completion: { _ in
-                //print()
-                //print("newImage" ,newImageView.frame)
-               // print("the image", viewController.posterImageView.bounds)
                 newImageView.removeFromSuperview()
                 newImageView.alpha = 0
-               
                 newContentView.removeFromSuperview()
-               
-               
                 UIView.animate(withDuration: 0.25, animations: {
                     viewController.view.alpha = 1
                    
@@ -100,7 +87,6 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
         newImageView.contentMode = .scaleAspectFill
         newImageView.image = imageView?.image
         newImageView.backgroundColor = .white
-        //newImageView.layer.cornerRadius = 12
         newImageView.layer.cornerCurve = .continuous
         newImageView.clipsToBounds = true
         containerView.addSubview(newImageView)
@@ -126,8 +112,5 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
                 transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
             })
         }
-        
     }
-
-
 }

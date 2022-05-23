@@ -10,6 +10,10 @@ import Core
 import Kingfisher
 import ProgressHUD
 
+protocol FavoriteMovieStatusChangeDelegate : AnyObject  {
+    func refresh()
+}
+
 class MovieDetailsViewController: DBViewController {
     
     @IBOutlet weak var overtviewTextView: UITextView!
@@ -25,9 +29,10 @@ class MovieDetailsViewController: DBViewController {
     
     var movie : MovieEntity!
     var viewModel : MoviesViewModel!
-    
     var similarMovies = [MovieEntity]()
     var cast = [ActorEntity]()
+    
+    weak var delegate : FavoriteMovieStatusChangeDelegate?
     
     private let gradientLayer = CAGradientLayer()
     
@@ -189,6 +194,7 @@ class MovieDetailsViewController: DBViewController {
         guard movie.isFavorite else {
             movie.isFavorite = true
             CoreDataManager.shared.save(movie: movie, movieCast: cast)
+            delegate?.refresh()
             configureFavoriteButton()
             return
         }
@@ -202,7 +208,7 @@ class MovieDetailsViewController: DBViewController {
     private func removeFromFavorites() {
         CoreDataManager.shared.deleteMovie(movie: movie)
         movie.isFavorite = false
+        delegate?.refresh()
         configureFavoriteButton()
     }
-    
 }

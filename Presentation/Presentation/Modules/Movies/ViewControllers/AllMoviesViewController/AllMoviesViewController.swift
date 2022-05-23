@@ -17,10 +17,9 @@ class AllMoviesViewController: DBViewController {
     var transition = Animator()
     var sizeViewForTransition = UIView()
     var imageViewForTransition = UIImageView()
+    var collectionView: UICollectionView?
     
     private var movies = [MovieEntity]()
-    
-    var collectionView: UICollectionView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,6 +97,7 @@ extension AllMoviesViewController : UICollectionViewDelegate {
         vc.transitioningDelegate = self
         vc.movie = movies[indexPath.row]
         vc.viewModel = contextProvider.viewModel
+        vc.delegate = self
         if let cell = collectionView.cellForItem(at: indexPath) as? MovieCollectionViewCell {
             let imageView = cell.posterImageView
             sizeViewForTransition = imageView
@@ -119,7 +119,8 @@ extension AllMoviesViewController : UIViewControllerTransitioningDelegate {
     }
 }
 
-
-
-
-
+extension AllMoviesViewController : FavoriteMovieStatusChangeDelegate {
+    func refresh() {
+        getMovies()
+    }
+}

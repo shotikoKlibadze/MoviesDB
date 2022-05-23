@@ -24,14 +24,6 @@ class BrowseFavoriteMoviesViewController: UIViewController {
     
     let pagingViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
     
-    lazy var pageControl : UIPageControl = {
-        let pc = UIPageControl()
-        pc.numberOfPages = movies.count
-        pc.translatesAutoresizingMaskIntoConstraints = false
-        pc.isUserInteractionEnabled = false
-        return pc
-    }()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.DBBackgroundColor()
@@ -49,18 +41,9 @@ class BrowseFavoriteMoviesViewController: UIViewController {
         pagingViewController.dataSource = self
         pagingViewController.delegate = self
         view.addSubview(pagingViewController.view)
-       // view.addSubview(pageControl)
-        
         pagingViewController.view.fillSuperview(padding: .init(top: view.safeAreaInsets.top + 70, left: 24, bottom: view.safeAreaInsets.bottom + 80, right: 24))
         pagingViewController.view.layer.cornerRadius = 10
-        
-      //  pageControl.centerXAnchor.constraint(equalTo: pagingViewController.view.centerXAnchor).isActive = true
-       // pageControl.anchor(top: pagingViewController.view.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 10, left: 0, bottom: 0, right: 0), size: .init(width: 140, height: 20))
-      //  pageControl.currentPage = movies.firstIndex(of: movie) ?? 0
-        
-     //   pageControl.backgroundColor = .systemBlue
-        
-        
+   
     }
 }
 
@@ -93,14 +76,11 @@ extension BrowseFavoriteMoviesViewController : UIPageViewControllerDataSource, U
             movie.id == currentMovie.id
         }) else { return nil }
         
-        
         guard index < (movies.count - 1) else {
             return nil
         }
         let nextIndext = index + 1
-       
         let movie = movies[nextIndext]
-        print(nextIndext)
         let vc = FavoriteMovieDetailsViewController(with: movie)
         return vc
     }

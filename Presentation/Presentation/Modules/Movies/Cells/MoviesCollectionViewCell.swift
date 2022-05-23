@@ -28,10 +28,17 @@ class MovieCollectionViewCell : DBCollectionViewCell {
         imageview.image = UIImage(named: "Star", in: Bundle.presentationBundle, with: nil)
         return imageview
     }()
+    
+    let heartImageView : UIImageView = {
+        let imageview = UIImageView()
+        imageview.contentMode = .scaleAspectFill
+        imageview.image = UIImage(named: "heart-fill", in: Bundle.presentationBundle, with: nil)
+        return imageview
+    }()
 
     let ratingsLabel : UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Helvetica Neue", size: 10)
+        label.font = UIFont(name: "Helvetica Neue", size: 11)
         label.textColor = .systemGray2
         return label
     }()
@@ -41,7 +48,7 @@ class MovieCollectionViewCell : DBCollectionViewCell {
         stackView.distribution = .fill
         stackView.alignment = .fill
         stackView.axis = .horizontal
-        stackView.spacing = 10
+        stackView.spacing = 8
         return stackView
     }()
 
@@ -68,14 +75,15 @@ class MovieCollectionViewCell : DBCollectionViewCell {
     private func setupHierarchy() {
         contentView.addSubviews(posterImageView, titleView)
         titleView.addSubviews(stackView, titleLable)
-        stackView.addArrangedSubviews([starImageView, ratingsLabel])
+        stackView.addArrangedSubviews([starImageView, ratingsLabel, heartImageView, UIView()])
     }
     
     private func setupLayout() {
         posterImageView.anchor(top: contentView.topAnchor, leading: contentView.leadingAnchor, bottom: titleView.topAnchor, trailing: contentView.trailingAnchor)
         titleView.anchor(top: posterImageView.bottomAnchor, leading: contentView.leadingAnchor, bottom: contentView.bottomAnchor, trailing: contentView.trailingAnchor, size: .init(width: 0, height: 50))
-        stackView.anchor(top: titleView.topAnchor, leading: titleView.leadingAnchor, bottom: nil, trailing: nil, padding: UIEdgeInsets.init(top: 8, left: 10, bottom: 0, right: 0))
-        starImageView.anchor(top: nil, leading: nil, bottom: nil, trailing: nil, size: .init(width: 8, height: 8))
+        stackView.anchor(top: titleView.topAnchor, leading: titleView.leadingAnchor, bottom: nil, trailing: titleView.trailingAnchor, padding: UIEdgeInsets.init(top: 8, left: 10, bottom: 0, right: 0))
+        starImageView.anchor(top: nil, leading: nil, bottom: nil, trailing: nil, size: .init(width: 10, height: 10))
+        heartImageView.anchor(top: nil, leading: nil, bottom: nil, trailing: nil, size: .init(width: 10, height: 10))
         titleLable.anchor(top: stackView.bottomAnchor, leading: titleView.leadingAnchor, bottom: titleView.bottomAnchor, trailing: titleView.trailingAnchor, padding: UIEdgeInsets.init(top: 4, left: 10, bottom: 5, right: 10))
     }
     
@@ -99,6 +107,7 @@ class MovieCollectionViewCell : DBCollectionViewCell {
             let url = URL(string: imagePathPrefix + movie.poster)
             posterImageView.kf.setImage(with: url)
         }
+        heartImageView.isHidden = !movie.isFavorite
     }
     
     required init?(coder: NSCoder) {
