@@ -31,7 +31,6 @@ public class MoviesDataRepository : MoviesDataRepositoryInterface {
     
     public func getUpcomingMovies() async -> [MovieEntity] {
         let movieData = await remoteDataSource.getUpcomingMovies()
-        guard !movieData.isEmpty else { return [] }
         let favoriteMovieIDs = await getFavoriteMovieIDs()
         let entities = movieData.map { movieData -> MovieEntity in
             let isFavorite = favoriteMovieIDs.contains(movieData.id)
@@ -44,7 +43,6 @@ public class MoviesDataRepository : MoviesDataRepositoryInterface {
     
     public func getTopRatedMovies() async -> [MovieEntity] {
         let movieData = await remoteDataSource.getTopRatedMovies()
-        guard !movieData.isEmpty else { return [] }
         let favoriteMovieIDs = await getFavoriteMovieIDs()
         let entities = movieData.map { movieData -> MovieEntity in
             let isFavorite = favoriteMovieIDs.contains(movieData.id)
@@ -57,14 +55,18 @@ public class MoviesDataRepository : MoviesDataRepositoryInterface {
     
     public func getNowPlayingMovies() async -> [MovieEntity] {
         let movieData = await remoteDataSource.getNowPlayingMovies()
-        guard !movieData.isEmpty else { return [] }
-        let entities = movieData.map({MovieEntity(id: $0.id, poster: $0.posterPath, wallPaper: $0.backdropPath, genreIDS: $0.genreIDS, tittle: $0.originalTitle, releaseDate: $0.releaseDate, voteAvarage: String($0.voteAverage), overview: $0.overview, isFavorite: false, cast: nil)})
+        let favoriteMovieIDs = await getFavoriteMovieIDs()
+        let entities = movieData.map { movieData -> MovieEntity in
+            let isFavorite = favoriteMovieIDs.contains(movieData.id)
+            let entity = MovieEntity(id: movieData.id, poster: movieData.posterPath, wallPaper: movieData.backdropPath, genreIDS: movieData.genreIDS, tittle: movieData.originalTitle, releaseDate: movieData.releaseDate, voteAvarage: String(movieData.voteAverage), overview: movieData.overview, isFavorite: isFavorite, cast: nil)
+            return entity
+            
+        }
         return entities
     }
     
     public func getSimilarMovies(movieID: Int) async -> [MovieEntity] {
         let movieData = await remoteDataSource.getSimilarMovies(movieID: movieID)
-        //guard !movieData.isEmpty else { return [] }
         let favoriteMovieIDs = await getFavoriteMovieIDs()
         let entities = movieData.map { movieData -> MovieEntity in
             let isFavorite = favoriteMovieIDs.contains(movieData.id)

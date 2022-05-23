@@ -129,6 +129,7 @@ class FavoriteMovieDetailsViewController: UIViewController {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
         collectionView.dataSource = dataSource
         collectionView.registerClass(class: CastMemberCollectionViewCell.self)
+        collectionView.backgroundColor = UIColor.DBTopLayerBackground()
         contentView.addSubview(collectionView)
         self.collectionView = collectionView
         
@@ -164,7 +165,7 @@ class FavoriteMovieDetailsViewController: UIViewController {
         contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
         contentView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
         contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
-        contentView.heightAnchor.constraint(equalToConstant: 1500).isActive = true
+       // contentView.heightAnchor.constraint(equalToConstant: 1500).isActive = true
     }
     
     private func  setupHeirarchy() {
@@ -233,13 +234,15 @@ class FavoriteMovieDetailsViewController: UIViewController {
         overViewLabel.sizeToFit()
         let overviewLabelSize = overViewLabel.sizeThatFits(.init(width: scrollView.width, height: scrollView.height))
         overViewLabel.anchor(top: overviewSectionLabel.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(top: 10, left: 10, bottom: 0, right: 10), size: .init(width: 0, height: overviewLabelSize.height))
-        separator2.translatesAutoresizingMaskIntoConstraints = false
         separator2.anchor(top: overViewLabel.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(top: 13, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 0.3))
         separator2.backgroundColor = .lightGray
         
         castSectionLabel.anchor(top: separator2.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(top: 10, left: 10, bottom: 20, right: 0))
         
         collectionView?.anchor(top: castSectionLabel.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(top: 10, left: 0, bottom: 20, right: 0), size: .init(width: 0, height: 180))
+        collectionView?.translatesAutoresizingMaskIntoConstraints = false
+       // collectionView?.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -50).isActive = true
+        collectionView?.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -20).isActive = true
     }
 
     private func dateString(date: String) -> String? {

@@ -63,6 +63,7 @@ class CastMemberCollectionViewCell :  UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         setupUI()
         
     }
@@ -71,20 +72,10 @@ class CastMemberCollectionViewCell :  UICollectionViewCell {
         contentView.addSubviews(shadowView, stackView)
         stackView.addArrangedSubviews([nameLabel, characterNameLabel])
         shadowView.addSubview(posterImageView)
-        
-        
-        
         shadowView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        
         shadowView.anchor(top: contentView.topAnchor, leading: nil, bottom: nil, trailing: nil,size: .init(width: 60, height: 60))
         posterImageView.fillSuperview()
-        
-//        posterImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-//        posterImageView.anchor(top: contentView.topAnchor, leading: nil, bottom: nil, trailing: nil,size: .init(width: 60, height: 60))
         stackView.anchor(top: posterImageView.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(top: 5, left: 5, bottom: 0, right: 5))
-        
-      
-        
     }
     
     func configure(with actor: ActorEntity) {
