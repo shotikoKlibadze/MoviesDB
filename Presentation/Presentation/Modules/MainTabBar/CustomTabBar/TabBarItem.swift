@@ -11,7 +11,6 @@ import UIKit
 enum TabBarItem: String, CaseIterable {
     case movies
     case tvSeries
-   // case favorites
 }
  
 extension TabBarItem {
@@ -19,18 +18,18 @@ extension TabBarItem {
     var icon: UIImage? {
         switch self {
         case .tvSeries:
-            return UIImage(systemName: "magnifyingglass.circle")?.withTintColor(.white.withAlphaComponent(0.4), renderingMode: .alwaysOriginal)
+            return UIImage(systemName: "film.circle")?.withTintColor(.white.withAlphaComponent(0.4), renderingMode: .alwaysOriginal)
         case .movies:
-            return UIImage(systemName: "person.crop.circle")?.withTintColor(.white.withAlphaComponent(0.4), renderingMode: .alwaysOriginal)
+            return UIImage(systemName: "tv.circle")?.withTintColor(.white.withAlphaComponent(0.4), renderingMode: .alwaysOriginal)
         }
     }
     
     var selectedIcon: UIImage? {
         switch self {
         case .tvSeries:
-            return UIImage(systemName: "magnifyingglass.circle.fill")?.withTintColor(.white, renderingMode: .alwaysOriginal)
+            return UIImage(systemName: "film.circle.fill")?.withTintColor(.white, renderingMode: .alwaysOriginal)
         case .movies:
-            return UIImage(systemName: "person.crop.circle.fill")?.withTintColor(.white, renderingMode: .alwaysOriginal)
+            return UIImage(systemName: "tv.circle.fill")?.withTintColor(.white, renderingMode: .alwaysOriginal)
         }
     }
     

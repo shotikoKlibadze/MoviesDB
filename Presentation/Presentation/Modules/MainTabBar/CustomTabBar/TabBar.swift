@@ -15,19 +15,16 @@ final class TabBar: UIStackView {
     
     var itemTapped: Observable<Int> { itemTappedSubject.asObservable() }
     
-    private lazy var customItemViews: [TabBarItemView] = [profileItem, searchItem]
+    private lazy var customItemViews: [TabBarItemView] = [movieItem, tvItem]
     
-    private let profileItem = TabBarItemView(with: .movies, index: 0)
-    private let searchItem = TabBarItemView(with: .tvSeries, index: 1)
+    private let movieItem = TabBarItemView(with: .movies, index: 0)
+    private let tvItem = TabBarItemView(with: .tvSeries, index: 1)
     
     private let itemTappedSubject = PublishSubject<Int>()
     private let disposeBag = DisposeBag()
     
-   
-    
     init() {
         super.init(frame: .zero)
-        
         setupHierarchy()
         setupProperties()
         bind()
@@ -41,18 +38,22 @@ final class TabBar: UIStackView {
     }
     
     private func setupHierarchy() {
-       
-       //  someView.backgroundColor = .green
-      //  addArrangedSubviews([profileItem, searchItem,UIView() ])
+        customItemViews.forEach({addArrangedSubview($0)})
+    
+//        addArrangedSubview(movieItem)
+//        addArrangedSubview(tvItem)
     }
     
     private func setupProperties() {
         distribution = .fillEqually
-        alignment = .center
-        spacing = 10
-        backgroundColor = .green
-        setupCornerRadius(30)
+       // alignment = .fill
         
+       // spacing = 5
+       
+        backgroundColor = UIColor.DBGreen()
+       // setupCornerRadius(30)
+        layer.cornerRadius = 30
+        layer.masksToBounds = true
         customItemViews.forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             $0.clipsToBounds = true
@@ -67,25 +68,24 @@ final class TabBar: UIStackView {
     //MARK: - Bindings
     
     private func bind() {
-        profileItem.rx.tapGesture()
+        movieItem.rx.tapGesture()
             .when(.recognized)
             .bind { [weak self] _ in
                 guard let self = self else { return }
-                self.profileItem.animateClick {
-                    self.selectItem(index: self.profileItem.index)
+                self.movieItem.animateClick {
+                    self.selectItem(index: self.movieItem.index)
                 }
             }
             .disposed(by: disposeBag)
         
-        searchItem.rx.tapGesture()
+        tvItem.rx.tapGesture()
             .when(.recognized)
             .bind { [weak self] _ in
                 guard let self = self else { return }
-                self.searchItem.animateClick {
-                    self.selectItem(index: self.searchItem.index)
+                self.tvItem.animateClick {
+                    self.selectItem(index: self.tvItem.index)
                 }
             }
             .disposed(by: disposeBag)
-        
     }
 }

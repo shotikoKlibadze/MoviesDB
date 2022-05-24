@@ -17,7 +17,6 @@ public class MainTabBarController: UITabBarController {
     let menuButton : UIButton = {
         let btn = UIButton(frame: CGRect(x: 20, y: 55, width: 30, height: 30))
         btn.setImage(UIImage(named: "open", in: Bundle.presentationBundle, with: .none), for: .normal)
-        
         btn.cornerRadius = 15
         btn.clipsToBounds = true
         return btn
@@ -82,32 +81,34 @@ public class MainTabBarController: UITabBarController {
     }
     
     private func setupHierarchy() {
-        //view.addSubview(customTabBar)
+        view.addSubview(customTabBar)
     }
     
     private func setupLayout() {
-//        customTabBar.backgroundColor = .red
-//        customTabBar.translatesAutoresizingMaskIntoConstraints = false
-//
-//        NSLayoutConstraint.activate([
-//            customTabBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-//            customTabBar.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -24),
-//            customTabBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
-//            customTabBar.heightAnchor.constraint(equalToConstant: 90)
-//        ])
-//
+        
+        customTabBar.anchor(top: nil, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 24, bottom: 24, right: 24), size: .init(width: 0, height: 90))
+        
+//        customTabBar.snp.makeConstraints {
+//            $0.leading.trailing.bottom.equalToSuperview().inset(24)
+//            $0.height.equalTo(90)
+//        }
     }
     
     private func setupProperties() {
-       // tabBar.isHidden = true
-        //tabBar.isTranslucent = true
-       // customTabBar.translatesAutoresizingMaskIntoConstraints = false
-      //  customTabBar.addShadow()
-      //  selectedIndex = 0
+        tabBar.isHidden = true
+        tabBar.isTranslucent = true
+        customTabBar.translatesAutoresizingMaskIntoConstraints = false
+        customTabBar.addShadow()
+        selectedIndex = 0
     }
 
     private func selectTabWith(index: Int) {
-        self.selectedIndex = index
+        if selectedIndex == index {
+            (selectedViewController as? UINavigationController)?.popToRootViewController(animated: true)
+        } else {
+            self.selectedIndex = index
+        }
+        
     }
 
     private func bind() {
