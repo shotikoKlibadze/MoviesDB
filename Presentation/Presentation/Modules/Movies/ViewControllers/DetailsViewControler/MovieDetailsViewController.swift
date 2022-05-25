@@ -27,6 +27,7 @@ class MovieDetailsViewController: DBViewController {
     @IBOutlet weak var genresStackView: UIStackView!
     @IBOutlet weak var collectionView: UICollectionView!
     
+    @IBOutlet weak var scrollView: UIScrollView!
     var movie : MovieEntity!
     var viewModel : MoviesViewModel!
     var similarMovies = [MovieEntity]()
@@ -77,6 +78,7 @@ class MovieDetailsViewController: DBViewController {
         navigationItem.largeTitleDisplayMode = .never
         if let _ = navigationController {
             closeButton.isHidden = true
+            scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 90, right: 0)
         }
     }
     

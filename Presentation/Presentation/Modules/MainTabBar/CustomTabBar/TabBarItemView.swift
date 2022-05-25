@@ -9,13 +9,23 @@
 import UIKit
 import SnapKit
 
-
 final class TabBarItemView: UIView {
     
-    private let nameLabel = UILabel()
+    let nameLabel : UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "Helvetica Neue", size: 11)
+        label.textColor = .systemGray2
+        return label
+    }()
+    
     private let iconImageView = UIImageView()
-    private let underlineView = UIView()
-    private let containerView = UIView()
+    
+    let underlineView : UIView = {
+        let v = UIView()
+        v.backgroundColor = .white
+        return v
+    }()
+    
     let index: Int
     
     var isSelected = false {
@@ -31,9 +41,7 @@ final class TabBarItemView: UIView {
         self.index = index
         super.init(frame: .zero)
         setupHierarchy()
-        setupLayout()
         setupProperties()
-        
     }
     
     required init?(coder: NSCoder) {
@@ -41,59 +49,33 @@ final class TabBarItemView: UIView {
     }
     
     private func setupHierarchy() {
-        backgroundColor = .red
-       // addSubview(containerView)
-       // containerView.addSubviews(nameLabel, iconImageView, underlineView)
-       // containerView.backgroundColor = .red
+        addSubview(iconImageView)
+        addSubview(nameLabel)
+        addSubview(underlineView)
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setupLayout()
     }
     
     private func setupLayout() {
-//        containerView.translatesAutoresizingMaskIntoConstraints = false
-//        iconImageView.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        NSLayoutConstraint.activate([
-//            containerView.topAnchor.constraint(equalTo: topAnchor),
-//            containerView.bottomAnchor.constraint(equalTo: bottomAnchor),
-//            containerView.leadingAnchor.constraint(equalTo: leadingAnchor),
-//            containerView.trailingAnchor.constraint(equalTo: trailingAnchor),
-//        ])
-//        
-//        NSLayoutConstraint.activate([
-//            iconImageView.topAnchor.constraint(equalTo: containerView.topAnchor ),
-//            iconImageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
-//            iconImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-//            iconImageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-//            iconImageView.heightAnchor.constraint(equalToConstant: 40),
-//            iconImageView.widthAnchor.constraint(equalToConstant: 40)
-//        ])
-//        
-//
-//        
-//            containerView.snp.makeConstraints {
-//                $0.edges.equalToSuperview()
-//                $0.center.equalToSuperview()
-//               // $0.width.equalTo(20)
-//              //  $0.height.equalTo(20)
-//            }
-//            
-//            iconImageView.snp.makeConstraints {
-//                $0.height.width.equalTo(40)
-//                $0.top.equalToSuperview()
-//                $0.bottom.equalTo(nameLabel.snp.top)
-//                $0.centerX.equalToSuperview()
-//            }
-//
-//            nameLabel.snp.makeConstraints {
-//                $0.bottom.leading.trailing.equalToSuperview()
-//                $0.height.equalTo(16)
-//            }
-//
-//            underlineView.snp.makeConstraints {
-//                $0.width.equalTo(40)
-//                $0.height.equalTo(4)
-//                $0.centerX.equalToSuperview()
-//                $0.centerY.equalTo(nameLabel.snp.centerY)
-//            }
+        iconImageView.translatesAutoresizingMaskIntoConstraints = false
+        iconImageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        iconImageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        iconImageView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        iconImageView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -10).isActive = true
+        
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        nameLabel.heightAnchor.constraint(equalToConstant: 16).isActive = true
+        nameLabel.centerXAnchor.constraint(equalTo: iconImageView.centerXAnchor).isActive = true
+        nameLabel.topAnchor.constraint(equalTo: iconImageView.bottomAnchor).isActive = true
+        
+        underlineView.translatesAutoresizingMaskIntoConstraints = false
+        underlineView.centerXAnchor.constraint(equalTo: nameLabel.centerXAnchor).isActive = true
+        underlineView.centerYAnchor.constraint(equalTo: nameLabel.centerYAnchor).isActive = true
+        underlineView.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        underlineView.heightAnchor.constraint(equalToConstant: 4).isActive = true
     }
     
     private func setupProperties() {

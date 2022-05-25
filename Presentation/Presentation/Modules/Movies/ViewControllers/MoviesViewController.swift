@@ -51,10 +51,10 @@ public class MoviesViewController: DBViewController {
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        
         getMovies()
         setupCollectionView()
         title = "Movies"
+        collectionView?.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 90, right: 0)
     }
     
     public override func viewDidLayoutSubviews() {

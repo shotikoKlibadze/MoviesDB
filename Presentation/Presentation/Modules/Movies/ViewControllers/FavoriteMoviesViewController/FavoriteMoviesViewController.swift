@@ -20,6 +20,7 @@ class FavoriteMoviesViewController: DBViewController {
         super.viewDidLoad()
         fetchMovies()
         setupCollectionView()
+        collectionView?.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 90, right: 0)
     }
     
     override func viewWillAppear(_ animated: Bool) {

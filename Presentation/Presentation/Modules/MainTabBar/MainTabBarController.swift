@@ -44,7 +44,7 @@ public class MainTabBarController: UITabBarController {
         view.backgroundColor = UIColor(named: "DBBackground")
         setupProperties()
         setupHierarchy()
-        setupLayout()
+       
         bind()
         view.layoutIfNeeded()
         setupMenuButton()
@@ -54,6 +54,16 @@ public class MainTabBarController: UITabBarController {
         if let currentNavController = self.selectedViewController as? UINavigationController {
             self.controller = currentNavController
         }
+    }
+    
+    public override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        setupLayout()
+    }
+    
+    public override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
     }
     
 
@@ -85,13 +95,11 @@ public class MainTabBarController: UITabBarController {
     }
     
     private func setupLayout() {
-        
-        customTabBar.anchor(top: nil, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 24, bottom: 24, right: 24), size: .init(width: 0, height: 90))
-        
-//        customTabBar.snp.makeConstraints {
-//            $0.leading.trailing.bottom.equalToSuperview().inset(24)
-//            $0.height.equalTo(90)
-//        }
+        customTabBar.translatesAutoresizingMaskIntoConstraints = false
+        customTabBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24).isActive = true
+        customTabBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24).isActive = true
+        customTabBar.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -24).isActive = true
+        customTabBar.heightAnchor.constraint(equalToConstant: 90).isActive = true
     }
     
     private func setupProperties() {
@@ -108,7 +116,6 @@ public class MainTabBarController: UITabBarController {
         } else {
             self.selectedIndex = index
         }
-        
     }
 
     private func bind() {
@@ -133,22 +140,5 @@ extension MainTabBarController : UITabBarControllerDelegate {
         if viewController is UINavigationController {
            controller = viewController as? UINavigationController
         }
-    }
-}
-
-extension UIView {
-
-    func addShadow(offset: CGSize, color: UIColor, radius: CGFloat, opacity: Float) {
-       
-        layer.shadowOffset = offset
-        layer.shadowColor = color.cgColor
-        layer.shadowRadius = radius
-        layer.shadowOpacity = opacity
-
-        let backgroundCGColor = backgroundColor?.cgColor
-        backgroundColor = nil
-        layer.backgroundColor =  backgroundCGColor
-        layer.masksToBounds = true
-        
     }
 }

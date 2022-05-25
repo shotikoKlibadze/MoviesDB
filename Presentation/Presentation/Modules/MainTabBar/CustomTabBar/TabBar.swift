@@ -39,21 +39,12 @@ final class TabBar: UIStackView {
     
     private func setupHierarchy() {
         customItemViews.forEach({addArrangedSubview($0)})
-    
-//        addArrangedSubview(movieItem)
-//        addArrangedSubview(tvItem)
     }
     
     private func setupProperties() {
         distribution = .fillEqually
-       // alignment = .fill
-        
-       // spacing = 5
-       
         backgroundColor = UIColor.DBGreen()
-       // setupCornerRadius(30)
         layer.cornerRadius = 30
-        layer.masksToBounds = true
         customItemViews.forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             $0.clipsToBounds = true

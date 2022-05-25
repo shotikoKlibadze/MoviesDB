@@ -287,6 +287,7 @@
                         <outlet property="overtviewTextView" destination="8gZ-j2-KO3" id="W7J-we-3sn"/>
                         <outlet property="posterImageView" destination="fNL-rd-Zdn" id="sqF-2M-ayZ"/>
                         <outlet property="ratingsLabel" destination="9kF-N5-AG4" id="30x-Qx-oy5"/>
+                        <outlet property="scrollView" destination="SqK-zB-ccV" id="e1S-8H-eO2"/>
                         <outlet property="tittleLabel" destination="4Cz-45-rtU" id="odN-Jr-C2s"/>
                     </connections>
                 </viewController>
