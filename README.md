@@ -15,3 +15,4 @@ Movies Database Modular Architecture APP (Clean Arcitecture + MVVM)
 - Snapkit
 - Uikit
 - ProgressHud
+- Compositional Layout + Diffable datasources
