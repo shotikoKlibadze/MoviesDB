@@ -9,7 +9,7 @@ Movies Database Modular Architecture APP (Clean Arcitecture + MVVM)
 - Kingfisher
 - RxSwift
 - RxGesture
-- Async/Await modern concurrency
+- Async/Await concurrency
 - Core Data
 - Combine
 - Snapkit
