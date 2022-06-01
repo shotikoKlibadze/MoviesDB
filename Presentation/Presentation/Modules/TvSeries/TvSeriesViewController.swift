@@ -6,18 +6,38 @@
 //
 
 import UIKit
+import Core
+import Combine
 
 public class TvSeriesViewController: DBViewController {
     
-    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var collectionView: UICollectionView!
+    
+    var tvSeries = [TvSeriesEntity]() {
+        didSet {
+            print("here")
+        }
+    }
+    private var subscriptions = Set<AnyCancellable>()
     
     var viewModel: TvSeriesViewModel!
 
     public override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.fetchOnAirTvSeries()
+        bind()
+        title = "TV Series"
         
-      title = "TV Series"
-        
+    }
+    
+    private func bind() {
+        viewModel.$onAirTvSeries
+            .sink { _ in
+                print("Completed")
+            } receiveValue: { [weak self] tvSeries in
+                self?.tvSeries = tvSeries
+            }
+            .store(in: &subscriptions)
     }
     
     public override func viewWillAppear(_ animated: Bool) {
@@ -34,8 +54,5 @@ public class TvSeriesViewController: DBViewController {
         guard let tabBar = tabBarController as? MainTabBarController else { return }
         tabBar.menuButton.isHidden = true
     }
-    
-  
 
-    
 }

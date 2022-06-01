@@ -37,7 +37,7 @@ public class NetworkManager<Model:Codable> {
 //        }.resume()
 //    }
     
-    func sendAsyncRequest(path: String) async -> Model? {
+    func sendRequest(path: String) async -> Model? {
         guard let url = URL(string: path) else {
            let error =  DBError(errorMessage: "Unkown Error", debugMessage: "Bad URL", endPoint: path)
             ErrorHandler.shared.handleError(error: error)
@@ -47,10 +47,9 @@ public class NetworkManager<Model:Codable> {
         var model : Model?
         
         do {
-            
             let (data, response) = try await URLSession.shared.data(from: url)
             guard (response as? HTTPURLResponse)?.statusCode == 200 else {
-                let error = DBError(errorMessage: "Unknown Error", debugMessage: "HTTP Response", endPoint: path)
+                let error = DBError(errorMessage: "Server Error", debugMessage: "HTTP Response Error", endPoint: path)
                 ErrorHandler.shared.handleError(error: error)
                 return nil
             }
@@ -58,14 +57,14 @@ public class NetworkManager<Model:Codable> {
             model = modelToreturn
     
         } catch _ as URLError {
-            let error = DBError(errorMessage: "Server Error", debugMessage: "Server Error", endPoint: path)
+            let error = DBError(errorMessage: "Server Error", debugMessage: "URL Error", endPoint: path)
             ErrorHandler.shared.handleError(error: error)
         } catch _ as Swift.DecodingError {
            
             let error = DBError(errorMessage: "Unknown Error", debugMessage: "Error Parsing Data", endPoint: path)
             ErrorHandler.shared.handleError(error: error)
         } catch {
-            let err = DBError(errorMessage: "Unkown Error", debugMessage: "Unknown Error", endPoint: nil)
+            let err = DBError(errorMessage: "Unkown Error", debugMessage: "Unknown Error", endPoint: path)
             ErrorHandler.shared.handleError(error: err)
         }
         

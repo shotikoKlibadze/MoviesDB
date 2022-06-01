@@ -22,8 +22,10 @@ class AppDependencyContainer: AppDependencyContainerInterface {
     }
     
     func getTvSeriesViewModel() -> TvSeriesViewModel {
-        let dataSource = TvSeriesDataSource()
-        let viewModel = TvSeriesViewModel(dataSource: dataSource)
+        let remoteDataSource = TvSeriesRemoteDataSource()
+        let localDataSource = TvSeriesLocalDataSource()
+        let dataRepo = TvSeriesDataRepository(localDatasource: localDataSource, remoteDataSource: remoteDataSource)
+        let viewModel = TvSeriesViewModel(dataSource: dataRepo)
         return viewModel
     }
     

@@ -7,16 +7,29 @@
 
 import Foundation
 import Core
+import Combine
 
 public class TvSeriesViewModel {
     
+    @Published var onAirTvSeries = [TvSeriesEntity]()
     
-    var dataSource : TvSeriesDataSourceInterface
+    private var subscriptions = Set<AnyCancellable>()
     
-    public init(dataSource: TvSeriesDataSourceInterface) {
+    private let dataSource : TvSeriesDataRepositoryInterface
+    
+    public init(dataSource: TvSeriesDataRepositoryInterface) {
         self.dataSource = dataSource
         
     }
+    
+    func fetchOnAirTvSeries() {
+        dataSource.getTvSeriesOnAir()
+            .receive(on: DispatchQueue.main)
+            .replaceError(with: [])
+            .assign(to: \.onAirTvSeries, on: self)
+            .store(in: &subscriptions)
+    }
+    
     
     
     

@@ -27,7 +27,7 @@ public class MoviesRemoteDataSource: MoviesRemoteDataSourceInterface {
     public func getUpcomingMovies()  async -> [MovieData] {
         let path = "https://api.themoviedb.org/3/movie/upcoming?api_key=\(key)&language=en-US&page=1"
         let networkCall = NetworkManager<MovieResponse>.shared
-        guard let data = await networkCall.sendAsyncRequest(path: path) else { return [] }
+        guard let data = await networkCall.sendRequest(path: path) else { return [] }
         return data.results
        
     }
@@ -35,7 +35,7 @@ public class MoviesRemoteDataSource: MoviesRemoteDataSourceInterface {
     public func getTopRatedMovies() async -> [MovieData] {
         let path = "https://api.themoviedb.org/3/movie/top_rated?api_key=\(key)&language=en-US&page=1"
         let networkCall = NetworkManager<MovieResponse>.shared
-        guard let data = await networkCall.sendAsyncRequest(path: path) else { return [] }
+        guard let data = await networkCall.sendRequest(path: path) else { return [] }
         
         return data.results
     }
@@ -43,21 +43,21 @@ public class MoviesRemoteDataSource: MoviesRemoteDataSourceInterface {
     public func getNowPlayingMovies() async -> [MovieData] {
         let path = "https://api.themoviedb.org/3/movie/now_playing?api_key=\(key)&language=en-US&page=1"
         let networkCall = NetworkManager<MovieResponse>.shared
-        guard let data = await networkCall.sendAsyncRequest(path: path) else { return [] }
+        guard let data = await networkCall.sendRequest(path: path) else { return [] }
         return data.results
     }
     
     public func getSimilarMovies(movieID: Int) async -> [MovieData] {
         let path =  "https://api.themoviedb.org/3/movie/\(movieID)/similar?api_key=\(key)&language=en-US&page=1"
         let networkCall = NetworkManager<MovieResponse>.shared
-        guard let data = await networkCall.sendAsyncRequest(path: path) else { return [] }
+        guard let data = await networkCall.sendRequest(path: path) else { return [] }
         return data.results
     }
     
     public func getCastMembers(movieID: Int) async -> [ActorsData] {
         let path = "https://api.themoviedb.org/3/movie/\(movieID)/credits?api_key=\(key)&language=en-US"
         let networkCall = NetworkManager<MovieCastResponse>.shared
-        guard let data = await networkCall.sendAsyncRequest(path: path) else { return [] }
+        guard let data = await networkCall.sendRequest(path: path) else { return [] }
         return data.cast
     }
     
