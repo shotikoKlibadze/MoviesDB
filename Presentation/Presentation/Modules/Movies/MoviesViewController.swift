@@ -100,7 +100,7 @@ public class MoviesViewController: DBViewController {
         //Cell Registration
         collectionView.register(MovieCollectionViewCell.self, forCellWithReuseIdentifier: MovieCollectionViewCell.identifier)
         //View Registration
-        collectionView.register(UINib(nibName: "MoviesHeaderView", bundle: Bundle.presentationBundle), forSupplementaryViewOfKind: SupplementaryElementKind.sectionHeader, withReuseIdentifier: MoviesHeaderView.identifier)
+        collectionView.register(UINib(nibName: "SeeAllHeaderView", bundle: Bundle.presentationBundle), forSupplementaryViewOfKind: SupplementaryElementKind.sectionHeader, withReuseIdentifier: SeeAllHeaderView.identifier)
         
         //DataSource
         dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, model in
@@ -133,7 +133,7 @@ public class MoviesViewController: DBViewController {
             if kind == SupplementaryElementKind.sectionHeader {
                 switch sectionKind {
                 case .nowPlayingMovies:
-                    let view = collectionView.dequeueReusableSupplementaryView(ofKind: SupplementaryElementKind.sectionHeader, withReuseIdentifier: MoviesHeaderView.identifier, for: indexPath) as! MoviesHeaderView
+                    let view = collectionView.dequeueReusableSupplementaryView(ofKind: SupplementaryElementKind.sectionHeader, withReuseIdentifier: SeeAllHeaderView.identifier, for: indexPath) as! SeeAllHeaderView
                     view.sectionHeaderLabel.text = sectionKind.sectionHeader
                     view.sectionHeaderLabel.textAlignment = .center
                     view.sectionHeaderLabel.font = UIFont.init(name: "Helvetica Neue Bold", size: 20)
@@ -141,7 +141,7 @@ public class MoviesViewController: DBViewController {
                     view.seeAllBUtton.isHidden = true
                     return view
                 case .upcomingMovies:
-                    let view = collectionView.dequeueReusableSupplementaryView(ofKind: SupplementaryElementKind.sectionHeader, withReuseIdentifier: MoviesHeaderView.identifier, for: indexPath) as! MoviesHeaderView
+                    let view = collectionView.dequeueReusableSupplementaryView(ofKind: SupplementaryElementKind.sectionHeader, withReuseIdentifier: SeeAllHeaderView.identifier, for: indexPath) as! SeeAllHeaderView
                     view.sectionHeaderLabel.text = sectionKind.sectionHeader
                     let contextProvider = UpcomingMoviesProvider()
                     contextProvider.viewModel = self.viewModel
@@ -149,7 +149,7 @@ public class MoviesViewController: DBViewController {
                     view.contextProvider = contextProvider
                     return view
                 case .topRatedMovies:
-                    let view = collectionView.dequeueReusableSupplementaryView(ofKind: SupplementaryElementKind.sectionHeader, withReuseIdentifier: MoviesHeaderView.identifier, for: indexPath) as! MoviesHeaderView
+                    let view = collectionView.dequeueReusableSupplementaryView(ofKind: SupplementaryElementKind.sectionHeader, withReuseIdentifier: SeeAllHeaderView.identifier, for: indexPath) as! SeeAllHeaderView
                     let contextProvider = TopRatedMoviesProvider()
                     contextProvider.viewModel = self.viewModel
                     view.controller = self

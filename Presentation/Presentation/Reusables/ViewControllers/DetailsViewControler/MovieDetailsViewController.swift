@@ -96,7 +96,7 @@ class MovieDetailsViewController: DBViewController {
         collectionView.collectionViewLayout = layout
         collectionView.register(MovieCollectionViewCell.self, forCellWithReuseIdentifier: MovieCollectionViewCell.identifier)
         collectionView.register(CastMemberCollectionViewCell.self, forCellWithReuseIdentifier: CastMemberCollectionViewCell.identifier)
-        collectionView.register(UINib(nibName: "MoviesHeaderView", bundle: Bundle.presentationBundle), forSupplementaryViewOfKind: SupplementaryElementKind.sectionHeader, withReuseIdentifier: MoviesHeaderView.identifier)
+        collectionView.register(UINib(nibName: "SeeAllHeaderView", bundle: Bundle.presentationBundle), forSupplementaryViewOfKind: SupplementaryElementKind.sectionHeader, withReuseIdentifier: SeeAllHeaderView.identifier)
         
         dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: {
             collectionView, indexPath, model in
@@ -124,12 +124,12 @@ class MovieDetailsViewController: DBViewController {
             if kind == SupplementaryElementKind.sectionHeader {
                 switch sectionKind {
                 case .cast:
-                    let view = collectionView.dequeueReusableSupplementaryView(ofKind: SupplementaryElementKind.sectionHeader, withReuseIdentifier: MoviesHeaderView.identifier, for: indexPath) as! MoviesHeaderView
+                    let view = collectionView.dequeueReusableSupplementaryView(ofKind: SupplementaryElementKind.sectionHeader, withReuseIdentifier: SeeAllHeaderView.identifier, for: indexPath) as! SeeAllHeaderView
                     view.seeAllBUtton.isHidden = true
                     view.sectionHeaderLabel.text = sectionKind.sectionHeader
                     return view
                 case .similarMovies:
-                    let view = collectionView.dequeueReusableSupplementaryView(ofKind: SupplementaryElementKind.sectionHeader, withReuseIdentifier: MoviesHeaderView.identifier, for: indexPath) as! MoviesHeaderView
+                    let view = collectionView.dequeueReusableSupplementaryView(ofKind: SupplementaryElementKind.sectionHeader, withReuseIdentifier: SeeAllHeaderView.identifier, for: indexPath) as! SeeAllHeaderView
                     view.seeAllBUtton.isHidden = true
                     view.sectionHeaderLabel.text = sectionKind.sectionHeader
                     return view

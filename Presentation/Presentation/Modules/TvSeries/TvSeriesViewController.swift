@@ -13,18 +13,17 @@ public class TvSeriesViewController: DBViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var tvSeries = [TvSeriesEntity]() {
-        didSet {
-            print("here")
-        }
-    }
+    var onAirTvSeries = [TvSeriesEntity]()
+    var popularTvSeries = [TvSeriesEntity]()
+    var topRatedTvSeries = [TvSeriesEntity]()
+    
     private var subscriptions = Set<AnyCancellable>()
     
     var viewModel: TvSeriesViewModel!
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.fetchOnAirTvSeries()
+        viewModel.fetchData()
         bind()
         title = "TV Series"
         
@@ -32,11 +31,13 @@ public class TvSeriesViewController: DBViewController {
     
     private func bind() {
         viewModel.$onAirTvSeries
-            .sink { _ in
-                print("Completed")
-            } receiveValue: { [weak self] tvSeries in
-                self?.tvSeries = tvSeries
-            }
+            .sink(receiveValue: {[weak self] in self?.onAirTvSeries = $0})
+            .store(in: &subscriptions)
+        viewModel.$topRatedTvSeries
+            .sink(receiveValue: {[weak self] in self?.topRatedTvSeries = $0})
+            .store(in: &subscriptions)
+        viewModel.$popularTvSeries
+            .sink(receiveValue: {[weak self] in self?.popularTvSeries = $0})
             .store(in: &subscriptions)
     }
     

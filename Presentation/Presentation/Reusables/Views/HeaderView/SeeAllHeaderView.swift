@@ -10,9 +10,9 @@ import UIKit
 import Core
 import ProgressHUD
 
-class MoviesHeaderView : UICollectionReusableView {
+class SeeAllHeaderView : UICollectionReusableView {
     
-    static let identifier = "MoviesHeaderView"
+    static let identifier = "SeeAllHeaderView"
     
     @IBOutlet weak var sectionHeaderLabel: UILabel!
     @IBOutlet weak var redView: UIView!

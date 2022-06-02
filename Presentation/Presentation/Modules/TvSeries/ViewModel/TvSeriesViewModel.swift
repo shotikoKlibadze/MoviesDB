@@ -12,6 +12,8 @@ import Combine
 public class TvSeriesViewModel {
     
     @Published var onAirTvSeries = [TvSeriesEntity]()
+    @Published var popularTvSeries = [TvSeriesEntity]()
+    @Published var topRatedTvSeries = [TvSeriesEntity]()
     
     private var subscriptions = Set<AnyCancellable>()
     
@@ -22,11 +24,23 @@ public class TvSeriesViewModel {
         
     }
     
-    func fetchOnAirTvSeries() {
+    func fetchData() {
         dataSource.getTvSeriesOnAir()
             .receive(on: DispatchQueue.main)
             .replaceError(with: [])
             .assign(to: \.onAirTvSeries, on: self)
+            .store(in: &subscriptions)
+        
+        dataSource.getPopularTvSeries()
+            .receive(on: DispatchQueue.main)
+            .replaceError(with: [])
+            .assign(to: \.popularTvSeries, on: self)
+            .store(in: &subscriptions)
+        
+        dataSource.getTopRatedTvSeries()
+            .receive(on: DispatchQueue.main)
+            .replaceError(with: [])
+            .assign(to: \.topRatedTvSeries, on: self)
             .store(in: &subscriptions)
     }
     

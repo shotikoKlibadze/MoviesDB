@@ -66,8 +66,6 @@ public class MainTabBarController: UITabBarController {
         
     }
     
-
-
     private func setupMenuButton() {
         view.addSubview(menuButton)
         menuButton.addTarget(self, action: #selector(openSideMenu), for: .touchUpInside)
@@ -111,10 +109,9 @@ public class MainTabBarController: UITabBarController {
     }
 
     private func selectTabWith(index: Int) {
-        if selectedIndex == index {
-            (selectedViewController as? UINavigationController)?.popToRootViewController(animated: true)
-        } else {
-            self.selectedIndex = index
+        self.selectedIndex = index
+        if let navController = selectedViewController as? UINavigationController {
+            navController.popToRootViewController(animated: true)
         }
     }
 

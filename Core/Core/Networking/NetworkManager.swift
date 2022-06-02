@@ -55,12 +55,10 @@ public class NetworkManager<Model:Codable> {
             }
             let modelToreturn = try JSONDecoder().decode(Model.self, from: data)
             model = modelToreturn
-    
         } catch _ as URLError {
             let error = DBError(errorMessage: "Server Error", debugMessage: "URL Error", endPoint: path)
             ErrorHandler.shared.handleError(error: error)
         } catch _ as Swift.DecodingError {
-           
             let error = DBError(errorMessage: "Unknown Error", debugMessage: "Error Parsing Data", endPoint: path)
             ErrorHandler.shared.handleError(error: error)
         } catch {
@@ -70,5 +68,4 @@ public class NetworkManager<Model:Codable> {
         
         return model
     }
-    
 }

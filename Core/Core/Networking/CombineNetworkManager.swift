@@ -55,10 +55,6 @@ public class CombineNetworkManager<Model:Codable> {
                     return error
                 }
             }
-            .map({ data -> Model in
-                let model = data
-                return model
-            })
             .eraseToAnyPublisher()
     }
 }

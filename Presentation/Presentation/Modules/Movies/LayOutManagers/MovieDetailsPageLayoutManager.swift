@@ -15,12 +15,10 @@ struct MovieDetailsPageLayoutManager {
     }
     
     func createLayout() -> UICollectionViewLayout {
-        
         let layOut = UICollectionViewCompositionalLayout { sectionIndex, _ in
             guard let sectionKind = MovieDetailsViewController.Section(rawValue: sectionIndex) else {
                 fatalError("No such section")
             }
-            
             switch sectionKind {
             case .cast:
                 return createSectionForCast()
@@ -29,12 +27,9 @@ struct MovieDetailsPageLayoutManager {
             }
         }
         layOut.register(SectionBackGroundDecoration.self, forDecorationViewOfKind: DecorationKind.backgroundDecoration)
-        
-        
         let configuration = UICollectionViewCompositionalLayoutConfiguration()
         configuration.interSectionSpacing = 20
         layOut.configuration = configuration
-        
         return layOut
     }
     
