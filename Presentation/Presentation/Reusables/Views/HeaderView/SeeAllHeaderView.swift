@@ -18,16 +18,24 @@ class SeeAllHeaderView : UICollectionReusableView {
     @IBOutlet weak var redView: UIView!
     @IBOutlet weak var seeAllBUtton: UIButton!
     
-    
-    var contextProvider : ContextProvider?
-    var controller : MoviesViewController?
+    var movieContextProvider : MovieContextProvider?
+    var tvContextProvider : TvSeriesContextProvider?
+    var moviesController : MoviesViewController?
+    var tvSeriesController: TvSeriesViewController?
     
     @IBAction func seeAllTapped(_ sender: Any) {
-        guard let controller = controller, let contextProvider = contextProvider  else {
+        guard let moviesController = moviesController, let moviesContextProvider = movieContextProvider  else {
+            
+            if let tvSeriesController = tvSeriesController, let tvContextProvider = tvContextProvider {
+                let vc = AllTvSeriesViewController()
+                vc.contextProvider = tvContextProvider
+                tvSeriesController.navigationController?.pushViewController(vc, animated: true)
+            }
+            
             return
         }
         let vc = AllMoviesViewController()
-        vc.contextProvider = contextProvider
-        controller.navigationController?.pushViewController(vc, animated: true)
+        vc.contextProvider = moviesContextProvider
+        moviesController.navigationController?.pushViewController(vc, animated: true)
     }
 }

@@ -9,8 +9,8 @@ import Foundation
 import RxSwift
 
 public protocol MoviesRemoteDataSourceInterface {
-    func getUpcomingMovies() async -> [MovieData]
-    func getTopRatedMovies() async -> [MovieData]
+    func getUpcomingMovies(page: Int) async -> [MovieData]
+    func getTopRatedMovies(page: Int) async -> [MovieData]
     func getNowPlayingMovies() async -> [MovieData]
     func getSimilarMovies(movieID: Int) async -> [MovieData]
     func getCastMembers(movieID: Int) async -> [ActorsData]
@@ -24,16 +24,16 @@ public class MoviesRemoteDataSource: MoviesRemoteDataSourceInterface {
         
     }
     
-    public func getUpcomingMovies()  async -> [MovieData] {
-        let path = "https://api.themoviedb.org/3/movie/upcoming?api_key=\(key)&language=en-US&page=1"
+    public func getUpcomingMovies(page: Int)  async -> [MovieData] {
+        let path = "https://api.themoviedb.org/3/movie/upcoming?api_key=\(key)&language=en-US&page=\(page)"
         let networkCall = NetworkManager<MovieResponse>.shared
         guard let data = await networkCall.sendRequest(path: path) else { return [] }
         return data.results
        
     }
     
-    public func getTopRatedMovies() async -> [MovieData] {
-        let path = "https://api.themoviedb.org/3/movie/top_rated?api_key=\(key)&language=en-US&page=1"
+    public func getTopRatedMovies(page: Int) async -> [MovieData] {
+        let path = "https://api.themoviedb.org/3/movie/top_rated?api_key=\(key)&language=en-US&page=\(page)"
         let networkCall = NetworkManager<MovieResponse>.shared
         guard let data = await networkCall.sendRequest(path: path) else { return [] }
         

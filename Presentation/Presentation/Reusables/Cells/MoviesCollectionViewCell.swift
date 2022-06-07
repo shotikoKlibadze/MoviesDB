@@ -67,9 +67,6 @@ class MovieCollectionViewCell : DBCollectionViewCell {
         setUI()
         setupHierarchy()
         setupLayout()
-       
-        contentView.backgroundColor = .yellow
-        
     }
     
     private func setupHierarchy() {
@@ -87,14 +84,25 @@ class MovieCollectionViewCell : DBCollectionViewCell {
         titleLable.anchor(top: stackView.bottomAnchor, leading: titleView.leadingAnchor, bottom: titleView.bottomAnchor, trailing: titleView.trailingAnchor, padding: UIEdgeInsets.init(top: 4, left: 10, bottom: 5, right: 10))
     }
     
-    private func setUI() {
-        titleView.backgroundColor = UIColor.DBTopLayerBackground()
-        contentView.clipsToBounds = false
-        contentView.layer.masksToBounds = true
-        contentView.layer.cornerRadius = 8
-    }
-    
-    func configure(with movie: MovieEntity, isLargePoster: Bool) {
+    func configure(with movie: MovieEntity?, tvSeries: MovieEntity?, isLargePoster: Bool) {
+        guard let movie = movie else {
+            if let tvSeries = tvSeries {
+                titleLable.text = tvSeries.tittle
+                ratingsLabel.text = String(tvSeries.voteAvarage)
+                let imagePathPrefix = AppHelper.imagePathPrefix
+                if isLargePoster {
+                    if let largePoster = tvSeries.wallPaper {
+                        let url = URL(string: imagePathPrefix + largePoster)
+                        posterImageView.kf.setImage(with: url)
+                    }
+                } else {
+                    let url = URL(string: imagePathPrefix + tvSeries.poster)
+                    posterImageView.kf.setImage(with: url)
+                }
+                heartImageView.isHidden = !tvSeries.isFavorite
+            }
+            return
+        }
         titleLable.text = movie.tittle
         ratingsLabel.text = String(movie.voteAvarage)
         let imagePathPrefix = AppHelper.imagePathPrefix
@@ -108,6 +116,13 @@ class MovieCollectionViewCell : DBCollectionViewCell {
             posterImageView.kf.setImage(with: url)
         }
         heartImageView.isHidden = !movie.isFavorite
+    }
+    
+    private func setUI() {
+        titleView.backgroundColor = UIColor.DBTopLayerBackground()
+        contentView.clipsToBounds = false
+        contentView.layer.masksToBounds = true
+        contentView.layer.cornerRadius = 8
     }
     
     required init?(coder: NSCoder) {

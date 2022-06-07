@@ -1,30 +1,34 @@
 //
-//  AllMoviesViewController.swift
+//  AllTvSeriesViewController.swift
 //  Presentation
 //
-//  Created by Shotiko Klibadze on 10.04.22.
+//  Created by Shotiko Klibadze on 06.06.22.
 //
+
+import Foundation
 
 import UIKit
 import ProgressHUD
 import Core
 import Kingfisher
+import Combine
 
-class AllMoviesViewController: DBViewController {
+class AllTvSeriesViewController: DBViewController {
     
-    var contextProvider : ContextProvider!
+    var contextProvider : TvSeriesContextProvider!
     var dataSource : UICollectionViewDiffableDataSource<Int,MovieEntity>!
     var transition = Animator()
     var sizeViewForTransition = UIView()
     var imageViewForTransition = UIImageView()
     var collectionView: UICollectionView?
-    
-    private var movies = [MovieEntity]()
+    private var subscriptions = Set<AnyCancellable>()
+    private var tvSeries = [MovieEntity]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        contextProvider?.provideContext()
         setupCollectionView()
-        getMovies()
+        bind()
         collectionView?.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 90, right: 0)
     }
     
@@ -37,6 +41,11 @@ class AllMoviesViewController: DBViewController {
         super.viewWillAppear(animated)
         navigationItem.largeTitleDisplayMode = .never
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        contextProvider?.resetContext()
+    }
 
     private func setupCollectionView() {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
@@ -46,10 +55,13 @@ class AllMoviesViewController: DBViewController {
         collectionView.backgroundColor = UIColor.DBBackgroundColor()
         self.collectionView = collectionView
         view.addSubview(collectionView)
-        dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, model in
-            
+        dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: { [weak self] collectionView, indexPath, model in
+            guard let self = self else { fatalError() }
+            if self.tvSeries.count - 1 == indexPath.row {
+                self.contextProvider.provideMoreContext()
+            }
             guard let cell = collectionView.deque(MovieCollectionViewCell.self, for: indexPath) else { fatalError() }
-            cell.configure(with: model, isLargePoster: true)
+            cell.configure(with: nil, tvSeries: model, isLargePoster: true)
             return cell
         })
     }
@@ -70,34 +82,46 @@ class AllMoviesViewController: DBViewController {
         return layout
     }
     
-    private func getMovies() {
-        ProgressHUD.show()
-        Task {
-            do {
-                movies = await contextProvider.provideContext()
-                updateSnapshot()
+    private func bind() {
+        guard let contextProvider = contextProvider as? TopRatedTvSeriesProvider else {
+            if let anotherContext = self.contextProvider as? PopularTvSeriesProvider {
+                anotherContext.$popularTvSeries
+                    .sink(receiveValue: { [weak self] in
+                        self?.tvSeries = $0
+                        self?.updateSnapshot()
+                    })
+                    .store(in: &subscriptions)
             }
+            return
         }
+        
+        contextProvider.$topRatedTvSeries
+            .sink(receiveValue: { [weak self] in
+                self?.tvSeries = $0
+                self?.updateSnapshot()
+            })
+            .store(in: &subscriptions)
     }
     
     private func updateSnapshot() {
         var snapShot = NSDiffableDataSourceSnapshot<Int,MovieEntity>()
         snapShot.appendSections([0])
-        snapShot.appendItems(movies)
+        snapShot.appendItems(tvSeries)
         dataSource.apply(snapShot)
         ProgressHUD.dismiss()
     }
+    
 }
 
-extension AllMoviesViewController : UICollectionViewDelegate {
+extension AllTvSeriesViewController : UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //let vc = DetailsViewController()
         let vc = MovieDetailsViewController.instantiateFromStoryboard()
         vc.modalPresentationStyle = .overFullScreen
         vc.transitioningDelegate = self
-        vc.movie = movies[indexPath.row]
-        vc.viewModel = contextProvider.viewModel
+        vc.movie = tvSeries[indexPath.row]
+        guard let contextsProvider = contextProvider else { return }
+        vc.tvSeriesViewModel = contextsProvider.viewModel
         vc.delegate = self
         if let cell = collectionView.cellForItem(at: indexPath) as? MovieCollectionViewCell {
             let imageView = cell.posterImageView
@@ -108,7 +132,7 @@ extension AllMoviesViewController : UICollectionViewDelegate {
     }
 }
 
-extension AllMoviesViewController : UIViewControllerTransitioningDelegate {
+extension AllTvSeriesViewController : UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         transition.imageViewForTransition = imageViewForTransition
         transition.sizeViewForTransition = sizeViewForTransition
@@ -120,8 +144,8 @@ extension AllMoviesViewController : UIViewControllerTransitioningDelegate {
     }
 }
 
-extension AllMoviesViewController : FavoriteMovieStatusChangeDelegate {
+extension AllTvSeriesViewController : FavoriteMovieStatusChangeDelegate {
     func refresh() {
-        getMovies()
+        
     }
 }

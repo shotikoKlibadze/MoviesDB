@@ -9,9 +9,13 @@ import Foundation
 import Combine
 
 public protocol TvSeriesDataRepositoryInterface {
-    func getTvSeriesOnAir() -> AnyPublisher<[TvSeriesEntity],Error>
-    func getPopularTvSeries() -> AnyPublisher<[TvSeriesEntity], Error>
-    func getTopRatedTvSeries() -> AnyPublisher<[TvSeriesEntity], Error>
+    func getTvSeriesOnAir() -> AnyPublisher<[MovieEntity],Error>
+    func getPopularTvSeries(page: Int) -> AnyPublisher<[MovieEntity], Error>
+    func getTopRatedTvSeries(page: Int) -> AnyPublisher<[MovieEntity], Error>
+    
+    func getSimilarTvSeries(tvSeriesID: Int) -> AnyPublisher<[MovieEntity], Error>
+    func getCastMembers(tvSeriesID: Int) -> AnyPublisher<[ActorEntity], Error>
+    
 }
 
 public class TvSeriesDataRepository : TvSeriesDataRepositoryInterface {
@@ -25,23 +29,37 @@ public class TvSeriesDataRepository : TvSeriesDataRepositoryInterface {
         self.remoteDataSource = remoteDataSource
     }
     
-    public func getTvSeriesOnAir() -> AnyPublisher<[TvSeriesEntity], Error> {
+    public func getTvSeriesOnAir() -> AnyPublisher<[MovieEntity], Error> {
         return remoteDataSource.getTvSeriesOnAir()
-            .map{$0.map({TvSeriesEntity(id: $0.id, poster: $0.posterPath, wallPaper: $0.backdropPath, genreIDS: $0.genreIDS, tittle: $0.originalName, releaseDate: $0.firstAirDate, voteAvarage: String($0.voteAverage), overview: $0.overview, isFavorite: false, cast: nil)})}
+            .map{$0.map({MovieEntity(id: $0.id, poster: $0.posterPath, wallPaper: $0.backdropPath, genreIDS: $0.genreIDS, tittle: $0.originalName, releaseDate: $0.firstAirDate, voteAvarage: String($0.voteAverage), overview: $0.overview, isFavorite: false, cast: nil)})}
             .eraseToAnyPublisher()
     }
     
-    public func getPopularTvSeries() -> AnyPublisher<[TvSeriesEntity], Error> {
-        return remoteDataSource.getPopularTvSeries()
-            .map{$0.map({TvSeriesEntity(id: $0.id, poster: $0.posterPath, wallPaper: $0.backdropPath, genreIDS: $0.genreIDS, tittle: $0.originalName, releaseDate: $0.firstAirDate, voteAvarage: String($0.voteAverage), overview: $0.overview, isFavorite: false, cast: nil)})}
+    public func getPopularTvSeries(page: Int) -> AnyPublisher<[MovieEntity], Error> {
+        return remoteDataSource.getPopularTvSeries(page: page)
+            .map{$0.map({MovieEntity(id: $0.id, poster: $0.posterPath, wallPaper: $0.backdropPath, genreIDS: $0.genreIDS, tittle: $0.originalName, releaseDate: $0.firstAirDate, voteAvarage: String($0.voteAverage), overview: $0.overview, isFavorite: false, cast: nil)})}
             .eraseToAnyPublisher()
     }
     
-    public func getTopRatedTvSeries() -> AnyPublisher<[TvSeriesEntity], Error> {
-        return remoteDataSource.getTopRatedTvSeries()
-            .map{$0.map({TvSeriesEntity(id: $0.id, poster: $0.posterPath, wallPaper: $0.backdropPath, genreIDS: $0.genreIDS, tittle: $0.originalName, releaseDate: $0.firstAirDate, voteAvarage: String($0.voteAverage), overview: $0.overview, isFavorite: false, cast: nil)})}
+    public func getTopRatedTvSeries(page: Int) -> AnyPublisher<[MovieEntity], Error> {
+        return remoteDataSource.getTopRatedTvSeries(page: page)
+            .map{$0.map({MovieEntity(id: $0.id, poster: $0.posterPath, wallPaper: $0.backdropPath, genreIDS: $0.genreIDS, tittle: $0.originalName, releaseDate: $0.firstAirDate, voteAvarage: String($0.voteAverage), overview: $0.overview, isFavorite: false, cast: nil)})}
             .eraseToAnyPublisher()
     }
+    
+    public func getSimilarTvSeries(tvSeriesID: Int) -> AnyPublisher<[MovieEntity], Error> {
+        return remoteDataSource.getSimilarTvSeries(tvSeriesID: tvSeriesID)
+            .map{$0.map({MovieEntity(id: $0.id, poster: $0.posterPath, wallPaper: $0.backdropPath, genreIDS: $0.genreIDS, tittle: $0.originalName, releaseDate: $0.firstAirDate, voteAvarage: String($0.voteAverage), overview: $0.overview, isFavorite: false, cast: nil)})}
+            .eraseToAnyPublisher()
+    }
+    
+    public func getCastMembers(tvSeriesID: Int) -> AnyPublisher<[ActorEntity], Error> {
+        return remoteDataSource.getCastMembers(tvSeriesID: tvSeriesID)
+            .map({$0.map({ActorEntity(id: $0.id, name: $0.name, profilePic: $0.profilePath, characterPlayed: $0.character)})})
+            .eraseToAnyPublisher()
+    }
+    
+    
     
     
 }

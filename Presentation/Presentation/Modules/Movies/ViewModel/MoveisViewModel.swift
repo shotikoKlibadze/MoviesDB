@@ -13,11 +13,16 @@ import RxCocoa
 
 public class MoviesViewModel {
     
-    let bag = DisposeBag()
     var dataSource : MoviesDataRepositoryInterface
+    let maxPage = 10
+    var currentPage = 1
     
     public init(dataSource: MoviesDataRepositoryInterface) {
         self.dataSource = dataSource
+    }
+    
+    func resetPagination() {
+        currentPage = 1
     }
     
     func getNowPlayingMovies() async -> [MovieEntity] {
@@ -25,11 +30,23 @@ public class MoviesViewModel {
     }
     
     func getUpcomingMovies() async -> [MovieEntity] {
-        return await dataSource.getUpcomingMovies()
+        return await dataSource.getUpcomingMovies(page: 1)
+    }
+    
+    func getMoreUpcomingMovies() async -> [MovieEntity] {
+        currentPage += 1
+        guard currentPage <= maxPage else { return [] }
+        return await dataSource.getUpcomingMovies(page: currentPage)
     }
     
     func getTopRatedMovies() async -> [MovieEntity] {
-        return await dataSource.getTopRatedMovies()
+        return await dataSource.getTopRatedMovies(page: currentPage)
+    }
+    
+    func getMoreTopRatedMovies() async -> [MovieEntity] {
+        currentPage += 1
+        guard currentPage <= maxPage else { return [] }
+        return await dataSource.getTopRatedMovies(page: currentPage)
     }
     
     func getSimilarMoives(movieID: Int) async -> [MovieEntity] {

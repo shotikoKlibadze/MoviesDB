@@ -30,7 +30,8 @@ public struct MovieData: Codable, Hashable {
    public let id: Int
    public let originalTitle, overview: String
    public let popularity: Double
-   public let posterPath, releaseDate, title: String
+   public let posterPath: String?
+   public let releaseDate, title: String
    public let video: Bool
    public let voteAverage: Double
    public let voteCount: Int

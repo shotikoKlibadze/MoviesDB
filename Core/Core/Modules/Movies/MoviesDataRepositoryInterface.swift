@@ -10,8 +10,8 @@ import CoreMedia
 
 public protocol MoviesDataRepositoryInterface {
     //Remote
-    func getUpcomingMovies() async -> [MovieEntity]
-    func getTopRatedMovies() async -> [MovieEntity]
+    func getUpcomingMovies(page: Int) async -> [MovieEntity]
+    func getTopRatedMovies(page: Int) async -> [MovieEntity]
     func getNowPlayingMovies() async -> [MovieEntity]
     func getSimilarMovies(movieID: Int) async -> [MovieEntity]
     func getCastMembers(movieID: Int) async -> [ActorEntity]
@@ -29,24 +29,24 @@ public class MoviesDataRepository : MoviesDataRepositoryInterface {
         self.localDataSource = localDataSource
     }
     
-    public func getUpcomingMovies() async -> [MovieEntity] {
-        let movieData = await remoteDataSource.getUpcomingMovies()
+    public func getUpcomingMovies(page: Int) async -> [MovieEntity] {
+        let movieData = await remoteDataSource.getUpcomingMovies(page: page)
         let favoriteMovieIDs = await getFavoriteMovieIDs()
         let entities = movieData.map { movieData -> MovieEntity in
             let isFavorite = favoriteMovieIDs.contains(movieData.id)
-            let entity = MovieEntity(id: movieData.id, poster: movieData.posterPath, wallPaper: movieData.backdropPath, genreIDS: movieData.genreIDS, tittle: movieData.originalTitle, releaseDate: movieData.releaseDate, voteAvarage: String(movieData.voteAverage), overview: movieData.overview, isFavorite: isFavorite, cast: nil)
+            let entity = MovieEntity(id: movieData.id, poster: movieData.posterPath ?? "", wallPaper: movieData.backdropPath, genreIDS: movieData.genreIDS, tittle: movieData.originalTitle, releaseDate: movieData.releaseDate, voteAvarage: String(movieData.voteAverage), overview: movieData.overview, isFavorite: isFavorite, cast: nil)
             return entity
             
         }
         return entities
     }
     
-    public func getTopRatedMovies() async -> [MovieEntity] {
-        let movieData = await remoteDataSource.getTopRatedMovies()
+    public func getTopRatedMovies(page: Int) async -> [MovieEntity] {
+        let movieData = await remoteDataSource.getTopRatedMovies(page: page)
         let favoriteMovieIDs = await getFavoriteMovieIDs()
         let entities = movieData.map { movieData -> MovieEntity in
             let isFavorite = favoriteMovieIDs.contains(movieData.id)
-            let entity = MovieEntity(id: movieData.id, poster: movieData.posterPath, wallPaper: movieData.backdropPath, genreIDS: movieData.genreIDS, tittle: movieData.originalTitle, releaseDate: movieData.releaseDate, voteAvarage: String(movieData.voteAverage), overview: movieData.overview, isFavorite: isFavorite, cast: nil)
+            let entity = MovieEntity(id: movieData.id, poster: movieData.posterPath ?? "", wallPaper: movieData.backdropPath, genreIDS: movieData.genreIDS, tittle: movieData.originalTitle, releaseDate: movieData.releaseDate, voteAvarage: String(movieData.voteAverage), overview: movieData.overview, isFavorite: isFavorite, cast: nil)
             return entity
             
         }
@@ -58,7 +58,7 @@ public class MoviesDataRepository : MoviesDataRepositoryInterface {
         let favoriteMovieIDs = await getFavoriteMovieIDs()
         let entities = movieData.map { movieData -> MovieEntity in
             let isFavorite = favoriteMovieIDs.contains(movieData.id)
-            let entity = MovieEntity(id: movieData.id, poster: movieData.posterPath, wallPaper: movieData.backdropPath, genreIDS: movieData.genreIDS, tittle: movieData.originalTitle, releaseDate: movieData.releaseDate, voteAvarage: String(movieData.voteAverage), overview: movieData.overview, isFavorite: isFavorite, cast: nil)
+            let entity = MovieEntity(id: movieData.id, poster: movieData.posterPath ?? "", wallPaper: movieData.backdropPath, genreIDS: movieData.genreIDS, tittle: movieData.originalTitle, releaseDate: movieData.releaseDate, voteAvarage: String(movieData.voteAverage), overview: movieData.overview, isFavorite: isFavorite, cast: nil)
             return entity
             
         }
@@ -70,7 +70,7 @@ public class MoviesDataRepository : MoviesDataRepositoryInterface {
         let favoriteMovieIDs = await getFavoriteMovieIDs()
         let entities = movieData.map { movieData -> MovieEntity in
             let isFavorite = favoriteMovieIDs.contains(movieData.id)
-            let entity = MovieEntity(id: movieData.id, poster: movieData.posterPath, wallPaper: movieData.backdropPath, genreIDS: movieData.genreIDS, tittle: movieData.originalTitle, releaseDate: movieData.releaseDate, voteAvarage: String(movieData.voteAverage), overview: movieData.overview, isFavorite: isFavorite, cast: nil)
+            let entity = MovieEntity(id: movieData.id, poster: movieData.posterPath!, wallPaper: movieData.backdropPath, genreIDS: movieData.genreIDS, tittle: movieData.originalTitle, releaseDate: movieData.releaseDate, voteAvarage: String(movieData.voteAverage), overview: movieData.overview, isFavorite: isFavorite, cast: nil)
             return entity
             
         }

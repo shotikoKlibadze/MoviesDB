@@ -54,7 +54,6 @@ public class MoviesViewController: DBViewController {
         getMovies()
         setupCollectionView()
         title = "Movies"
-        collectionView?.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 90, right: 0)
     }
     
     public override func viewDidLayoutSubviews() {
@@ -95,6 +94,7 @@ public class MoviesViewController: DBViewController {
         collectionView.collectionViewLayout = layOut
         collectionView.delegate = self
         collectionView.backgroundColor = UIColor.DBBackgroundColor()
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 90, right: 0)
         view.addSubview(collectionView)
         self.collectionView = collectionView
         //Cell Registration
@@ -110,15 +110,15 @@ public class MoviesViewController: DBViewController {
             switch (sectionKind, model) {
             case (.nowPlayingMovies, .nowPlaying(let movie)):
                 guard let cell = collectionView.deque(MovieCollectionViewCell.self, for: indexPath) else { fatalError("Cell Can't Be Found") }
-                cell.configure(with: movie, isLargePoster: false)
+                cell.configure(with: movie, tvSeries: nil, isLargePoster: false)
                 return cell
             case (.upcomingMovies, .upcomingMovie(let movie)):
                 guard let cell = collectionView.deque(MovieCollectionViewCell.self, for: indexPath) else { fatalError("Cell Can't Be Found") }
-                cell.configure(with: movie, isLargePoster: false)
+                cell.configure(with: movie, tvSeries: nil, isLargePoster: false)
                 return cell
             case (.topRatedMovies, .topRatedMovie(let movie)):
                 guard let cell = collectionView.deque(MovieCollectionViewCell.self, for: indexPath) else { fatalError("Cell Can't Be Found") }
-                cell.configure(with: movie, isLargePoster: false)
+                cell.configure(with: movie, tvSeries: nil, isLargePoster: false)
                 return cell
             default :
                 return nil
@@ -145,15 +145,15 @@ public class MoviesViewController: DBViewController {
                     view.sectionHeaderLabel.text = sectionKind.sectionHeader
                     let contextProvider = UpcomingMoviesProvider()
                     contextProvider.viewModel = self.viewModel
-                    view.controller = self
-                    view.contextProvider = contextProvider
+                    view.moviesController = self
+                    view.movieContextProvider = contextProvider
                     return view
                 case .topRatedMovies:
                     let view = collectionView.dequeueReusableSupplementaryView(ofKind: SupplementaryElementKind.sectionHeader, withReuseIdentifier: SeeAllHeaderView.identifier, for: indexPath) as! SeeAllHeaderView
                     let contextProvider = TopRatedMoviesProvider()
                     contextProvider.viewModel = self.viewModel
-                    view.controller = self
-                    view.contextProvider = contextProvider
+                    view.moviesController = self
+                    view.movieContextProvider = contextProvider
                     view.sectionHeaderLabel.text = sectionKind.sectionHeader
                     return view
                 }
@@ -193,7 +193,7 @@ extension MoviesViewController : UICollectionViewDelegate {
         
         let vc = MovieDetailsViewController.instantiateFromStoryboard()
         vc.movie = movie
-        vc.viewModel = viewModel
+        vc.moviesViewModel = viewModel
         vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
     }

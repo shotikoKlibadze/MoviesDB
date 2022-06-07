@@ -9,6 +9,7 @@ import UIKit
 import Core
 import Kingfisher
 import ProgressHUD
+import Combine
 
 protocol FavoriteMovieStatusChangeDelegate : AnyObject  {
     func refresh()
@@ -28,10 +29,12 @@ class MovieDetailsViewController: DBViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     @IBOutlet weak var scrollView: UIScrollView!
-    var movie : MovieEntity!
-    var viewModel : MoviesViewModel!
+    var movie: MovieEntity!
+    var moviesViewModel: MoviesViewModel?
+    var tvSeriesViewModel: TvSeriesViewModel?
     var similarMovies = [MovieEntity]()
     var cast = [ActorEntity]()
+    var subscribtions = Set<AnyCancellable>()
     
     weak var delegate : FavoriteMovieStatusChangeDelegate?
     
@@ -71,6 +74,12 @@ class MovieDetailsViewController: DBViewController {
         overtviewTextView.textContainer.heightTracksTextView = true
         overtviewTextView.isScrollEnabled = false
         getData()
+        if let tvSeriesViewModel = tvSeriesViewModel {
+            tvSeriesViewModel.getSimilarTvSeries(tvSeriesID: movie.id)
+            tvSeriesViewModel.getCastMembers(tvSeriesID: movie.id)
+            configureSnapshot()
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -84,9 +93,21 @@ class MovieDetailsViewController: DBViewController {
     
     private func getData() {
         ProgressHUD.show()
+        guard let moviesViewModel = moviesViewModel else {
+            if let tvSeriesViewModel = tvSeriesViewModel {
+                tvSeriesViewModel.$similarTvSeries
+                    .sink(receiveValue: {[weak self] in self?.similarMovies = $0})
+                    .store(in: &subscribtions)
+                tvSeriesViewModel.$castMembers
+                    .sink(receiveValue: { [weak self] in self?.cast = $0})
+                    .store(in: &subscribtions)
+            }
+            return
+        }
+        
         Task {
-            similarMovies = await viewModel.getSimilarMoives(movieID: movie.id)
-            cast = await viewModel.getCastMembers(movieID: movie.id)
+            similarMovies = await moviesViewModel.getSimilarMoives(movieID: movie.id)
+            cast = await moviesViewModel.getCastMembers(movieID: movie.id)
             configureSnapshot()
         }
     }
@@ -110,7 +131,7 @@ class MovieDetailsViewController: DBViewController {
                 return cell
             case (.similarMovies, .similarMovies(let movie)):
                 guard let cell = collectionView.deque(MovieCollectionViewCell.self, for: indexPath) else { fatalError("Cell Can't Be Found") }
-                cell.configure(with: movie, isLargePoster: false)
+                cell.configure(with: movie, tvSeries: nil, isLargePoster: false)
                 return cell
             default :
                 return nil
@@ -183,6 +204,8 @@ class MovieDetailsViewController: DBViewController {
             }
         }
     }
+    
+    
     
     private func setupGradientLayer() {
         gradientView.bringSubviewToFront(posterImageView)

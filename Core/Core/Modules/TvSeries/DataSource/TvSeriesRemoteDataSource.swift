@@ -10,8 +10,12 @@ import Combine
 
 public protocol TvSeriesRemoteDataSourceInterface {
     func getTvSeriesOnAir() -> AnyPublisher<[TvSeriesData],Error>
-    func getPopularTvSeries() -> AnyPublisher<[TvSeriesData], Error>
-    func getTopRatedTvSeries() -> AnyPublisher<[TvSeriesData], Error>
+    
+    func getPopularTvSeries(page: Int) -> AnyPublisher<[TvSeriesData], Error>
+    func getTopRatedTvSeries(page: Int) -> AnyPublisher<[TvSeriesData], Error>
+    
+    func getSimilarTvSeries(tvSeriesID: Int) -> AnyPublisher<[TvSeriesData], Error>
+    func getCastMembers(tvSeriesID: Int) -> AnyPublisher<[ActorsData], Error>
 }
 
 
@@ -31,19 +35,35 @@ public class TvSeriesRemoteDataSource:  TvSeriesRemoteDataSourceInterface {
             .eraseToAnyPublisher()
     }
     
-    public func getPopularTvSeries() -> AnyPublisher<[TvSeriesData], Error> {
-        let path = "https://api.themoviedb.org/3/tv/popular?api_key=\(key)&language=en-US&page=1"
+    public func getPopularTvSeries(page: Int) -> AnyPublisher<[TvSeriesData], Error> {
+        let path = "https://api.themoviedb.org/3/tv/popular?api_key=\(key)&language=en-US&page=\(page)"
         let networkCall = CombineNetworkManager<TvSeriesResponse>.shared
         return networkCall.sendRequest(path: path)
             .map({$0.results})
             .eraseToAnyPublisher()
     }
     
-    public func getTopRatedTvSeries() -> AnyPublisher<[TvSeriesData], Error> {
-        let path = "https://api.themoviedb.org/3/tv/top_rated?api_key=\(key)&language=en-US&page=1"
+    public func getTopRatedTvSeries(page: Int) -> AnyPublisher<[TvSeriesData], Error> {
+        let path = "https://api.themoviedb.org/3/tv/top_rated?api_key=\(key)&language=en-US&page=\(page)"
         let networkCall = CombineNetworkManager<TvSeriesResponse>.shared
         return networkCall.sendRequest(path: path)
             .map({$0.results})
+            .eraseToAnyPublisher()
+    }
+    
+    public func getSimilarTvSeries(tvSeriesID: Int) -> AnyPublisher<[TvSeriesData], Error> {
+        let path = "https://api.themoviedb.org/3/tv/\(tvSeriesID)/similar?api_key=\(key)&language=en-US&page=1"
+        let networkCall = CombineNetworkManager<TvSeriesResponse>.shared
+        return networkCall.sendRequest(path: path)
+            .map({$0.results})
+            .eraseToAnyPublisher()
+    }
+    
+    public func getCastMembers(tvSeriesID: Int) -> AnyPublisher<[ActorsData], Error> {
+        let path = "https://api.themoviedb.org/3/tv/\(tvSeriesID)/credits?api_key=\(key)&language=en-US"
+        let networkCall = CombineNetworkManager<MovieCastResponse>.shared
+        return networkCall.sendRequest(path: path)
+            .map({$0.cast})
             .eraseToAnyPublisher()
     }
     
