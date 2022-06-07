@@ -186,5 +186,29 @@ public class TvSeriesViewController: DBViewController {
 }
 
 extension TvSeriesViewController : UICollectionViewDelegate {
-    
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        var tvSerie: MovieEntity?
+        let sections = SectionKind(rawValue: indexPath.section)
+        switch sections {
+        case .onAir:
+            tvSerie = onAirTvSeries[indexPath.row]
+        case .popular:
+            tvSerie = popularTvSeries[indexPath.row]
+        case .topRated:
+            tvSerie = topRatedTvSeries[indexPath.row]
+        case .none:
+            break
+        }
+        let vc = MovieDetailsViewController.instantiateFromStoryboard()
+        vc.movie = tvSerie
+        vc.tvSeriesViewModel = viewModel
+        vc.delegate = self
+        navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension TvSeriesViewController : FavoriteMovieStatusChangeDelegate {
+    func refresh() {
+        
+    }
 }

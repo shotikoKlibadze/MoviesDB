@@ -90,8 +90,4 @@ public class TvSeriesViewModel {
     func resetPage() {
         currentPage = 1
     }
-    
-    
-    
-    
 }

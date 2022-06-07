@@ -111,6 +111,7 @@ public class MainTabBarController: UITabBarController {
     private func selectTabWith(index: Int) {
         self.selectedIndex = index
         if let navController = selectedViewController as? UINavigationController {
+            controller = navController
             navController.popToRootViewController(animated: true)
         }
     }

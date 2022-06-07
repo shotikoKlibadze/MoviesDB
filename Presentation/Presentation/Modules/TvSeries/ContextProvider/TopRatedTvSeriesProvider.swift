@@ -1,45 +1,44 @@
 //
-//  PopularTvSeriesProvider.swift
+//  TopRatedTvSeriesProvider.swift
 //  Presentation
 //
 //  Created by Shotiko Klibadze on 06.06.22.
 //
 
 import Foundation
+
 import Core
 import Combine
 
-class PopularTvSeriesProvider : TvSeriesContextProvider {
+class TopRatedTvSeriesProvider : TvSeriesContextProvider {
     
-    @Published var popularTvSeries = [MovieEntity]()
+    @Published public var topRatedTvSeries = [MovieEntity]()
     var viewModel: TvSeriesViewModel!
     private var subscriptions = Set<AnyCancellable>()
     
     init(){}
     
     func provideContext() {
-        viewModel.dataSource.getPopularTvSeries(page: 1)
+        viewModel.dataSource.getTopRatedTvSeries(page: 1)
             .receive(on: DispatchQueue.main)
             .replaceError(with: [])
-            .assign(to: \.popularTvSeries, on: self)
+            .assign(to: \.topRatedTvSeries, on: self)
             .store(in: &subscriptions)
     }
     
     func provideMoreContext() {
-        viewModel.getMorePopularTvSeries()
+        viewModel.getMoreTopRatedTvSeries()
             .receive(on: DispatchQueue.main)
             .replaceError(with: [])
             .map { [weak self] newData -> [MovieEntity] in
                 guard let self = self else { return [] }
-                return self.popularTvSeries + newData
+                return self.topRatedTvSeries + newData
             }
-            .assign(to: \.popularTvSeries, on: self)
+            .assign(to: \.topRatedTvSeries, on: self)
             .store(in: &subscriptions)
     }
     
     func resetContext() {
         viewModel.resetPage()
     }
-    
-    
 }

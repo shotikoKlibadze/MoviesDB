@@ -284,7 +284,7 @@
 			children = (
 				09B65720281FF61300D54A6C /* BaseLayer */,
 				09AE373F27E8A20900A8BF12 /* MainTabBar */,
-				09B657232820204600D54A6C /* Profile */,
+				09B657232820204600D54A6C /* Menu */,
 				09AE373527E8A20900A8BF12 /* TvSeries */,
 				09AE373A27E8A20900A8BF12 /* Movies */,
 			);
@@ -403,13 +403,13 @@
 			path = BaseLayer;
 			sourceTree = "<group>";
 		};
-		09B657232820204600D54A6C /* Profile */ = {
+		09B657232820204600D54A6C /* Menu */ = {
 			isa = PBXGroup;
 			children = (
 				09B657292820218F00D54A6C /* Cell */,
 				09B65727282020ED00D54A6C /* ProfileViewController.swift */,
 			);
-			path = Profile;
+			path = Menu;
 			sourceTree = "<group>";
 		};
 		09B657292820218F00D54A6C /* Cell */ = {
