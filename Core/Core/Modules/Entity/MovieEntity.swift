@@ -19,8 +19,9 @@ public class MovieEntity {
     public let overview : String
     public var isFavorite : Bool
     public var cast : [ActorEntity]?
+    public var isTvSeries : Bool
     
-    public init(id: Int, poster: String, wallPaper: String?, genreIDS: [Int], tittle: String, releaseDate: String, voteAvarage: String, overview : String, isFavorite: Bool, cast: [ActorEntity]?) {
+    public init(id: Int, poster: String, wallPaper: String?, genreIDS: [Int], tittle: String, releaseDate: String, voteAvarage: String, overview : String, isFavorite: Bool, cast: [ActorEntity]?,isTvSeries: Bool) {
         self.id = id
         self.poster = poster
         self.wallPaper = wallPaper
@@ -31,6 +32,7 @@ public class MovieEntity {
         self.overview = overview
         self.isFavorite = isFavorite
         self.cast = cast
+        self.isTvSeries = isTvSeries
     }
     
     public func setFavorite(isFavorite: Bool) {
