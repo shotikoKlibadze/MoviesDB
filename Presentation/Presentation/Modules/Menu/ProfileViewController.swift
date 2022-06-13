@@ -56,10 +56,13 @@ class ProfileViewController: UITableViewController {
         }
         
         if indexPath.row == 0 {
-            let vc = Controller.favoriteMoviesViewController()
+            let vc = FavoriteMoviesViewController()
+            vc.moviesViewModel = Controller.moviesViewModel()
             tabBar.controller?.pushViewController(vc, animated: true)
         } else {
-            
+            let vc = FavoriteMoviesViewController()
+            vc.tvSeriesViewModel = Controller.tvSeriesViewModel()
+            tabBar.controller?.pushViewController(vc, animated: true)
         }
         parrentVC?.closeMenu()
     }

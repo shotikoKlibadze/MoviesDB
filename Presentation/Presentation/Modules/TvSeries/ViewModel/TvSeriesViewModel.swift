@@ -90,4 +90,8 @@ public class TvSeriesViewModel {
     func resetPage() {
         currentPage = 1
     }
+    
+    func getFavoriteTvSeries() async -> [MovieEntity] {
+        return await dataSource.getFavoriteTvSeries()
+    }
 }

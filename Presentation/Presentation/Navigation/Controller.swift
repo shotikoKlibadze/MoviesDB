@@ -34,11 +34,12 @@ public class Controller {
         return navController
     }
     
-    static func favoriteMoviesViewController() -> UIViewController {
-        let vc = FavoriteMoviesViewController()
-        vc.viewModel = appDependencyContainer?.getMoviesViewModel()
-        return vc
+    static func moviesViewModel() -> MoviesViewModel? {
+        return appDependencyContainer?.getMoviesViewModel()
     }
     
+    static func tvSeriesViewModel() -> TvSeriesViewModel? {
+        return appDependencyContainer?.getTvSeriesViewModel()
+    }
     
 }

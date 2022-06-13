@@ -26,6 +26,7 @@ extension MovieCoreDataEntity {
     @NSManaged public var voteAvarage: String
     @NSManaged public var wallPaper: String?
     @NSManaged public var actors: NSSet
+    @NSManaged public var isTvSeries: Bool
 
 }
 

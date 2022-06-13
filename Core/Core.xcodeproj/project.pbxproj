@@ -52,6 +52,7 @@
 		09AE375827E8A24900A8BF12 /* MoviesRemoteDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoviesRemoteDataSource.swift; sourceTree = "<group>"; };
 		09AE375B27E8A24900A8BF12 /* MovieResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieResponse.swift; sourceTree = "<group>"; };
 		09AE376127E8A7D600A8BF12 /* Extension + URLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + URLSession.swift"; sourceTree = "<group>"; };
+		09B06EB82857660900E55B72 /* MoviesDB 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MoviesDB 2.xcdatamodel"; sourceTree = "<group>"; };
 		09B65719281C43A900D54A6C /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
 		09B6572D2820ED7F00D54A6C /* MovieEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieEntity.swift; sourceTree = "<group>"; };
 		09B657382820F26700D54A6C /* MoviesDataRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesDataRepositoryInterface.swift; sourceTree = "<group>"; };
@@ -587,9 +588,10 @@
 		09B65762282138F000D54A6C /* MoviesDB.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				09B06EB82857660900E55B72 /* MoviesDB 2.xcdatamodel */,
 				09B65763282138F000D54A6C /* MoviesDB.xcdatamodel */,
 			);
-			currentVersion = 09B65763282138F000D54A6C /* MoviesDB.xcdatamodel */;
+			currentVersion = 09B06EB82857660900E55B72 /* MoviesDB 2.xcdatamodel */;
 			path = MoviesDB.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

@@ -20,6 +20,7 @@ public class MoviesLocalDataSource : MoviesLocalDataSourceInterface {
     public func fetchFavoriteMovies() async -> [MovieCoreDataEntity] {
         let managedContext = manager.persistentContainer.viewContext
         let fetchRequest = MovieCoreDataEntity.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "isTvSeries == 0")
         var data = [MovieCoreDataEntity]()
         do {
             data = try managedContext.fetch(fetchRequest)

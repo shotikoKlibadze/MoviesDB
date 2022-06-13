@@ -60,6 +60,7 @@ public class CoreDataManager {
         favoriteMove.voteAvarage = movie.voteAvarage
         favoriteMove.wallPaper = movie.wallPaper
         favoriteMove.actors = actors
+        favoriteMove.isTvSeries = movie.isTvSeries
              
         do {
             try managedContext.save()

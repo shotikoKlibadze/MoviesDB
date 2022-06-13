@@ -13,7 +13,8 @@ class FavoriteMoviesViewController: DBViewController {
     
     var collectionView : UICollectionView?
     var dataSource : UICollectionViewDiffableDataSource<Int,MovieEntity>!
-    var viewModel : MoviesViewModel!
+    var moviesViewModel : MoviesViewModel?
+    var tvSeriesViewModel : TvSeriesViewModel?
     var movies = [MovieEntity]()
     
     override func viewDidLoad() {
@@ -51,7 +52,16 @@ class FavoriteMoviesViewController: DBViewController {
     private func fetchMovies() {
         ProgressHUD.show()
         Task {
-            let movies = await viewModel!.getFavoriteMovies()
+            guard let tvSeriesViewModel = tvSeriesViewModel else {
+                if let moviesViewModel = moviesViewModel {
+                    let movies = await moviesViewModel.getFavoriteMovies()
+                    self.movies = movies
+                    configureSnapshot()
+                }
+                return
+            }
+            
+            let movies = await tvSeriesViewModel.getFavoriteTvSeries()
             self.movies = movies
             configureSnapshot()
         }

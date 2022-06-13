@@ -16,6 +16,8 @@ public protocol TvSeriesDataRepositoryInterface {
     func getSimilarTvSeries(tvSeriesID: Int) -> AnyPublisher<[MovieEntity], Error>
     func getCastMembers(tvSeriesID: Int) -> AnyPublisher<[ActorEntity], Error>
     
+    func getFavoriteTvSeries() async -> [MovieEntity]
+    
 }
 
 public class TvSeriesDataRepository : TvSeriesDataRepositoryInterface {
@@ -59,6 +61,18 @@ public class TvSeriesDataRepository : TvSeriesDataRepositoryInterface {
             .eraseToAnyPublisher()
     }
     
+    public func getFavoriteTvSeries() async -> [MovieEntity] {
+        let movieData = await localDatasource.fetchFavoriteTvSeries()
+        let entities = movieData.map { movie -> MovieEntity in
+            let movieCast = movie.actors.allObjects as! [ActorCoreDataEntity]
+            let cast = movieCast.map {
+                ActorEntity(id: Int($0.id), name: $0.name, profilePic: $0.profilePic, characterPlayed: $0.characterPlayed)
+            }
+            let entity = MovieEntity(id: Int(movie.id), poster: movie.poster, wallPaper: movie.wallPaper, genreIDS: movie.genreIDS.map{Int(truncating: $0)}, tittle: movie.tittle, releaseDate: movie.releaseDate, voteAvarage: movie.voteAvarage, overview: movie.overview, isFavorite: movie.isFavorite, cast: cast, isTvSeries: false)
+            return entity
+        }
+        return entities
+    }
     
     
     
