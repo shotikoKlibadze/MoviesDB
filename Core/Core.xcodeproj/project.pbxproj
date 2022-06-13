@@ -34,21 +34,10 @@
 		1AE74E4FB942C6DC1A2D9D12 /* Pods_Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECD0BCDE92C3D89333075566 /* Pods_Core.framework */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		09097AB62840F3440039AE93 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 09097AB22840F3440039AE93 /* Presentation.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 09AE36E127E8663800A8BF12;
-			remoteInfo = Presentation;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		09077C8B284754A10021F1F0 /* TvSeriesLocalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TvSeriesLocalDataSource.swift; sourceTree = "<group>"; };
 		09077C8D284756A60021F1F0 /* CombineNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineNetworkManager.swift; sourceTree = "<group>"; };
 		09077C8F2847986D0021F1F0 /* TvSeriesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TvSeriesResponse.swift; sourceTree = "<group>"; };
-		09097AB22840F3440039AE93 /* Presentation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Presentation.xcodeproj; path = ../../Presentation/Presentation.xcodeproj; sourceTree = "<group>"; };
 		0923A9F42833645F00D31811 /* ActorCoreDataEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActorCoreDataEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		0923A9F52833645F00D31811 /* ActorCoreDataEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActorCoreDataEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		0923A9F62833645F00D31811 /* MovieCoreDataEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MovieCoreDataEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -94,14 +83,6 @@
 				09077C8F2847986D0021F1F0 /* TvSeriesResponse.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		09097AB32840F3440039AE93 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				09097AB72840F3440039AE93 /* Presentation.framework */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		099846FF284F39AC00F46103 /* Entity */ = {
@@ -231,7 +212,6 @@
 		09B657652821393F00D54A6C /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
-				09097AB22840F3440039AE93 /* Presentation.xcodeproj */,
 				09B6576C28213F6E00D54A6C /* MovieEntity */,
 				09B65762282138F000D54A6C /* MoviesDB.xcdatamodeld */,
 				09B657662821395800D54A6C /* CoreDataManager.swift */,
@@ -326,28 +306,12 @@
 			mainGroup = 09AE36ED27E8665700A8BF12;
 			productRefGroup = 09AE36F827E8665700A8BF12 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 09097AB32840F3440039AE93 /* Products */;
-					ProjectRef = 09097AB22840F3440039AE93 /* Presentation.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				09AE36F627E8665700A8BF12 /* Core */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		09097AB72840F3440039AE93 /* Presentation.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Presentation.framework;
-			remoteRef = 09097AB62840F3440039AE93 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		09AE36F527E8665700A8BF12 /* Resources */ = {
