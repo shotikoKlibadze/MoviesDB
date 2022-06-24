@@ -30,7 +30,6 @@ struct MoviesDashboardPageLaoOutManager {
         }
         layout.register(SectionBackGroundDecoration.self, forDecorationViewOfKind: DecorationKind.backgroundDecoration)
         
-        
         let configuration = UICollectionViewCompositionalLayoutConfiguration()
         configuration.interSectionSpacing = 20
         layout.configuration = configuration

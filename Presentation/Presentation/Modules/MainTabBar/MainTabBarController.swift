@@ -61,11 +61,6 @@ public class MainTabBarController: UITabBarController {
         setupLayout()
     }
     
-    public override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-    }
-    
     private func setupMenuButton() {
         view.addSubview(menuButton)
         menuButton.addTarget(self, action: #selector(openSideMenu), for: .touchUpInside)
@@ -73,11 +68,9 @@ public class MainTabBarController: UITabBarController {
     
     @objc func openSideMenu() {
         guard let baseController = baseController else { return }
-        guard baseController.isSideViewOpen else {
-            baseController.openMenu()
-            return
-        }
-        baseController.closeMenu()
+        baseController.isSideViewOpen ?
+        baseController.closeMenu() :
+        baseController.openMenu()
     }
     
     public override func didMove(toParent parent: UIViewController?) {

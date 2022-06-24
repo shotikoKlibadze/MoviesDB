@@ -11,17 +11,29 @@ import ProgressHUD
 
 class FavoriteMoviesViewController: DBViewController {
     
-    var collectionView : UICollectionView?
-    var dataSource : UICollectionViewDiffableDataSource<Int,MovieEntity>!
+    var tableView: UITableView = {
+        let table = UITableView()
+        table.register(FavoriteMovieTableViewCell.self, forCellReuseIdentifier: FavoriteMovieTableViewCell.identifier)
+        table.separatorStyle = .none
+        return table
+    }()
+    
     var moviesViewModel : MoviesViewModel?
     var tvSeriesViewModel : TvSeriesViewModel?
-    var movies = [MovieEntity]()
+    
+    var movies = [MovieEntity]() {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchMovies()
-        setupCollectionView()
-        collectionView?.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 90, right: 0)
+        view.addSubview(tableView)
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 90, right: 0)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -31,65 +43,67 @@ class FavoriteMoviesViewController: DBViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        collectionView?.fillSuperview()
-    }
-    
-    private func setupCollectionView() {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: configureLayout())
-        collectionView.registerClass(class: FavoriteMovieCollectionViewCell.self)
-        collectionView.dataSource = dataSource
-        collectionView.delegate = self
-        view.addSubview(collectionView)
-        self.collectionView = collectionView
-        
-        dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, model in
-            let cell = collectionView.deque(FavoriteMovieCollectionViewCell.self, for: indexPath)
-            cell?.configure(with: model)
-            return cell
-        })
+        tableView.fillSuperview()
     }
     
     private func fetchMovies() {
-        ProgressHUD.show()
+       // ProgressHUD.show()
         Task {
             guard let tvSeriesViewModel = tvSeriesViewModel else {
                 if let moviesViewModel = moviesViewModel {
                     let movies = await moviesViewModel.getFavoriteMovies()
                     self.movies = movies
-                    configureSnapshot()
                 }
                 return
             }
             
             let movies = await tvSeriesViewModel.getFavoriteTvSeries()
             self.movies = movies
-            configureSnapshot()
         }
-    }
-    
-    private func configureLayout() -> UICollectionViewLayout {
-        let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(1)))
-        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(270)), subitems: [item])
-        group.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0)
-        let section = NSCollectionLayoutSection(group: group)
-        section.orthogonalScrollingBehavior = .none
-        
-        return UICollectionViewCompositionalLayout(section: section)
-    }
-    
-    private func configureSnapshot() {
-        var snapShot = NSDiffableDataSourceSnapshot<Int,MovieEntity>()
-        snapShot.appendSections([0])
-        snapShot.appendItems(movies)
-        dataSource.apply(snapShot)
-        ProgressHUD.dismiss()
     }
 }
 
-extension FavoriteMoviesViewController : UICollectionViewDelegate {
+extension FavoriteMoviesViewController : UITableViewDataSource, UITableViewDelegate {
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        movies.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteMovieTableViewCell.identifier, for: indexPath) as? FavoriteMovieTableViewCell else {
+            fatalError()
+        }
+        cell.configure(with: movies[indexPath.row])
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 200
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self] (action, view, completion) in
+            self?.deleteCell(at: [indexPath])
+            completion(true)
+        }
+        deleteAction.image = UIImage(named: "Delete", in: .presentationBundle, with: nil)
+        deleteAction.backgroundColor = .systemBackground
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        return configuration
+    }
+    
+    private func deleteCell(at indexPaths: [IndexPath]) {
+        tableView.beginUpdates()
+        let itemsToRemove = indexPaths.map({movies[$0.row]})
+        movies.removeAll { movie in
+            itemsToRemove.contains(where: {$0.id == movie.id})
+        }
+        tableView.deleteRows(at: indexPaths, with: .automatic)
+        tableView.endUpdates()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
         let vc = BrowseFavoriteMoviesViewController()
         vc.movies = movies
         vc.movie = movies[indexPath.row]
@@ -97,3 +111,4 @@ extension FavoriteMoviesViewController : UICollectionViewDelegate {
         present(vc, animated: true)
     }
 }
+

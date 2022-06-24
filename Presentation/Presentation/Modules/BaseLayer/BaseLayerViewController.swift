@@ -104,6 +104,5 @@ public class BaseLayerViewController: UIViewController {
         profileView.fillSuperview()
         addChild(profileVC)
         profileVC.didMove(toParent: self)
-        
     }
 }

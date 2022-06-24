@@ -43,6 +43,7 @@
 		09AE382E27EFB4C800A8BF12 /* SeeAllHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09AE382D27EFB4C800A8BF12 /* SeeAllHeaderView.xib */; };
 		09AE383027EFB4DE00A8BF12 /* SeeAllHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AE382F27EFB4DE00A8BF12 /* SeeAllHeaderView.swift */; };
 		09AE383327EFBC0800A8BF12 /* SectionBackGroundDecoration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AE383227EFBC0800A8BF12 /* SectionBackGroundDecoration.swift */; };
+		09B06EDE28607E8100E55B72 /* FavoriteMovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B06EDD28607E8100E55B72 /* FavoriteMovieTableViewCell.swift */; };
 		09B65722281FF66B00D54A6C /* BaseLayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B65721281FF66B00D54A6C /* BaseLayerViewController.swift */; };
 		09B65728282020ED00D54A6C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B65727282020ED00D54A6C /* ProfileViewController.swift */; };
 		09B6572B282021C000D54A6C /* FavoritesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B6572A282021C000D54A6C /* FavoritesTableViewCell.swift */; };
@@ -111,6 +112,7 @@
 		09AE382D27EFB4C800A8BF12 /* SeeAllHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SeeAllHeaderView.xib; sourceTree = "<group>"; };
 		09AE382F27EFB4DE00A8BF12 /* SeeAllHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeAllHeaderView.swift; sourceTree = "<group>"; };
 		09AE383227EFBC0800A8BF12 /* SectionBackGroundDecoration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionBackGroundDecoration.swift; sourceTree = "<group>"; };
+		09B06EDD28607E8100E55B72 /* FavoriteMovieTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMovieTableViewCell.swift; sourceTree = "<group>"; };
 		09B65721281FF66B00D54A6C /* BaseLayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseLayerViewController.swift; sourceTree = "<group>"; };
 		09B65727282020ED00D54A6C /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		09B6572A282021C000D54A6C /* FavoritesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesTableViewCell.swift; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 		09097A8F283507CF0039AE93 /* FavoriteMoviesViewController */ = {
 			isa = PBXGroup;
 			children = (
+				09B06EDD28607E8100E55B72 /* FavoriteMovieTableViewCell.swift */,
 				09DA6B4B283151E60025DBD4 /* FavoriteMoviesViewController.swift */,
 				09097A90283507FF0039AE93 /* BrowseFavoriteMoviesViewController.swift */,
 				09097A922835087D0039AE93 /* FavoriteMovieDetailsViewController.swift */,
@@ -613,6 +616,7 @@
 				09AE381227EEB9C100A8BF12 /* MoviesDashboardPageLaoOutManager.swift in Sources */,
 				09077CD6284E61740021F1F0 /* AllTvSeriesViewController.swift in Sources */,
 				09AE374127E8A20900A8BF12 /* TvSeriesViewModel.swift in Sources */,
+				09B06EDE28607E8100E55B72 /* FavoriteMovieTableViewCell.swift in Sources */,
 				0919FF45280E7ACF00AE159D /* Animator.swift in Sources */,
 				09AE382B27EF934C00A8BF12 /* Extension + UIView.swift in Sources */,
 				09B7FF0127FF3C9100EC77FE /* TabBarItemView.swift in Sources */,
